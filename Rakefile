@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-ElWiki::Application.load_tasks
+InternalWiki::Application.load_tasks
