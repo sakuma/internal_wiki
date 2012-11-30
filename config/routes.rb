@@ -1,4 +1,4 @@
-ElWiki::Application.routes.draw do
+InternalWiki::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
