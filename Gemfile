@@ -23,4 +23,7 @@ group :development, :test do
   gem 'pry-nav'
   gem 'pry-coolline'
   gem 'pry-remote'
+
+  #test
+  gem 'rspec-rails'
 end
