@@ -7,6 +7,10 @@ gem 'rails', '3.2.9'
 
 gem 'mysql2'
 gem 'jquery-rails'
+gem 'gollum'
+gem 'RedCloth'
+gem 'textile_editor_helper'
+gem 'haml-rails'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -15,7 +19,6 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem 'therubyracer'
   gem "twitter-bootstrap-rails"
-  gem 'sass-rails-bootstrap'
 end
 
 

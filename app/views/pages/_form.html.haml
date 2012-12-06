@@ -1,0 +1,22 @@
+= form_for(@page) do |f|
+  - if @page.errors.any?
+    %div#error_explanation
+      %h2= pluralize(@page.errors.count, "error")
+      prohibited this page from being saved:
+      %ul
+        - @page.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :name
+    %br
+    = f.text_field :name
+
+  .field
+    = f.textile_editor :body, :class => 'textile_editor span9'
+
+  .actions
+    = f.submit
+
+  - content_for :javascript do
+    = textile_editor_initialize
