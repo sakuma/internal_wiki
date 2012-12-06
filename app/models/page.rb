@@ -1,7 +1,8 @@
 class Page < ActiveRecord::Base
   attr_protected :id
 
-  # acts_as_nested_set
+  belongs_to :wiki_information
+
 
   # Temporarily hard coded
   FORMAT = :textile
@@ -14,7 +15,7 @@ class Page < ActiveRecord::Base
 
   attr_accessor :body, :change_comment
 
-  validates :name, :presence => true
+  # validates :name, :presence => true
 
   def content
     page.formatted_data
