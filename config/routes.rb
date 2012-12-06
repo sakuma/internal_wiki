@@ -1,4 +1,13 @@
 InternalWiki::Application.routes.draw do
+
+  resources :pages do
+    member do
+      post 'preview'
+    end
+  end
+
+  root :to => "pages#index"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
