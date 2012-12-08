@@ -1,10 +1,10 @@
 InternalWiki::Application.routes.draw do
 
-  resources :wiki_informations
-
-  resources :pages do
-    member do
-      post 'preview'
+  resources :wiki_informations do
+    resources :pages do
+      member do
+        post 'preview'
+      end
     end
   end
 

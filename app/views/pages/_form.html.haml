@@ -1,4 +1,6 @@
-= form_for(@page) do |f|
+- form_url = @page.new_record? ? wiki_information_pages_path(@wiki_info) : wiki_information_page_path(@wiki_info, @page)
+- http_method = @page.new_record? ? :post : :put
+= form_for(@page, :url => form_url, :method => http_method) do |f|
   - if @page.errors.any?
     %div#error_explanation
       %h2= pluralize(@page.errors.count, "error")

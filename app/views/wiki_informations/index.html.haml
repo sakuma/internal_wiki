@@ -1,0 +1,23 @@
+%h1 Listing wiki_informations
+
+%table
+  %tr
+    %th Name
+    %th Is private
+    %th Created by
+    %th
+    %th
+    %th
+
+  - @wiki_informations.each do |wiki_information|
+    %tr
+      %td= wiki_information.name
+      %td= wiki_information.is_private
+      %td= wiki_information.created_by
+      %td= link_to 'Show', wiki_information
+      %td= link_to 'Edit', edit_wiki_information_path(wiki_information)
+      %td= link_to 'Destroy', wiki_information, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Wiki information', new_wiki_information_path

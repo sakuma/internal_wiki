@@ -5,15 +5,13 @@
     %th Name
     %th
     %th
-    %th
 
   - @pages.each do |page|
     %tr
-      %td= page.name
-      %td= link_to 'Show', page
-      %td= link_to 'Edit', edit_page_path(page)
-      %td= link_to 'Destroy', page, method: :delete, data: { confirm: 'Are you sure?'}
+      %td= link_to page.name, wiki_information_page_path(@wiki_info, page)
+      %td= link_to '編集', edit_wiki_information_page_path(@wiki_info, page)
+      %td= link_to '削除', wiki_information_page_path(@wiki_info, page), method: :delete, data: { confirm: '削除します。よろしいですか？'}
 
 %br
 
-= link_to 'New Page', new_page_path
+= link_to '新規ページ', new_wiki_information_page_path

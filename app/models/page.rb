@@ -6,7 +6,6 @@ class Page < ActiveRecord::Base
 
   # Temporarily hard coded
   FORMAT = :textile
-  WIKI   = Rails.root.join("data", "wiki.git")
 
 
   before_create  :create_page
@@ -41,11 +40,14 @@ class Page < ActiveRecord::Base
     wiki.preview_page('Preview', data, FORMAT).formatted_data
   end
 
+  def git_directory
+    WikiInformation::BASE_GIT_DIRECTORY.join("#{wiki_information.name}.git").to_s
+  end
 
   private
 
   def wiki
-    @@golum ||= Gollum::Wiki.new(WIKI)
+    @@golum ||= Gollum::Wiki.new(self.git_directory)
   end
 
   def page
@@ -53,14 +55,17 @@ class Page < ActiveRecord::Base
   end
 
   def create_page
+    # TODO: ユーザ機能実装時に :name, :author をセット出来るようにする
     wiki.write_page(name, FORMAT, body || '', {:message => self.change_comment, :name => 'tester', :author => 'tester'})
   end
 
   def update_page
+    # TODO: ユーザ機能実装時に :name, :author をセット出来るようにする
     wiki.update_page(page, name, FORMAT, body || self.raw_content, {:message => self.change_comment, :name => 'tester', :author => 'tester'})
   end
 
   def delete_page
-    wiki.delete_page(page, COMMIT)
+    # TODO: ユーザ機能実装時に :name, :author をセット出来るようにする
+    wiki.delete_page(page, {:message => "Delete page --- '#{self.name}'", :name => 'tester', :author => 'tester'})
   end
 end
