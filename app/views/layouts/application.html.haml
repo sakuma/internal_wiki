@@ -40,7 +40,7 @@
           .container.nav-collapse
             %ul.nav
               %li= link_to "Home", root_path
-              %li= link_to "新規", new_page_path
+              %li= link_to "新規", new_wiki_information_path
               %li
                 %form.form-inline
                   %input.input-medium.search-query{:type => "text", :placeholder => "Search word..."}/
@@ -56,6 +56,9 @@
             %ul.nav.nav-list
               / <li class="nav-header">Sidebar</li>
               - Page.order('created_at DESC').each do |page|
-                %li= link_to page.name, page_path(page)
+                %li
+                  %p
+                    = link_to(page.name, wiki_information_page_path(page.wiki_information, page))
+                    = link_to("(#{page.wiki_information.name})", wiki_information_path(page.wiki_information))
       %footer
         %p &copy;

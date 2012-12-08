@@ -1,0 +1,20 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @wiki_information.name
+%p
+  %b Is private:
+  = @wiki_information.is_private
+%p
+  %b Created by:
+  = @wiki_information.created_by
+
+= link_to 'Edit', edit_wiki_information_path(@wiki_information)
+\|
+= link_to 'Back', wiki_informations_path
+
+%hr
+
+- @wiki_information.pages.each do |page|
+  = link_to page.name, wiki_information_page_path(@wiki_information, page)
