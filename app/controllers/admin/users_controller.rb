@@ -1,4 +1,5 @@
 class Admin::UsersController < ApplicationController
+  before_filter :require_admin_user
   before_filter :find_user, :only => [:show, :edit, :update, :destroy]
 
   def index
@@ -40,4 +41,9 @@ class Admin::UsersController < ApplicationController
   def find_user
     @user = User.find(params[:id])
   end
+
+  def require_admin_user
+    redirect_to root_path unless current_user.admin?
+  end
+
 end

@@ -50,6 +50,9 @@
               - if current_user
                 %li= "Logged in as #{current_user.name}"
                 %li= link_to "Log out", logout_path
+                - if current_user.admin?
+                  %li= link_to 'ユーザ管理', admin_users_path
+
     .container
       .row
         .span9

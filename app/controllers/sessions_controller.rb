@@ -9,7 +9,8 @@ class SessionsController < ApplicationController
   def create
     user = login(params[:email], params[:password])
     if user
-      redirect_to root_path, :notice => 'Successful logged in.'
+      flash[:notice] = 'Successful logged in.'
+      redirect_back_or_to(root_path)
     else
       render :new
     end
@@ -17,6 +18,6 @@ class SessionsController < ApplicationController
 
   def destroy
     logout
-    redirect_to login_path, :notice => 'logoug.'
+    redirect_to login_path, :notice => 'logout.'
   end
 end
