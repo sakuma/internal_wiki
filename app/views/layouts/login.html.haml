@@ -38,32 +38,8 @@
             %span.icon-bar
           .brand= link_to "InternalWiki", root_path
           .container.nav-collapse
-            %ul.nav
-              - if content_for?(:menu_link)
-                = yield(:menu_link)
-              - else
-                %li= link_to "新規wiki", new_wiki_information_path
-              %li
-                %form.form-inline
-                  %input.input-medium.search-query{:type => "text", :placeholder => "Search word..."}/
-                  %button.btn{:type => "submit"} 検索
-              - if current_user
-                %li= "Logged in as #{current_user.name}"
-                %li= link_to "Log out", logout_path
     .container
-      .row
-        .span9
-          = yield
-        .span3
-          .well.sidebar-nav
-            %h4
-              最近追加されたページ
-            %ul.nav.nav-list
-              / <li class="nav-header">Sidebar</li>
-              - Page.order('created_at DESC').each do |page|
-                %li
-                  %p
-                    = link_to(page.name, wiki_information_page_path(page.wiki_information, page))
-                    = link_to("(#{page.wiki_information.name})", wiki_information_path(page.wiki_information))
+      .span12
+        = yield
       %footer
         %p &copy;

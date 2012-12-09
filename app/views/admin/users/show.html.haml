@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%h1= "#{@user.name}さんの情報"
+
+%p
+  %b Email:
+  = @user.email
+%p
+  %b 管理者:
+  = @user.admin?
+
+= link_to '編集', edit_admin_user_path(@user)
+= link_to '削除', admin_user_path(@user), method: :delete, data: { confirm: '削除します。よろしいですか？'}
+= link_to 'ユーザ一覧へ', admin_users_path
+
+
+%hr
+

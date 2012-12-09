@@ -1,7 +1,9 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  before_filter :require_login
   after_filter  :store_location
+  helper_method :current_user
 
   def get_layout
     request.xhr? ? nil : 'application'
@@ -19,6 +21,10 @@ class ApplicationController < ActionController::Base
 
   def store_location
     session[:return_to] = request.fullpath unless request.xhr?
+  end
+
+  def not_authenticated
+    redirect_to login_path
   end
 
 end

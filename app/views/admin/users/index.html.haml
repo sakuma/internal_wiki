@@ -1,0 +1,14 @@
+%h1 ユーザ管理
+
+%table
+  %tr
+    %th name
+    %th email
+    %th admin?
+  - @users.each do |user|
+    %tr
+      %td= link_to user.name, admin_user_path(user)
+      %td= user.email
+      %td= user.admin
+      %td= link_to '編集', admin_user_path(user)
+      %td= link_to '削除', admin_user_path(user), method: :delete, data: { confirm: '削除します。よろしいですか？'}

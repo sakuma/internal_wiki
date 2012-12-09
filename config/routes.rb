@@ -1,5 +1,14 @@
 InternalWiki::Application.routes.draw do
 
+  get "login" => "sessions#new", :as => "login"
+  post "login" => "sessions#create"
+  delete "logout" => "sessions#destroy", :as => "logout"
+  get "logout" => "sessions#destroy" # ログインできなくなる対策で
+
+  namespace :admin do
+    resources :users
+  end
+
   resources :wiki_informations do
     resources :pages do
       member do
