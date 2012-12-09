@@ -1,6 +1,6 @@
 class WikiInformationsController < ApplicationController
 
-  before_filter :find_wiki_info, :only => [:show, :edit, :update, :destroy]
+  before_filter :find_wiki_info, :only => [:show, :edit, :update, :destroy, :add_authority_user, :remove_authority_user]
 
   def index
     @wiki_informations = WikiInformation.all
@@ -37,6 +37,19 @@ class WikiInformationsController < ApplicationController
   def destroy
     @wiki_info.destroy
     redirect_to wiki_informations_path
+  end
+
+  def add_authority_user
+    user = User.where(:email => params[:email]).first
+    @wiki_info.visible_authority_users << user if user
+    redirect_to wiki_information_path(@wiki_info)
+  end
+
+  def remove_authority_user
+    user = User.where(:email => params[:email]).first
+    member_ship = @wiki_info.private_memberships.find_by_user_id(user.id)
+    member_ship.destroy
+    redirect_to wiki_information_path(@wiki_info)
   end
 
   def find_wiki_info

@@ -16,6 +16,8 @@ InternalWiki::Application.routes.draw do
       end
     end
   end
+  post "wiki_informations/:id/add_authority_user" => "wiki_informations#add_authority_user", :as => 'add_authority_user'
+  delete "wiki_informations/:id/remove_authority_user" => "wiki_informations#remove_authority_user", :as => 'remove_authority_user'
 
   root :to => "wiki_informations#index"
 

@@ -3,6 +3,7 @@ ja:
     models:
       wiki_information: "Wiki"
       user: "ユーザー"
+      private_membership: "閲覧ユーザ"
     attributes:
       user:
         name: "ユーザー名"
@@ -19,8 +20,10 @@ ja:
     deleting: "削除"
     new_wiki: "新規Wiki"
     registration: "登録"
+    add_user: "ユーザを追加"
     show_detail: "詳細を見る"
     confirm_delete: "削除します。よろしいですか？"
+
   terms:
     index_page: "ページ一覧"
     index_wiki: "ページ一覧"
