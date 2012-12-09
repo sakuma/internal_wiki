@@ -1,5 +1,5 @@
-%h1 編集
+%h1= t('terms.editing')
 
 = render 'form'
 
-= link_to '詳細', @wiki_info
+= link_to t('actions.show_detail'), @wiki_info
