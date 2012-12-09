@@ -2,17 +2,17 @@
 
 %table
   %tr
-    %th Name
-    %th Is private
-    %th Created by
+    %th Wiki名
+    %th 公開ポリシー
+    %th 作成者
     %th
     %th
 
   - @wiki_informations.each do |wiki_information|
     %tr
       %td= link_to wiki_information.name, wiki_information
-      %td= wiki_information.is_private
-      %td= wiki_information.created_by
+      %td= wiki_information.private_policy
+      %td= wiki_information.creator
       %td= link_to '編集', edit_wiki_information_path(wiki_information)
       %td= link_to '削除', wiki_information, method: :delete, data: { confirm: 'Are you sure?' }
 

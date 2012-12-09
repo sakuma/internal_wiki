@@ -11,7 +11,7 @@
   = @wiki_info.is_private
 %p
   %b Created by:
-  = @wiki_info.created_by
+  = @wiki_info.creator.name
 
 = link_to '編集', edit_wiki_information_path(@wiki_info)
 

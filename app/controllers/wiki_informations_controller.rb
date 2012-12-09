@@ -17,7 +17,7 @@ class WikiInformationsController < ApplicationController
   end
 
   def create
-    @wiki_info = WikiInformation.new(params[:wiki_information])
+    @wiki_info = WikiInformation.new(params[:wiki_information].merge(:created_by => current_user.id))
 
     if @wiki_info.save
       redirect_to @wiki_info, notice: 'Wiki information was successfully created.'
