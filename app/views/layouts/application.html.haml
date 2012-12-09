@@ -36,11 +36,13 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          %a.brand{:href => "#"} InternalWiki
+          .brand= link_to "InternalWiki", root_path
           .container.nav-collapse
             %ul.nav
-              %li= link_to "Home", root_path
-              %li= link_to "新規", new_wiki_information_path
+              - if content_for?(:menu_link)
+                = yield(:menu_link)
+              - else
+                %li= link_to "新規wiki", new_wiki_information_path
               %li
                 %form.form-inline
                   %input.input-medium.search-query{:type => "text", :placeholder => "Search word..."}/
