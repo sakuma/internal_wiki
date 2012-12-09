@@ -16,4 +16,4 @@
 %hr
 
 - @wiki_info.pages.each do |page|
-  = link_to page.name, wiki_information_page_path(page)
+  = link_to page.name, wiki_information_page_path(@wiki_info, page)

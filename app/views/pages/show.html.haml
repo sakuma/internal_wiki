@@ -10,10 +10,10 @@
 
 %h4
   = "Page name: #{@page.name}"
-  = link_to '(編集)', edit_wiki_information_page_path(@wiki_info, @page)
-  = link_to '(削除)', wiki_information_page_path(@wiki_info, @page), :confirm => 'Are you sure?', :method => :delete
+  = link_to "(#{t('actions.editing')})", edit_wiki_information_page_path(@wiki_info, @page)
+  = link_to "(#{t('actions.deleting')})", wiki_information_page_path(@wiki_info, @page), :confirm => t('actions.confirm_delete'), :method => :delete
 
-  %small= "Last edited by #{@page.author} #{time_ago_in_words(@page.date)} ago."
+  %small= "Last edited by #{@page.author} #{time_ago_in_words(@page.created_at)}"
 
 %hr
 

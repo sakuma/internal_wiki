@@ -3,6 +3,7 @@ class Page < ActiveRecord::Base
 
   belongs_to :wiki_information
 
+  validates_uniqueness_of :name, :scope => :wiki_information_id
 
   # Temporarily hard coded
   FORMAT = :textile
@@ -41,13 +42,13 @@ class Page < ActiveRecord::Base
   end
 
   def git_directory
-    WikiInformation::BASE_GIT_DIRECTORY.join("#{wiki_information.name}.git").to_s
+    wiki_information.git_directory
   end
 
   private
 
   def wiki
-    @@golum ||= Gollum::Wiki.new(self.git_directory)
+    @wiki ||= Gollum::Wiki.new(self.git_directory)
   end
 
   def page
