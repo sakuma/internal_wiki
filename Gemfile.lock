@@ -15,6 +15,7 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
+    active_decorator (0.3.3)
     activemodel (3.2.9)
       activesupport (= 3.2.9)
       builder (~> 3.0.0)
@@ -218,6 +219,7 @@ PLATFORMS
 
 DEPENDENCIES
   RedCloth
+  active_decorator
   coffee-rails (~> 3.2.1)
   debugger
   gollum

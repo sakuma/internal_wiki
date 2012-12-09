@@ -12,6 +12,7 @@ gem 'RedCloth'
 gem 'textile_editor_helper'
 gem 'haml-rails'
 gem 'sorcery'
+gem 'active_decorator'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
