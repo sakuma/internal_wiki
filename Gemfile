@@ -11,6 +11,7 @@ gem 'gollum'
 gem 'RedCloth'
 gem 'textile_editor_helper'
 gem 'haml-rails'
+gem 'sorcery'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
