@@ -1,11 +1,12 @@
 class WikiInformationsController < ApplicationController
 
+  before_filter :find_wiki_info, :only => [:show, :edit, :update, :destroy]
+
   def index
     @wiki_informations = WikiInformation.all
   end
 
   def show
-    @wiki_info = WikiInformation.find(params[:id])
   end
 
   def new
@@ -13,7 +14,6 @@ class WikiInformationsController < ApplicationController
   end
 
   def edit
-    @wiki_info = WikiInformation.find(params[:id])
   end
 
   def create
@@ -27,8 +27,6 @@ class WikiInformationsController < ApplicationController
   end
 
   def update
-    @wiki_info = WikiInformation.find(params[:id])
-
     if @wiki_info.update_attributes(params[:wiki_information])
       redirect_to wiki_information_path(@wiki_info), notice: 'Wiki information was successfully updated.'
     else
@@ -37,8 +35,11 @@ class WikiInformationsController < ApplicationController
   end
 
   def destroy
-    @wiki_info = WikiInformation.find(params[:id])
     @wiki_info.destroy
     redirect_to wiki_informations_path
+  end
+
+  def find_wiki_info
+    @wiki_info = WikiInformation.find(params[:id])
   end
 end
