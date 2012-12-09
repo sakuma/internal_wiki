@@ -1,9 +1,9 @@
-= form_for @wiki_information do |f|
-  - if @wiki_information.errors.any?
+= form_for @wiki_info do |f|
+  - if @wiki_info.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@wiki_information.errors.count, "error")} prohibited this wiki_information from being saved:"
+      %h2= "#{pluralize(@wiki_info.errors.count, "error")} prohibited this wiki_information from being saved:"
       %ul
-        - @wiki_information.errors.full_messages.each do |msg|
+        - @wiki_info.errors.full_messages.each do |msg|
           %li= msg
 
   .field
@@ -16,4 +16,4 @@
     = f.label :created_by
     = f.number_field :created_by
   .actions
-    = f.submit 'Save'
+    = f.submit '保存'

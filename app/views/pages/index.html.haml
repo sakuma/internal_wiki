@@ -1,4 +1,7 @@
-%h1 Listing pages
+= content_for :menu_link do
+  = render 'menu_link'
+
+%h1 ページ一覧
 
 %table
   %tr
@@ -12,6 +15,3 @@
       %td= link_to '編集', edit_wiki_information_page_path(@wiki_info, page)
       %td= link_to '削除', wiki_information_page_path(@wiki_info, page), method: :delete, data: { confirm: '削除します。よろしいですか？'}
 
-%br
-
-= link_to '新規ページ', new_wiki_information_page_path

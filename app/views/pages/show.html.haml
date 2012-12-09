@@ -1,3 +1,6 @@
+= content_for :menu_link do
+  = render 'menu_link'
+
 -# %small
 -#   = breadcrumbs(@page)
 
@@ -7,8 +10,8 @@
 
 %h4
   = "Page name: #{@page.name}"
-  = link_to '(Edit)', edit_wiki_information_page_path(@wiki_info, @page)
-  = link_to '(Destroy)', wiki_information_page_path(@wiki_info, @page), :confirm => 'Are you sure?', :method => :delete
+  = link_to '(編集)', edit_wiki_information_page_path(@wiki_info, @page)
+  = link_to '(削除)', wiki_information_page_path(@wiki_info, @page), :confirm => 'Are you sure?', :method => :delete
 
   %small= "Last edited by #{@page.author} #{time_ago_in_words(@page.date)} ago."
 
