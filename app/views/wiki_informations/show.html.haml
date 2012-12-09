@@ -11,9 +11,18 @@
   \:
   = @wiki_info.creator.name
 
-%hr
-= t('terms.index_page')
-%hr
+- if @wiki_info.is_private
+  %h3= PrivateMembership.model_name.human
+  - @wiki_info.visible_authority_users.each do |user|
+    %ul
+      %li
+        = "#{user.name} (#{user.email})"
+        = link_to t('actions.deleting'), remove_authority_user_path(@wiki_info, :email => user.email), :method => :delete, :confirm => t('actions.confirm_delete')
+  = form_tag add_authority_user_path(@wiki_info) do |f|
+    = text_field_tag :email, nil, :placeholder => 'Email'
+    = submit_tag t('actions.add_user')
+
+%h3= t('terms.index_page')
 
 - @wiki_info.pages.each do |page|
   = link_to page.name, wiki_information_page_path(@wiki_info, page)
