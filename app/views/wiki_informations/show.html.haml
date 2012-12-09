@@ -3,17 +3,15 @@
 
 %p#notice= notice
 
-%p
-  %b Name:
-  = @wiki_info.name
-%p
-  %b= @wiki_info.private_policy
-%p
-  %b Created by:
-  = @wiki_info.creator.name
-
+%h2= "[#{@wiki_info.private_policy}] #{@wiki_info.name}"
 = link_to '編集', edit_wiki_information_path(@wiki_info)
 
+%p
+  %b 作成者:
+  = @wiki_info.creator.name
+
+%hr
+ページ一覧
 %hr
 
 - @wiki_info.pages.each do |page|
