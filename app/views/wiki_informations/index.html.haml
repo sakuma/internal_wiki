@@ -1,10 +1,10 @@
-%h1 一覧
+%h1= t('terms.index_wiki')
 
 %table
   %tr
-    %th Wiki名
-    %th 公開ポリシー
-    %th 作成者
+    %th= WikiInformation.human_attribute_name(:name)
+    %th= WikiInformation.human_attribute_name(:is_private)
+    %th= WikiInformation.human_attribute_name(:created_by)
     %th
     %th
 
@@ -12,7 +12,7 @@
     %tr
       %td= link_to wiki_information.name, wiki_information
       %td= wiki_information.private_policy
-      %td= wiki_information.creator
-      %td= link_to '編集', edit_wiki_information_path(wiki_information)
-      %td= link_to '削除', wiki_information, method: :delete, data: { confirm: 'Are you sure?' }
+      %td= wiki_information.creator.name
+      %td= link_to t('actions.editing'), edit_wiki_information_path(wiki_information)
+      %td= link_to t('actions.deleting'), wiki_information, method: :delete, data: { confirm: 'Are you sure?' }
 

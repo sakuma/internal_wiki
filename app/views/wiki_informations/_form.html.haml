@@ -11,7 +11,7 @@
     = f.text_field :name
   .field
     = f.label :is_private
-    = f.check_box :is_private
+    = f.select :is_private, [[t('terms.publicity'), false], [t('terms.limited_publicity'), true]]
 
   .actions
-    = f.submit '保存'
+    = f.submit t('actions.save')

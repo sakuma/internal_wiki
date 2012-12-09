@@ -1,0 +1,22 @@
+ja:
+  activerecord:
+    models:
+      wiki_information: "Wiki"
+    attributes:
+      wiki_information:
+        name: "Wiki名"
+        is_private: "公開ポリシー"
+        created_by: "作成者"
+  actions:
+    save: "保存"
+    editing: "編集"
+    deleting: "削除"
+    new_wiki: "新規Wiki"
+    registration: "登録"
+    show_detail: "詳細を見る"
+  terms:
+    index_page: "ページ一覧"
+    index_wiki: "ページ一覧"
+    publicity: "公開"
+    limited_publicity: "限定公開"
+

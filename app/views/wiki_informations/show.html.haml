@@ -4,14 +4,15 @@
 %p#notice= notice
 
 %h2= "[#{@wiki_info.private_policy}] #{@wiki_info.name}"
-= link_to '編集', edit_wiki_information_path(@wiki_info)
+= link_to t('actions.editing'), edit_wiki_information_path(@wiki_info)
 
 %p
-  %b 作成者:
+  %b= WikiInformation.human_attribute_name(:created_by)
+  \:
   = @wiki_info.creator.name
 
 %hr
-ページ一覧
+= t('terms.index_page')
 %hr
 
 - @wiki_info.pages.each do |page|
