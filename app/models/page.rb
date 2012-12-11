@@ -2,6 +2,7 @@ class Page < ActiveRecord::Base
   attr_protected :id
 
   belongs_to :wiki_information
+  belongs_to :recent_editor, :class_name => 'User', :foreign_key => :updated_by
 
   validates_uniqueness_of :name, :scope => :wiki_information_id
 
@@ -13,7 +14,7 @@ class Page < ActiveRecord::Base
   before_update  :update_page
   before_destroy :delete_page
 
-  attr_accessor :body, :change_comment
+  attr_accessor :body
 
   # validates :name, :presence => true
 
@@ -23,14 +24,6 @@ class Page < ActiveRecord::Base
 
   def raw_content
     page.raw_data
-  end
-
-  def self.welcome
-    Page.where(:name => 'Welcome').first
-  end
-
-  def author
-    page.version.author.name.gsub(/<>/, '')
   end
 
   def date
@@ -56,17 +49,14 @@ class Page < ActiveRecord::Base
   end
 
   def create_page
-    # TODO: ユーザ機能実装時に :name, :author をセット出来るようにする
-    wiki.write_page(name, FORMAT, body || '', {:message => self.change_comment, :name => 'tester', :author => 'tester'})
+    wiki.write_page(name, FORMAT, body || '', {:message => "Created page --- '#{self.name}'", :name => self.recent_editor.name, :author => self.recent_editor.name})
   end
 
   def update_page
-    # TODO: ユーザ機能実装時に :name, :author をセット出来るようにする
-    wiki.update_page(page, name, FORMAT, body || self.raw_content, {:message => self.change_comment, :name => 'tester', :author => 'tester'})
+    wiki.update_page(page, name, FORMAT, body || self.raw_content, {:message => "Edited page --- '#{self.name}'", :name => self.recent_editor.name, :author => self.recent_editor.name})
   end
 
   def delete_page
-    # TODO: ユーザ機能実装時に :name, :author をセット出来るようにする
-    wiki.delete_page(page, {:message => "Delete page --- '#{self.name}'", :name => 'tester', :author => 'tester'})
+    wiki.delete_page(page, {:message => "Deleted page --- '#{self.name}'", :name => self.recent_editor.name, :author => self.recent_editor.name})
   end
 end

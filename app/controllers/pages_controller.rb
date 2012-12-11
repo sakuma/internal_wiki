@@ -21,7 +21,7 @@ class PagesController < ApplicationController
   end
 
   def create
-    @page = @wiki_info.pages.build(params[:page])
+    @page = @wiki_info.pages.build(params[:page].merge(:updated_by => current_user.id))
     if @page.save
       flash[:notice] = "Successfully created page."
       redirect_to wiki_information_page_path(@wiki_info, @page)
@@ -31,9 +31,8 @@ class PagesController < ApplicationController
   end
 
   def update
-    if @page.update_attributes(params[:page])
-      flash[:notice] = "Successfully updated page."
-      redirect_to [@wiki_info, @page]
+    if @page.update_attributes(params[:page].merge(:updated_by => current_user.id))
+      redirect_to [@wiki_info, @page], :notice => "Successfully updated page."
     else
       render :action => 'edit'
     end
