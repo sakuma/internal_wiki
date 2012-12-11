@@ -13,7 +13,7 @@
   = link_to "(#{t('actions.editing')})", edit_wiki_information_page_path(@wiki_info, @page)
   = link_to "(#{t('actions.deleting')})", wiki_information_page_path(@wiki_info, @page), :confirm => t('actions.confirm_delete'), :method => :delete
 
-  %small= "Last edited by #{@page.author} #{time_ago_in_words(@page.created_at)}"
+  %small= "Last edited by #{@page.recent_editor.name} #{time_ago_in_words(@page.created_at)}"
 
 %hr
 
