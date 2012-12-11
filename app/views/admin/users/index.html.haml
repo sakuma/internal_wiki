@@ -5,11 +5,13 @@
     %th name
     %th email
     %th admin
+    %th limited
   - @users.each do |user|
     %tr
       %td= link_to user.name, admin_user_path(user)
       %td= user.email
       %td= user.admin
+      %td= user.limited
       %td= link_to t('actions.editing'), edit_admin_user_path(user)
       %td= link_to t('actions.deleting'), admin_user_path(user), :method => :delete, :confirm => t('actions.confirm_delete')
 
