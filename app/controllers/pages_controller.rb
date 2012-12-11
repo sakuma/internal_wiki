@@ -2,7 +2,7 @@ class PagesController < ApplicationController
   layout :get_layout
 
   before_filter :find_wiki_information, :only => [:index, :show, :new, :create, :edit, :update, :destroy]
-  before_filter :find_page, :except => [:index, :new, :show, :create]
+  before_filter :find_page, :only => [:show, :edit, :update, :destroy, :preview]
   before_filter :find_body, :only => [:edit]
 
   def index
@@ -17,16 +17,14 @@ class PagesController < ApplicationController
   end
 
   def show
-    @page = @wiki_info.pages.find(params[:id] || Page.welcome)
   end
 
   def create
     @page = @wiki_info.pages.build(params[:page].merge(:updated_by => current_user.id))
     if @page.save
-      flash[:notice] = "Successfully created page."
-      redirect_to wiki_information_page_path(@wiki_info, @page)
+      redirect_to wiki_information_page_path(@wiki_info, @page), :notice => "Successfully created page."
     else
-      render :action => 'new'
+      render :new
     end
   end
 
@@ -34,7 +32,7 @@ class PagesController < ApplicationController
     if @page.update_attributes(params[:page].merge(:updated_by => current_user.id))
       redirect_to [@wiki_info, @page], :notice => "Successfully updated page."
     else
-      render :action => 'edit'
+      render :edit
     end
   end
 
@@ -47,14 +45,15 @@ class PagesController < ApplicationController
     render :text => @page.preview(params[:data])
   end
 
+
   private
 
   def find_wiki_information
-    @wiki_info = WikiInformation.find(params[:wiki_information_id])
+    @wiki_info = WikiInformation.where(:id => params[:wiki_information_id]).first
   end
 
   def find_page
-    @page = @wiki_info.pages.find(params[:id])
+    @page = @wiki_info.pages.where(:id => params[:id]).first
   end
 
   def find_body
