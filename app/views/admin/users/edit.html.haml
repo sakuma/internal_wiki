@@ -1,5 +1,5 @@
-%h1 編集
+%h1= t('actions.editing_of', :target => User.model_name.human)
 
 = render 'form'
 
-= link_to '詳細', admin_user_path(@user)
+= link_to t('actions.show_detail'), admin_user_path(@user)
