@@ -1,5 +1,4 @@
 class WikiInformationObserver < ActiveRecord::Observer
-  require 'fileutils'
 
   def after_create(wiki_info)
     Grit::Repo.init(wiki_info.git_directory)
