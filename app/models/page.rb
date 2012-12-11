@@ -12,7 +12,6 @@ class Page < ActiveRecord::Base
 
   before_create  :create_page
   before_update  :update_page
-  before_destroy :delete_page
 
   attr_accessor :body
 
@@ -38,6 +37,11 @@ class Page < ActiveRecord::Base
     wiki_information.git_directory
   end
 
+  def destroy_by(user)
+    delete_page(user.name) # delete commit
+    destroy
+  end
+
   private
 
   def wiki
@@ -56,7 +60,7 @@ class Page < ActiveRecord::Base
     wiki.update_page(page, name, FORMAT, body || self.raw_content, {:message => "Edited page --- '#{self.name}'", :name => self.recent_editor.name, :author => self.recent_editor.name})
   end
 
-  def delete_page
-    wiki.delete_page(page, {:message => "Deleted page --- '#{self.name}'", :name => self.recent_editor.name, :author => self.recent_editor.name})
+  def delete_page(author_name)
+    wiki.delete_page(page, {:message => "Deleted page --- '#{self.name}'", :name => author_name, :author => author_name})
   end
 end
