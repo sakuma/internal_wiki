@@ -37,7 +37,7 @@ class PagesController < ApplicationController
   end
 
   def destroy
-    @page.destroy
+    @page.destroy_by(current_user)
     redirect_to wiki_information_path(@wiki_info), :notice => "Successfully destroyed page."
   end
 
