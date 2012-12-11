@@ -1,4 +1,4 @@
-%h1 ユーザ管理
+%h1= t('terms.index_user')
 
 %table
   %tr
@@ -12,3 +12,5 @@
       %td= user.admin
       %td= link_to t('actions.editing'), edit_admin_user_path(user)
       %td= link_to t('actions.deleting'), admin_user_path(user), :method => :delete, :confirm => t('actions.confirm_delete')
+
+%h3= link_to t('actions.add_user'), new_admin_user_path, :class => 'btn'

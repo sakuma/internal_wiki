@@ -17,6 +17,7 @@ ja:
   actions:
     save: "保存"
     editing: "編集"
+    editing_of: "%{target}の編集"
     deleting: "削除"
     new_wiki: "新規Wiki"
     registration: "登録"
@@ -26,9 +27,11 @@ ja:
 
   terms:
     index_page: "ページ一覧"
-    index_wiki: "ページ一覧"
+    index_wiki: "Wiki一覧"
+    index_user: "ユーザ一覧"
     publicity: "公開"
     limited_publicity: "限定公開"
+    user_information_of: "%{user}さんの情報"
   date:
     abbr_day_names:
       - 日
