@@ -32,6 +32,8 @@ group :development, :test do
   gem 'pry-nav'
   gem 'pry-coolline'
   gem 'pry-remote'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 
   #test
   gem 'rspec-rails'
