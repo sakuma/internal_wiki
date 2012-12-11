@@ -7,6 +7,8 @@ class WikiInformation < ActiveRecord::Base
   has_many :visible_authority_users, :through => :private_memberships, :source => :user
   belongs_to :creator, :class_name => 'User', :foreign_key => 'created_by'
 
+  validates :name, :presence => true, :uniqueness => true
+
   before_update :rename_repository_directory
 
   BASE_GIT_DIRECTORY = Rails.root.join('data')
