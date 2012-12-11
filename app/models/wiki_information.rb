@@ -5,6 +5,8 @@ class WikiInformation < ActiveRecord::Base
   has_many :pages, :dependent => :destroy
   has_many :private_memberships, :dependent => :destroy
   has_many :visible_authority_users, :through => :private_memberships, :source => :user
+  has_many :visibilities, :dependent => :destroy
+  has_many :visible_wikis, :through => :visibilities, :source => :user
   belongs_to :creator, :class_name => 'User', :foreign_key => 'created_by'
 
   validates :name, :presence => true, :uniqueness => true
@@ -14,8 +16,13 @@ class WikiInformation < ActiveRecord::Base
   BASE_GIT_DIRECTORY = Rails.root.join('data')
 
   scope :accessible_by, ->(user) do
-    return all if user.admin?
-    WikiInformation.where(:is_private => false) + user.private_memberships
+    if user.admin?
+      all
+    elsif user.limited
+      user.visible_wikis
+    else
+      WikiInformation.where(:is_private => false) + user.private_memberships
+    end
   end
 
   def git_directory(overwrite_name = nil)
