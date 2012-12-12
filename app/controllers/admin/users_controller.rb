@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
   before_filter :require_admin_user
-  before_filter :find_user, :only => [:show, :edit, :update, :destroy]
+  before_filter :find_user, :only => [:show, :edit, :update, :destroy, :add_visibility_wiki, :delete_visibility_wiki]
 
   def index
     @users = User.all
@@ -35,6 +35,21 @@ class Admin::UsersController < ApplicationController
 
   def destroy
   end
+
+  def add_visibility_wiki
+    wiki = WikiInformation.where(:id => params[:wiki_id]).first
+    @user.visible_wikis << wiki
+    @user.reload
+    redirect_to admin_user_path(@user), :notice => 'Add wiki'
+  end
+
+  def delete_visibility_wiki
+    wiki = WikiInformation.where(:id => params[:wiki_id]).first
+    @user.visible_wikis.delete(wiki)
+    @user.reload
+    redirect_to admin_user_path(@user), :notice => 'Add wiki'
+  end
+
 
   private
 

@@ -21,6 +21,8 @@ ja:
     deleting: "削除"
     new_wiki: "新規Wiki"
     registration: "登録"
+    disable: "無効にする"
+    enable: "有効にする"
     add_user: "ユーザを追加"
     show_detail: "詳細を見る"
     confirm_delete: "削除します。よろしいですか？"
@@ -32,6 +34,7 @@ ja:
     publicity: "公開"
     limited_publicity: "限定公開"
     user_information_of: "%{user}さんの情報"
+    visible_wikis: "閲覧できるwiki"
   date:
     abbr_day_names:
       - 日

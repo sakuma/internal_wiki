@@ -8,4 +8,8 @@ class User < ActiveRecord::Base
   has_many :visibilities, :dependent => :destroy
   has_many :visible_wikis, :through => :visibilities, :source => :wiki_information
 
+  def unvisible_wikis
+    WikiInformation.all - visible_wikis
+  end
+
 end
