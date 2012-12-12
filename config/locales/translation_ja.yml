@@ -1,0 +1,47 @@
+ja:
+  activerecord:
+    models:
+      page: page  #g
+      private_membership: "閲覧ユーザ"
+      user: "ユーザー"
+      visibility: visibility  #g
+      wiki_information: "Wiki"
+
+    attributes:
+      page:
+        name: name  #g
+        recent_editor: :activerecord.models.recent_editor  #g
+        updated_by: updated_by  #g
+        wiki_information: :activerecord.models.wiki_information  #g
+
+      private_membership:
+        admin: admin  #g
+        user: :activerecord.models.user  #g
+        wiki_information: :activerecord.models.wiki_information  #g
+
+      user:
+        name: "ユーザー名"
+        admin: "管理権限"
+        crypted_password: crypted_password  #g
+        email: "Email"
+        limited: limited  #g
+        private_memberships: private_memberships  #g
+        private_wiki_informations: private_wiki_informations  #g
+        salt: salt  #g
+        visibilities: visibilities  #g
+        visible_wikis: visible_wikis  #g
+
+      visibility:
+        user: :activerecord.models.user  #g
+        wiki_information: :activerecord.models.wiki_information  #g
+
+      wiki_information:
+        name: "Wiki名"
+        is_private: "公開ポリシー"
+        created_by: "作成者"
+        creator: :activerecord.models.creator  #g
+        pages: pages  #g
+        private_memberships: private_memberships  #g
+        visibilities: visibilities  #g
+        visible_authority_users: visible_authority_users  #g
+        visible_wikis: visible_wikis  #g

@@ -34,6 +34,7 @@ group :development, :test do
   gem 'pry-remote'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'i18n_generators'
 
   #test
   gem 'rspec-rails'
