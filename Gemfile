@@ -35,6 +35,8 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'i18n_generators'
+  gem 'sextant'
+  gem 'rails-footnotes'
 
   #test
   gem 'rspec-rails'
