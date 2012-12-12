@@ -6,7 +6,12 @@ InternalWiki::Application.routes.draw do
   get "logout" => "sessions#destroy" # ログインできなくなる対策で
 
   namespace :admin do
-    resources :users
+    resources :users do
+      member do
+        post :add_visibility_wiki
+        delete :delete_visibility_wiki
+      end
+    end
   end
 
   resources :wiki_informations do

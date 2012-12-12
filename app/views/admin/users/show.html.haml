@@ -17,8 +17,18 @@
 
 = link_to t('actions.editing'), edit_admin_user_path(@user)
 = link_to t('actions.deleting'), admin_user_path(@user), :method => :delete, :confirm => t('actions.confirm_delete')
-= link_to t('terms.index_user'), admin_users_path
-
+%h4= link_to t('terms.index_user'), admin_users_path
 
 %hr
 
+- if @user.limited
+  %h2= t('terms.visible_wikis')
+  - @user.visible_wikis.each do |wiki|
+    = wiki.name
+    = link_to t('actions.desable'), delete_visibility_wiki_admin_user_path(@user, :wiki_id => wiki.id), :method => :delete, :class => 'btn'
+
+  %h3 registration
+  - @user.unvisible_wikis.each do |wiki|
+    = form_tag add_visibility_wiki_admin_user_path(@user, :wiki_id => wiki.id) do
+      = wiki.name
+      = submit_tag t('actions.enable'), :class => 'btn'
