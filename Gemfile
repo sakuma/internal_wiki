@@ -37,6 +37,7 @@ group :development, :test do
   gem 'i18n_generators'
   gem 'sextant'
   gem 'rails-footnotes'
+  gem 'bullet'
 
   #test
   gem 'rspec-rails'
