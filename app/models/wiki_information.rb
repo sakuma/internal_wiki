@@ -21,7 +21,7 @@ class WikiInformation < ActiveRecord::Base
     elsif user.limited
       user.visible_wikis
     else
-      WikiInformation.where(:is_private => false) + user.private_memberships
+      WikiInformation.where(:is_private => false) + user.private_wiki_informations
     end
   end
 

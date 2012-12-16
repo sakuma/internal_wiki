@@ -14,12 +14,14 @@ ja:
 
   terms:
     index_page: "ページ一覧"
+    new_page: "新規ページ"
     index_wiki: "Wiki一覧"
     index_user: "ユーザ一覧"
     publicity: "公開"
     limited_publicity: "限定公開"
     user_information_of: "%{user}さんの情報"
     visible_wikis: "閲覧できるwiki"
+    login: "ログイン"
   date:
     abbr_day_names:
     - 日

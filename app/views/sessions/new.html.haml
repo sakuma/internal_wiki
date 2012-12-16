@@ -1,4 +1,4 @@
-%h1 ログイン
+%h1= t('terms.login')
 
 = form_tag(login_path, :method => :post) do |f|
   %p#notice
@@ -11,4 +11,4 @@
     = password_field_tag :password
 
   .actions
-    = submit_tag "ログイン"
+    = submit_tag t('terms.login'), :class => 'btn'

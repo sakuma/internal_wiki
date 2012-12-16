@@ -1,8 +1,8 @@
 = content_for :menu_link do
   = render 'menu_link'
 
-%h1 編集
+%h1= t('actions.editing')
 
 = render 'form'
 
-= link_to '詳細', wiki_information_page_path(@wiki_info, @page)
+= link_to t('actions.show_detail'), wiki_information_page_path(@wiki_info, @page)
