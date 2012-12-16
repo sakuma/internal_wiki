@@ -9,7 +9,7 @@ ja:
 
     attributes:
       page:
-        name: name  #g
+        name: "ページ名"
         recent_editor: :activerecord.models.recent_editor  #g
         updated_by: updated_by  #g
         wiki_information: :activerecord.models.wiki_information  #g

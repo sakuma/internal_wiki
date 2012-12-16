@@ -1,17 +1,17 @@
 = content_for :menu_link do
   = render 'menu_link'
 
-%h1 ページ一覧
+%h1= t('terms.index_page')
 
 %table
   %tr
-    %th Name
+    %th Page.human_attribute_name(:name)
     %th
     %th
 
   - @pages.each do |page|
     %tr
       %td= link_to page.name, wiki_information_page_path(@wiki_info, page)
-      %td= link_to '編集', edit_wiki_information_page_path(@wiki_info, page)
-      %td= link_to '削除', wiki_information_page_path(@wiki_info, page), :method => :delete, :confirm => t('actions.confirm_delete')
+      %td= link_to t('actions.editing'), edit_wiki_information_page_path(@wiki_info, page)
+      %td= link_to t('actions.deleting'), wiki_information_page_path(@wiki_info, page), :method => :delete, :confirm => t('actions.confirm_delete')
 
