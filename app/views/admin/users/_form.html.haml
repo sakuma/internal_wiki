@@ -25,13 +25,25 @@
     = f.label :password_confirmation
     = f.password_field :password_confirmation
 
-  .field
+  .field#admin_user_flag_area
     = f.label :admin
-    = f.check_box :admin
+    = f.check_box :admin, :id => 'admin_user_flag'
 
-  .field
+  .field#limited_user_flag_area
     = f.label :limited
-    = f.check_box :limited
+    = f.check_box :limited, :id => 'limited_user_flag'
 
   .actions
-    = f.submit
+    = f.submit t('actions.add_user'), :class => 'btn'
+
+:javascript
+  $(function() {
+    $("#admin_user_flag").bind("click", function() {
+      $("#limited_user_flag_area").animate({opacity: "toggle"}, "slow");
+    });
+
+    $("#limited_user_flag").bind("click", function(){
+      $("#admin_user_flag_area").animate({opacity: "toggle"}, "slow");
+    });
+  });
+

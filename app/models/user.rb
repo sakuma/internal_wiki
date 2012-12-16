@@ -8,8 +8,19 @@ class User < ActiveRecord::Base
   has_many :visibilities, :dependent => :destroy
   has_many :visible_wikis, :through => :visibilities, :source => :wiki_information
 
+  validates_inclusion_of :admin, :in => lambda{|u| u.admin_validetes_include_values}, :message => :invalid_admin_select
+  validates_inclusion_of :limited, :in => lambda{|u| u.limited__validetes_include_values}, :message => :invalid_limited_select
+
   def unvisible_wikis
     WikiInformation.all - visible_wikis
+  end
+
+  def admin_validetes_include_values
+    limited? ? [false] : [true, false]
+  end
+
+  def limited__validetes_include_values
+    admin? ? [false] : [true, false]
   end
 
 end
