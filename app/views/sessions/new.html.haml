@@ -1,14 +1,14 @@
-%h1= t('terms.login')
+.form-signin
+  %h2= t('terms.login')
+  = form_tag(login_path) do |f|
+    %p#notice
 
-= form_tag(login_path, :method => :post) do |f|
-  %p#notice
+    .field
+      = label_tag :email
+      = text_field_tag :email
+    .field
+      = label_tag :password
+      = password_field_tag :password
 
-  .field
-    = label_tag :email
-    = text_field_tag :email
-  .field
-    = label_tag :password
-    = password_field_tag :password
-
-  .actions
-    = submit_tag t('terms.login'), :class => 'btn'
+    .actions
+      = submit_tag t('terms.login'), :class => 'btn'
