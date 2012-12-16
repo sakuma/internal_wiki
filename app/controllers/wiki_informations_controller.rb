@@ -27,10 +27,14 @@ class WikiInformationsController < ApplicationController
   end
 
   def update
-    if @wiki_info.update_attributes(params[:wiki_information])
-      redirect_to wiki_information_path(@wiki_info), notice: 'Wiki information was successfully updated.'
-    else
-      render :edit
+    respond_to do |format|
+      if @wiki_info.update_attributes(params[:wiki_information])
+        format.html {redirect_to wiki_information_path(@wiki_info), notice: 'Wiki information was successfully updated.'}
+        format.json { head :no_content }
+      else
+        format.html { render :edit}
+        format.json { render json: @wiki_information.errors, status: :unprocessable_entity }
+      end
     end
   end
 
