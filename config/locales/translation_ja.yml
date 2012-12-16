@@ -22,9 +22,10 @@ ja:
       user:
         name: "ユーザー名"
         admin: "管理権限"
-        crypted_password: crypted_password  #g
         email: "Email"
-        limited: limited  #g
+        limited: "限定アクセス"
+        password: "パスワード"
+        password_confirmation: "確認パスワード"
         private_memberships: private_memberships  #g
         private_wiki_informations: private_wiki_informations  #g
         salt: salt  #g
