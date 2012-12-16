@@ -34,6 +34,8 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
+    @user.destroy
+    redirect_to admin_users_path, :notice => 'successfully delete user.'
   end
 
   def add_visibility_wiki
