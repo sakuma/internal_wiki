@@ -63,7 +63,7 @@
               最近追加されたページ
             %ul.nav.nav-list
               / <li class="nav-header">Sidebar</li>
-              - Page.order('created_at DESC').each do |page|
+              - Page.accessible_by(current_user).recently.each do |page|
                 %li
                   %p
                     = link_to(page.name, wiki_information_page_path(page.wiki_information, page))
