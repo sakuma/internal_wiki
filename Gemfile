@@ -13,6 +13,7 @@ gem 'textile_editor_helper'
 gem 'haml-rails'
 gem 'sorcery'
 gem 'active_decorator'
+gem 'bootstrap-editable-rails'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

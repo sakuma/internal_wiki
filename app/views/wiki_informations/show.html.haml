@@ -3,8 +3,9 @@
 
 %p#notice= notice
 
-%h2= "[#{@wiki_info.private_policy}] #{@wiki_info.name}"
-= link_to t('actions.editing'), edit_wiki_information_path(@wiki_info)
+%h2
+  = "[#{@wiki_info.private_policy}]"
+  = link_to @wiki_info.name, '#', :id => "wiki_name", :"data-resource" => "wiki_information", :"data-name" => "name", :"data-url" => wiki_information_path(@wiki_info), :remote => true, :method => :put, :"data-type" => 'text', :"data-original-title" => "Enter Wikiname"
 
 %p
   %b= WikiInformation.human_attribute_name(:created_by)
@@ -26,3 +27,8 @@
 
 - @wiki_info.pages.each do |page|
   = link_to page.name, wiki_information_page_path(@wiki_info, page)
+
+:javascript
+  $(function(){
+    $('#wiki_name').editable();
+  });
