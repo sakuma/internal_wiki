@@ -37,6 +37,8 @@ GEM
       erubis (>= 2.7.0)
     binding_of_caller (0.6.8)
     builder (3.0.4)
+    bullet (4.2.0)
+      uniform_notifier
     coderay (1.0.8)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -238,6 +240,7 @@ GEM
     unf (0.0.5)
       unf_ext
     unf_ext (0.0.5)
+    uniform_notifier (1.1.0)
     useragent (0.4.14)
     webrobots (0.0.13)
     yajl-ruby (1.1.0)
@@ -251,6 +254,7 @@ DEPENDENCIES
   active_decorator
   better_errors
   binding_of_caller
+  bullet
   coffee-rails (~> 3.2.1)
   debugger
   gollum
