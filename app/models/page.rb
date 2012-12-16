@@ -17,6 +17,14 @@ class Page < ActiveRecord::Base
 
   # validates :name, :presence => true
 
+  scope :accessible_by, ->(user) do
+    ids = WikiInformation.accessible_by(user).map(&:id)
+    includes(:wiki_information).
+    where(["wiki_informations.id IN (?)", ids])
+  end
+
+  scope :recently, ->{ limit(5).order('pages.created_at DESC') }
+
   def content
     page.formatted_data
   end
