@@ -1,6 +1,6 @@
 - form_url = @user.new_record? ? admin_users_path : admin_user_path(@user)
 - http_method = @user.new_record? ? :post : :put
-= form_for(@user, :url => form_url, :method => http_method) do |f|
+= form_for(@user, :url => form_url, :html => {:method => http_method, :class => "form-horizontal"}) do |f|
   - if @user.errors.any?
     %div#error_explanation
       %h2= pluralize(@user.errors.count, "error")
@@ -9,32 +9,39 @@
         - @user.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
-    = f.label :name
-    = f.text_field :name
+  .control-group
+    = f.label :name, :class => "control-label"
+    .controls
+      = f.text_field :name, :placeholder => User.human_attribute_name(:name)
 
-  .field
-    = f.label :email
-    = f.text_field :email
+  .control-group
+    = f.label :email, :class => "control-label"
+    .controls
+      = f.text_field :email, :placeholder => User.human_attribute_name(:email)
 
-  .field
-    = f.label :password
-    = f.password_field :password
+  .control-group
+    = f.label :password, :class => "control-label"
+    .controls
+      = f.password_field :password, :placeholder => User.human_attribute_name(:password)
 
-  .field
-    = f.label :password_confirmation
-    = f.password_field :password_confirmation
+  .control-group
+    = f.label :password_confirmation, :class => "control-label"
+    .controls
+      = f.password_field :password_confirmation, :placeholder => User.human_attribute_name(:password_confirmation)
 
-  .field#admin_user_flag_area
-    = f.label :admin
-    = f.check_box :admin, :id => 'admin_user_flag'
+  .control-group#admin_user_flag_area
+    = f.label :admin, :class => "control-label"
+    .controls
+      = f.check_box :admin, :id => 'admin_user_flag'
 
-  .field#limited_user_flag_area
-    = f.label :limited
-    = f.check_box :limited, :id => 'limited_user_flag'
+  .control-group#limited_user_flag_area
+    = f.label :limited, :class => "control-label"
+    .controls
+      = f.check_box :limited, :id => 'limited_user_flag'
 
-  .actions
-    = f.submit t('actions.add_user'), :class => 'btn'
+  .control-group.actions
+    .controls
+      = f.submit t('actions.add_user'), :class => 'btn btn-primary'
 
 :javascript
   $(function() {
