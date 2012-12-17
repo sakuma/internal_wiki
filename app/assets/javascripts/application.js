@@ -13,6 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
-//= require bootstrap-editable
+//= require bootstrap-editable-inline
 //= require bootstrap-editable-rails
 //= require_tree .
