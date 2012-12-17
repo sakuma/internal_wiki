@@ -22,7 +22,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem 'libv8'
   gem 'therubyracer'
-  gem "twitter-bootstrap-rails"
+  gem "twitter-bootstrap-rails", '2.1.7' # bootstrap-editable-rails で表示がおかしくなるため、ひとまず固定
 end
 
 
