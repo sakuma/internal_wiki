@@ -5,6 +5,9 @@ module WikiInformationDecorator
     is_private ? "限定公開" : "公開"
   end
 
+  def private_policy_label
+    is_private ? "important" : "success"
+  end
 
   def controllable_by?(user)
     return true if user.admin?

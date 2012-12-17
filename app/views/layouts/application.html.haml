@@ -66,7 +66,5 @@
               - Page.accessible_by(current_user).recently.each do |page|
                 %li
                   %p
-                    = link_to(page.name, wiki_information_page_path(page.wiki_information, page))
-                    = link_to("(#{page.wiki_information.name})", wiki_information_path(page.wiki_information))
-      %footer
-        %p &copy;
+                    = link_to(truncate(page.name, :length => 15), wiki_information_page_path(page.wiki_information, page))
+                    = link_to(truncate("(#{page.wiki_information.name})", :length => 10), wiki_information_path(page.wiki_information))
