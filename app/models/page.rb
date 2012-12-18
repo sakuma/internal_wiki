@@ -57,7 +57,7 @@ class Page < ActiveRecord::Base
   end
 
   def page
-    wiki.page(self.name)
+    wiki.page( name_changed? ? self.name_was : self.name )
   end
 
   def create_page
@@ -65,7 +65,7 @@ class Page < ActiveRecord::Base
   end
 
   def update_page
-    wiki.update_page(page, name, FORMAT, body || self.raw_content, {:message => "Edited page --- '#{self.name}'", :name => self.recent_editor.name, :author => self.recent_editor.name})
+    wiki.update_page(page, name, FORMAT, (body || self.raw_content), {:message => "Edited page --- '#{self.name}'", :name => self.recent_editor.name, :author => self.recent_editor.name})
   end
 
   def delete_page(author_name)
