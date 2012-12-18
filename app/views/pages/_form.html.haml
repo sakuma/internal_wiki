@@ -9,10 +9,10 @@
         - @page.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
-    = f.label :name
-    %br
-    = f.text_field :name
+  - if @page.new_record?
+    .field
+      = f.label :name
+      = f.text_field :name
 
   .field
     = f.textile_editor :body, :class => 'textile_editor span9'

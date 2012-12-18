@@ -29,10 +29,21 @@ class PagesController < ApplicationController
   end
 
   def update
-    if @page.update_attributes(params[:page].merge(:updated_by => current_user.id))
-      redirect_to [@wiki_info, @page], :notice => "Successfully updated page."
-    else
-      render :edit
+    if params[:page].blank?
+      render :nothing => true
+      return
+    end
+    respond_to do |format|
+      if @page.update_attributes(params[:page].merge(:updated_by => current_user.id))
+        format.html do
+          flash[:notice].now = "Successfully updated page."
+          redirect_to [@wiki_info, @page]
+        end
+        format.json { head :no_content }
+      else
+        format.html { render :edit }
+        format.json { render json: @page.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -49,7 +60,7 @@ class PagesController < ApplicationController
   private
 
   def find_wiki_information
-    @wiki_info = WikiInformation.where(:id => params[:wiki_information_id]).first
+    @wiki_info = WikiInformation.where(:id => params[:wiki_information_id]).first!
   end
 
   def find_page
