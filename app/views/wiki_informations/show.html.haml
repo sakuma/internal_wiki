@@ -21,8 +21,9 @@
         %li
           = "#{user.name} (#{user.email})"
           = link_to raw('<i class="icon-remove"></i>'), remove_authority_user_path(@wiki_info, :email => user.email), :method => :delete, :confirm => t('actions.confirm_delete'), :class => 'btn btn-warning'
+
     = form_tag add_authority_user_path(@wiki_info), :class => 'form-inline' do |f|
-      = text_field_tag :email, nil, :placeholder => 'Email'
+      = text_field_tag :email, nil, :placeholder => 'Email', :id => "add_user_input_field"
       = submit_tag t('actions.add_user'), :class => 'btn btn-primary'
 
 %hr/
@@ -39,5 +40,9 @@
       title: "Enter Wikiname",
       type: 'text',
       url: "#{wiki_information_path(@wiki_info)}"
+    });
+
+    $('#add_user_input_field').autocomplete({
+      source: #{User.not_admin.visible_wiki_candidates_on(@wiki_info).pluck(:email)}
     });
   });
