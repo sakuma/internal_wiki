@@ -8,6 +8,11 @@ class User < ActiveRecord::Base
   has_many :visibilities, :dependent => :destroy
   has_many :visible_wikis, :through => :visibilities, :source => :wiki_information
 
+  scope :visible_wiki_candidates_on, ->(wiki) do
+    where(["NOT id IN (?)", wiki.visible_authority_users.pluck("users.id")])
+  end
+  scope :not_admin, ->{ where(:admin => false) }
+
   validates_inclusion_of :admin, :in => lambda{|u| u.admin_validetes_include_values}, :message => :invalid_admin_select
   validates_inclusion_of :limited, :in => lambda{|u| u.limited__validetes_include_values}, :message => :invalid_limited_select
 
@@ -22,5 +27,6 @@ class User < ActiveRecord::Base
   def limited__validetes_include_values
     admin? ? [false] : [true, false]
   end
+
 
 end
