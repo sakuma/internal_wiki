@@ -22,6 +22,9 @@ ja:
     user_information_of: "%{user}さんの情報"
     visible_wikis: "閲覧できるwiki"
     login: "ログイン"
+    invalid_email_or_name_or_password: "ログインできませんでした。<br />Email, ユーザ名, パスワードをご確認ください。"
+    logged_out: "ログアウトしました。"
+    successfully_login: "ログインに成功しました。"
   date:
     abbr_day_names:
     - 日
