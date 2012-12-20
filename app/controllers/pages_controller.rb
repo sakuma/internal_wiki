@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   layout :get_layout
 
-  before_filter :find_wiki_information, :only => [:index, :show, :new, :create, :edit, :update, :destroy]
+  before_filter :find_wiki_information, :only => [:index, :show, :new, :create, :edit, :update, :destroy, :preview]
   before_filter :find_page, :only => [:show, :edit, :update, :destroy, :preview]
   before_filter :find_body, :only => [:edit]
 
@@ -36,7 +36,7 @@ class PagesController < ApplicationController
     respond_to do |format|
       if @page.update_attributes(params[:page].merge(:updated_by => current_user.id))
         format.html do
-          flash[:notice].now = "Successfully updated page."
+          flash.now[:notice] = "Successfully updated page."
           redirect_to [@wiki_info, @page]
         end
         format.json { head :no_content }
@@ -53,7 +53,10 @@ class PagesController < ApplicationController
   end
 
   def preview
-    render :text => @page.preview(params[:data])
+    @preview = @page.preview(params[:page][:body])
+    respond_to do |format|
+      format.js
+    end
   end
 
 
