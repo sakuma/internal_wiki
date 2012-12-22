@@ -26,6 +26,7 @@ ja:
     logged_out: "ログアウトしました。"
     successfully_login: "ログインに成功しました。"
     page_history: "履歴"
+    histories_more: "さらに履歴を見る"
   date:
     abbr_day_names:
     - 日

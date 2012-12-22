@@ -1,8 +1,8 @@
 class PagesController < ApplicationController
   layout :get_layout
 
-  before_filter :find_wiki_information, :only => [:index, :show, :new, :create, :edit, :update, :destroy, :preview]
-  before_filter :find_page, :only => [:show, :edit, :update, :destroy, :preview]
+  before_filter :find_wiki_information, :only => [:index, :show, :new, :create, :edit, :update, :destroy, :preview, :histories]
+  before_filter :find_page, :only => [:show, :edit, :update, :destroy, :preview, :histories]
   before_filter :find_body, :only => [:edit]
 
   def index
@@ -17,6 +17,9 @@ class PagesController < ApplicationController
   end
 
   def show
+  end
+
+  def histories
   end
 
   def create

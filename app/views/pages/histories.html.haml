@@ -1,0 +1,11 @@
+= content_for :menu_link do
+  = render 'menu_link'
+
+%h2
+  = link_to @page.name, [@wiki_info, @page]
+  の履歴
+
+- @page.histories(true).each do |history|
+  = "#{history[:author]} (#{history[:date]}) --- #{history[:sha]}"
+  %br
+
