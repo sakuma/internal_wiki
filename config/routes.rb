@@ -18,6 +18,7 @@ InternalWiki::Application.routes.draw do
     resources :pages do
       member do
         post 'preview'
+        get 'histories'
       end
     end
   end
