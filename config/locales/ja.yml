@@ -14,6 +14,7 @@ ja:
 
   terms:
     index_page: "ページ一覧"
+    new_wiki: "新規wiki"
     new_page: "新規ページ"
     index_wiki: "Wiki一覧"
     index_user: "ユーザ一覧"
@@ -25,8 +26,12 @@ ja:
     invalid_email_or_name_or_password: "ログインできませんでした。<br />Email, ユーザ名, パスワードをご確認ください。"
     logged_out: "ログアウトしました。"
     successfully_login: "ログインに成功しました。"
+    search: "検索"
     page_history: "履歴"
     histories_more: "さらに履歴を見る"
+    user_control: "ユーザ管理"
+    recent_update_pages: "最近更新されたページ"
+
   date:
     abbr_day_names:
     - 日

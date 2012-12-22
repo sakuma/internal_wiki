@@ -42,16 +42,16 @@
               - if content_for?(:menu_link)
                 = yield(:menu_link)
               - else
-                %li= link_to "新規wiki", new_wiki_information_path
+                %li= link_to t('terms.new_wiki'), new_wiki_information_path
               %li
                 %form.form-inline
                   %input.input-medium.search-query{:type => "text", :placeholder => "Search word..."}/
-                  %button.btn{:type => "submit"} 検索
+                  %button.btn{:type => "submit"}= t('terms.search')
               - if current_user
                 %li= "Logged in as #{current_user.name}"
                 %li= link_to "Log out", logout_path
                 - if current_user.admin?
-                  %li= link_to 'ユーザ管理', admin_users_path
+                  %li= link_to t('terms.user_control'), admin_users_path
 
     .container
       .row
@@ -60,9 +60,8 @@
         .span3
           .well.sidebar-nav
             %h4
-              最近更新されたページ
+              = t('terms.recent_update_pages')
             %ul.nav.nav-list
-              / <li class="nav-header">Sidebar</li>
               - Page.accessible_by(current_user).recently.each do |page|
                 %li
                   %p
