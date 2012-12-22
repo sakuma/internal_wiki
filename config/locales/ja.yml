@@ -25,6 +25,7 @@ ja:
     invalid_email_or_name_or_password: "ログインできませんでした。<br />Email, ユーザ名, パスワードをご確認ください。"
     logged_out: "ログアウトしました。"
     successfully_login: "ログインに成功しました。"
+    page_history: "履歴"
   date:
     abbr_day_names:
     - 日
