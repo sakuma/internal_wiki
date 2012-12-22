@@ -23,7 +23,7 @@ class Page < ActiveRecord::Base
     where(["wiki_informations.id IN (?)", ids])
   end
 
-  scope :recently, ->{ limit(5).order('pages.created_at DESC') }
+  scope :recently, ->{ limit(5).order('pages.updated_at DESC') }
 
   def content
     page.formatted_data
@@ -50,6 +50,14 @@ class Page < ActiveRecord::Base
     destroy
   end
 
+  def histories(everything = false)
+    ary = page.versions
+    ary = ary.take(3) unless everything
+    ary.map do |version|
+      {:author => version.author.name, :date => version.committed_date, :sha => version.sha}
+    end
+  end
+
   private
 
   def wiki
@@ -61,7 +69,9 @@ class Page < ActiveRecord::Base
   end
 
   def create_page
-    wiki.write_page(name, FORMAT, body || '', {:message => "Created page --- '#{self.name}'", :name => self.recent_editor.name, :author => self.recent_editor.name})
+    wiki.write_page(name, FORMAT, body || '',
+                    {:message => "Created page --- '#{self.name}'",
+                     :name => self.recent_editor.name, :author => self.recent_editor.name})
   end
 
   def update_page
