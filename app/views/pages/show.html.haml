@@ -22,6 +22,13 @@
 %hr
 
 %small.pull-right= "Last edited by #{@page.recent_editor.name} #{time_ago_in_words(@page.created_at)}"
+
+- unless @page.histories.empty?
+  %h4= t('terms.page_history')
+  - @page.histories.each do |h|
+    = "#{h[:author]} (#{h[:date]}) --- #{h[:sha]}"
+    %br
+
 :javascript
   $(function(){
     $('#page_name_link').editable({
