@@ -6,6 +6,8 @@ ja:
     deleting: "削除"
     new_wiki: "新規Wiki"
     registration: "登録"
+    regist: "登録する"
+    update: "更新する"
     disable: "無効にする"
     enable: "有効にする"
     add_user: "ユーザを追加"
@@ -29,6 +31,7 @@ ja:
     search: "検索"
     page_history: "履歴"
     histories_more: "さらに履歴を見る"
+    history_of: "の履歴"
     user_control: "ユーザ管理"
     recent_update_pages: "最近更新されたページ"
 

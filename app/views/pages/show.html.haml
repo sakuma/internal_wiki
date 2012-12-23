@@ -3,26 +3,25 @@
 
 %p#notice= notice
 
-%h3.pull-left= @wiki_info.name
 .pull-right
   = link_to raw('<i class="icon-pencil"></i>'), edit_wiki_information_page_path(@wiki_info, @page), :class => 'btn btn-primary'
   = link_to raw('<i class="icon-trash"></i>'), wiki_information_page_path(@wiki_info, @page), :confirm => t('actions.confirm_delete'), :method => :delete, :class => 'btn btn-danger'
 
-%h1{:style => "text-align:center"}= link_to truncate(@page.name, :length => 20), '#', :id => "page_name_link", :"data-resource" => "page", :"data-name" => "name", :remote => true, :method => :put
+%h2
+  = truncate(@wiki_info.name, :length => 20)
+  &raquo;
+  = link_to truncate(@page.name, :length => 20), '#', :id => "page_name_link", :"data-resource" => "page", :"data-name" => "name", :remote => true, :method => :put
 
 %hr
-
 = raw(@page.content)
-
 %hr
 
-%small.pull-right= "Last edited by #{@page.recent_editor.name} #{time_ago_in_words(@page.created_at)}"
+%small.pull-right= "Last edited by #{@page.last_editor_name} #{time_ago_in_words(@page.updated_at)}"
 
 - unless @page.histories.empty?
   %h4= t('terms.page_history')
   - @page.histories.each do |h|
-    = "#{h[:author]} (#{h[:date]}) --- #{h[:sha]}"
-    %br
+    %p= link_to "#{h[:date].to_s(:db)} (by #{h[:author]})", histories_wiki_information_page_path(@wiki_info, @page, :sha => h[:sha])
   = link_to t('terms.histories_more'), histories_wiki_information_page_path(@wiki_info, @page), :id => 'histories_more', :class => 'btn btn-inverse'
 
 :javascript

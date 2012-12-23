@@ -5,6 +5,7 @@ class Page < ActiveRecord::Base
   belongs_to :recent_editor, :class_name => 'User', :foreign_key => :updated_by
 
   validates_uniqueness_of :name, :scope => :wiki_information_id
+  validates :name, :presence => true
 
   # Temporarily hard coded
   FORMAT = :textile
@@ -14,8 +15,6 @@ class Page < ActiveRecord::Base
   before_update  :update_page
 
   attr_accessor :body
-
-  # validates :name, :presence => true
 
   scope :accessible_by, ->(user) do
     ids = WikiInformation.accessible_by(user).map(&:id)
@@ -35,7 +34,6 @@ class Page < ActiveRecord::Base
 
   def date(version = nil)
     page(version).version.authored_date
-  end
   end
 
   def preview(data)

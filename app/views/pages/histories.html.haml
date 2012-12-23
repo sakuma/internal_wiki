@@ -8,12 +8,14 @@
         %td= history[:date].to_s(:db)
         %td= history[:author]
 
-        -# abbr属性にする
+        -# TODO: abbr属性にする
         -# %td= truncate(history[:sha], length: 10)
 
 %h2
+  = truncate(@wiki_info.name, :length => 20)
+  &raquo;
   = link_to @page.name, [@wiki_info, @page]
-  の履歴
+  = t('terms.history_of')
 
 - if @content
   %h4

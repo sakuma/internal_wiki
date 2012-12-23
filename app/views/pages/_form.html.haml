@@ -1,13 +1,11 @@
-- form_url = @page.new_record? ? wiki_information_pages_path(@wiki_info) : wiki_information_page_path(@wiki_info, @page)
-- http_method = @page.new_record? ? :post : :put
+- newly = @page.new_record?
+- form_url = newly ? wiki_information_pages_path(@wiki_info) : wiki_information_page_path(@wiki_info, @page)
+- http_method = newly ? :post : :put
 = form_for(@page, :url => form_url, :method => http_method) do |f|
   - if @page.errors.any?
-    %div#error_explanation
-      %h2= pluralize(@page.errors.count, "error")
-      prohibited this page from being saved:
-      %ul
-        - @page.errors.full_messages.each do |msg|
-          %li= msg
+    %ul.unstyled.alert.alert-error
+      - @page.errors.full_messages.each do |msg|
+        %li= msg
 
   - if @page.new_record?
     .field
@@ -16,7 +14,7 @@
 
   = f.textile_editor :body, :class => 'textile_editor', :rows => 10
 
-  = f.submit "更新", :class => 'btn btn-primary'
+  = f.submit (newly ? t('actions.regist') : t('actions.update')), :class => 'btn btn-primary'
 
 - unless @page.new_record?
   = form_for(@page, :url => preview_wiki_information_page_path(@wiki_info.id, @page), :remote => true, :html => {:method => :post, :id => 'preview-link'} ) do |f|

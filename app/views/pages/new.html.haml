@@ -1,6 +1,9 @@
 = content_for :menu_link do
   = render 'menu_link'
 
-%h1= t('terms.new_page')
+%h2
+  = @wiki_info.name
+  &raquo;
+  = t('terms.new_page')
 
 = render 'form'
