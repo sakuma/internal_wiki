@@ -25,16 +25,17 @@ class Page < ActiveRecord::Base
 
   scope :recently, ->{ limit(5).order('pages.updated_at DESC') }
 
-  def content
-    page.formatted_data
+  def content(version = nil)
+    page(version).formatted_data
   end
 
-  def raw_content
-    page.raw_data
+  def raw_content(version = nil)
+    page(version).raw_data
   end
 
-  def date
-    page.version.authored_date
+  def date(version = nil)
+    page(version).version.authored_date
+  end
   end
 
   def preview(data)
@@ -58,14 +59,19 @@ class Page < ActiveRecord::Base
     end
   end
 
+  def author_name(version = nil)
+    page(version).version.author.name
+  end
+
   private
 
   def wiki
     @wiki ||= Gollum::Wiki.new(self.git_directory)
   end
 
-  def page
-    wiki.page( name_changed? ? self.name_was : self.name )
+  def page(version = nil)
+    page_name = name_changed? ? self.name_was : self.name
+    wiki.page(page_name, version)
   end
 
   def create_page
