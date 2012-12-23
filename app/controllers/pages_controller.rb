@@ -20,6 +20,7 @@ class PagesController < ApplicationController
   end
 
   def histories
+    @content = @page.content(params[:sha]) unless params[:sha].blank?
   end
 
   def create

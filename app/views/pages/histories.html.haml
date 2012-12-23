@@ -1,11 +1,32 @@
 = content_for :menu_link do
   = render 'menu_link'
 
+- content_for :right_area do
+  %table.table.table-hover
+    - @page.histories(true).each do |history|
+      %tr{:"data-href" => (histories_wiki_information_page_path(@wiki_info, @page, :sha => history[:sha]))}
+        %td= history[:date].to_s(:db)
+        %td= history[:author]
+
+        -# abbr属性にする
+        -# %td= truncate(history[:sha], length: 10)
+
 %h2
   = link_to @page.name, [@wiki_info, @page]
   の履歴
 
-- @page.histories(true).each do |history|
-  = "#{history[:author]} (#{history[:date]}) --- #{history[:sha]}"
-  %br
+- if @content
+  %h4
+    = @page.date(params[:sha]).to_s(:db)
+    = "(by #{@page.author_name(params[:sha])})"
+  %hr
+  = raw(@content)
+  %hr
 
+:javascript
+  $(function($) {
+    $('tbody tr[data-href]').delegate('*', 'click', function() {
+      window.location = $(this).parents('tr').data('href');
+      return false;
+    });
+  });
