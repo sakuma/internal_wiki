@@ -1,13 +1,9 @@
-- form_url = @user.new_record? ? admin_users_path : admin_user_path(@user)
-- http_method = @user.new_record? ? :post : :put
+- newly = @user.new_record?
+- form_url = newly ? admin_users_path : admin_user_path(@user)
+- http_method = newly ? :post : :put
 = form_for(@user, :url => form_url, :html => {:method => http_method, :class => "form-horizontal"}) do |f|
-  - if @user.errors.any?
-    %div#error_explanation
-      %h2= pluralize(@user.errors.count, "error")
-      prohibited this page from being saved:
-      %ul
-        - @user.errors.full_messages.each do |msg|
-          %li= msg
+
+  = error_messages_for(@user)
 
   .control-group
     = f.label :name, :class => "control-label"
@@ -41,16 +37,24 @@
 
   .control-group.actions
     .controls
-      = f.submit t('actions.add_user'), :class => 'btn btn-primary'
+      = f.submit (newly ? t('actions.add_user') : t('actions.update')), :class => 'btn btn-primary'
 
 :javascript
-  $(function() {
-    $("#admin_user_flag").bind("click", function() {
-      $("#limited_user_flag_area").animate({opacity: "toggle"}, "slow");
-    });
+  function targetId(domId){
+    if (domId === "admin_user_flag")
+      return "#limited_user_flag_area"
+    else
+      return "#admin_user_flag_area"
+  }
 
-    $("#limited_user_flag").bind("click", function(){
-      $("#admin_user_flag_area").animate({opacity: "toggle"}, "slow");
+  $(function() {
+    var checkedType = $("input:checked").attr("id");
+    if (checkedType) {
+      $(targetId(checkedType)).toggle();
+    }
+
+    $(":checkbox").on("click", function() {
+      $(targetId(this.id)).animate({opacity: "toggle"}, "slow");
     });
   });
 
