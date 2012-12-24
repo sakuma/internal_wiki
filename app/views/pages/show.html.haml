@@ -1,7 +1,7 @@
 = content_for :menu_link do
   = render 'menu_link'
 
-%p#notice= notice
+= render 'shared/flash_messages'
 
 .pull-right
   = link_to raw('<i class="icon-pencil"></i>'), edit_wiki_information_page_path(@wiki_info, @page), :class => 'btn btn-primary'

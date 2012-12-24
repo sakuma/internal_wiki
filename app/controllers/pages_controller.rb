@@ -1,8 +1,8 @@
 class PagesController < ApplicationController
   layout :get_layout
 
-  before_filter :find_wiki_information, :only => [:index, :show, :new, :create, :edit, :update, :destroy, :preview, :histories]
-  before_filter :find_page, :only => [:show, :edit, :update, :destroy, :preview, :histories]
+  before_filter :find_wiki_information, :only => [:index, :show, :new, :create, :edit, :update, :destroy, :preview, :histories, :revert]
+  before_filter :find_page, :only => [:show, :edit, :update, :destroy, :preview, :histories, :revert]
   before_filter :find_body, :only => [:edit]
 
   def index
@@ -60,6 +60,14 @@ class PagesController < ApplicationController
     @preview = @page.preview(params[:page][:body])
     respond_to do |format|
       format.js
+    end
+  end
+
+  def revert
+    if @page.revert(current_user, params[:sha])
+      redirect_to [@wiki_info, @page], :notice => t('terms.reverted_to', :target => @page.date(params[:sha]).to_s(:db))
+    else
+      render :histories
     end
   end
 

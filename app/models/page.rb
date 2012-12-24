@@ -10,7 +10,6 @@ class Page < ActiveRecord::Base
   # Temporarily hard coded
   FORMAT = :textile
 
-
   before_create  :create_page
   before_update  :update_page
 
@@ -36,8 +35,16 @@ class Page < ActiveRecord::Base
     page(version).version.authored_date
   end
 
+  def diff(version = nil)
+    page(version).version.diffs.first.diff
+  end
+
   def preview(data)
     wiki.preview_page('Preview', data, FORMAT).formatted_data
+  end
+
+  def revert(author, sha1, sha2 = nil)
+    wiki.revert_page(page, sha1, (sha2 || page.version.sha), {:message => "Revert page --- '#{self.name}' to '#{sha1}'", :name => author.name, :email => author.email})
   end
 
   def git_directory
