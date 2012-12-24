@@ -13,6 +13,8 @@ ja:
     add_user: "ユーザを追加"
     show_detail: "詳細を見る"
     confirm_delete: "削除します。よろしいですか？"
+    confirm_revert: "ページの内容を復元します。よろしいですか？"
+    revert_page: "復元する"
 
   terms:
     index_page: "ページ一覧"
@@ -34,6 +36,7 @@ ja:
     history_of: "の履歴"
     user_control: "ユーザ管理"
     recent_update_pages: "最近更新されたページ"
+    reverted_to: "%{target} の状態に復元しました。"
 
   date:
     abbr_day_names:
