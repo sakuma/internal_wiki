@@ -37,6 +37,9 @@ ja:
     user_control: "ユーザ管理"
     recent_update_pages: "最近更新されたページ"
     reverted_to: "%{target} の状態に復元しました。"
+    deleted_page: "ページを削除しました。"
+    updated_page: "ページを更新しました。"
+    created_page: "ページを追加しました。"
 
   date:
     abbr_day_names:
