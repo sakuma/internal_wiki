@@ -1,7 +1,7 @@
 = content_for :menu_link do
   = render 'pages/menu_link'
 
-%p#notice= notice
+= render 'shared/flash_messages'
 
 .pull-left.label{:class => ("label-#{@wiki_info.private_policy_label}")}= @wiki_info.private_policy
 %h5.pull-right
