@@ -1,12 +1,19 @@
 class User < ActiveRecord::Base
-  authenticates_with_sorcery!
+
+  attr_protected :id, :updated_at, :created_at
 
   attr_accessor :password, :password_confirmation
+
+  authenticates_with_sorcery! do |config|
+    config.authentications_class = Authentication
+  end
 
   has_many :private_memberships, :dependent => :destroy
   has_many :private_wiki_informations, :through => :private_memberships, :source => :wiki_information
   has_many :visibilities, :dependent => :destroy
   has_many :visible_wikis, :through => :visibilities, :source => :wiki_information
+  has_many :authentications, :dependent => :destroy
+  accepts_nested_attributes_for :authentications
 
   scope :visible_wiki_candidates_on, ->(wiki) do
     where(["NOT id IN (?)", wiki.visible_authority_users.pluck("users.id")])
@@ -30,6 +37,5 @@ class User < ActiveRecord::Base
   def limited__validetes_include_values
     admin? ? [false] : [true, false]
   end
-
 
 end
