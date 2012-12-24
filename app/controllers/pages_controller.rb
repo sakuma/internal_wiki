@@ -26,7 +26,7 @@ class PagesController < ApplicationController
   def create
     @page = @wiki_info.pages.build(params[:page].merge(:updated_by => current_user.id))
     if @page.save
-      redirect_to wiki_information_page_path(@wiki_info, @page), :notice => "Successfully created page."
+      redirect_to wiki_information_page_path(@wiki_info, @page), :notice => t('terms.created_page')
     else
       render :new
     end
@@ -39,10 +39,7 @@ class PagesController < ApplicationController
     end
     respond_to do |format|
       if @page.update_attributes(params[:page].merge(:updated_by => current_user.id))
-        format.html do
-          flash.now[:notice] = "Successfully updated page."
-          redirect_to [@wiki_info, @page]
-        end
+        format.html { redirect_to [@wiki_info, @page], :notice => t('terms.updated_page') }
         format.json { head :no_content }
       else
         format.html { render :edit }
@@ -53,7 +50,7 @@ class PagesController < ApplicationController
 
   def destroy
     @page.destroy_by(current_user)
-    redirect_to wiki_information_path(@wiki_info), :notice => "Successfully destroyed page."
+    redirect_to wiki_information_path(@wiki_info), :notice => t('terms.deleted_page')
   end
 
   def preview
