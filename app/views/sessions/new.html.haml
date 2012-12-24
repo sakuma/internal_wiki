@@ -8,5 +8,6 @@
   %label.checkbox
     = check_box_tag :remember_me,  1,  params[:remember_me]
     Remember me
+  = link_to 'Login with google', auth_at_provider_path(:provider => :google)
 
   = submit_tag t('terms.login'), :class => 'btn btn-primary'

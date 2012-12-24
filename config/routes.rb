@@ -4,6 +4,8 @@ InternalWiki::Application.routes.draw do
   post "login" => "sessions#create"
   delete "logout" => "sessions#destroy", :as => "logout"
   get "logout" => "sessions#destroy" # ログインできなくなる対策で
+  match "oauth/callback" => "sessions#callback"
+  match "oauth/:provider" => "sessions#oauth", :as => :auth_at_provider
 
   namespace :admin do
     resources :users do
