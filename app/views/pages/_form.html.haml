@@ -2,10 +2,8 @@
 - form_url = newly ? wiki_information_pages_path(@wiki_info) : wiki_information_page_path(@wiki_info, @page)
 - http_method = newly ? :post : :put
 = form_for(@page, :url => form_url, :method => http_method) do |f|
-  - if @page.errors.any?
-    %ul.unstyled.alert.alert-error
-      - @page.errors.full_messages.each do |msg|
-        %li= msg
+
+  = error_messages_for(@page)
 
   - if @page.new_record?
     .field
