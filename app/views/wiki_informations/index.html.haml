@@ -1,5 +1,7 @@
 %h1= t('terms.index_wiki')
 
+= render 'shared/flash_messages'
+
 %table
   %tr
     %th= WikiInformation.human_attribute_name(:name)
