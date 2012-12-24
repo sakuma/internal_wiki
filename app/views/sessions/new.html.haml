@@ -1,10 +1,7 @@
 = form_tag(login_path, :class => 'form-signin') do |f|
   %h3.form-signin-heading= t('terms.login')
 
-  -if flash[:notice]
-    .alert.alert-success= raw flash[:notice]
-  -if flash[:warning]
-    .alert.alert-error= raw flash[:warning]
+  = render 'shared/flash_messages'
 
   = text_field_tag :email_or_name, nil, :placeholder => 'Email or Username', :class => 'input-block-level'
   = password_field_tag :password, nil, :placeholder => 'Password', :class => 'input-block-level'
