@@ -13,6 +13,9 @@ class User < ActiveRecord::Base
   end
   scope :not_admin, ->{ where(:admin => false) }
 
+  validates :name, :presence => true, :uniqueness => true
+  validates :email, :presence => true, :uniqueness => true
+
   validates_inclusion_of :admin, :in => lambda{|u| u.admin_validetes_include_values}, :message => :invalid_admin_select
   validates_inclusion_of :limited, :in => lambda{|u| u.limited__validetes_include_values}, :message => :invalid_limited_select
 
