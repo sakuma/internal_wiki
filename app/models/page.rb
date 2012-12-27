@@ -24,11 +24,11 @@ class Page < ActiveRecord::Base
   scope :recently, ->{ limit(5).order('pages.updated_at DESC') }
 
   def content(version = nil)
-    page(version).formatted_data
+    new_record? ? "" : page(version).formatted_data
   end
 
   def raw_content(version = nil)
-    page(version).raw_data
+    page(version).text_data
   end
 
   def date(version = nil)
