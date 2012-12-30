@@ -8,7 +8,8 @@ class Page < ActiveRecord::Base
   validates :name, :presence => true
 
   # Temporarily hard coded
-  FORMAT = :textile
+  # FORMAT = :textile
+  FORMAT = :markdown
 
   before_create  :create_page
   before_update  :update_page
@@ -24,7 +25,7 @@ class Page < ActiveRecord::Base
   scope :recently, ->{ limit(5).order('pages.updated_at DESC') }
 
   def content(version = nil)
-    new_record? ? "" : page(version).formatted_data
+    new_record? ? nil : page(version).formatted_data
   end
 
   def raw_content(version = nil)
