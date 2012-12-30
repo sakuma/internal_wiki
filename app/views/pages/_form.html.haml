@@ -9,10 +9,10 @@
     .field
       = f.label :name
       = f.text_field :name
-
-  = f.textile_editor :body, :class => 'textile_editor', :rows => 10
-
+  = f.text_area :body, :class => 'span9', :rows => 10, :id => 'source'
   = f.submit (newly ? t('actions.regist') : t('actions.update')), :class => 'btn btn-primary'
+
+.editable= @page.raw_content
 
 - unless @page.new_record?
   = form_for(@page, :url => preview_wiki_information_page_path(@wiki_info.id, @page), :remote => true, :html => {:method => :post, :id => 'preview-link'} ) do |f|
@@ -21,17 +21,57 @@
 
   %hr
 
-  #show-area
 
 :javascript
-  $(function(){
-    $('#page_body').addClass('span9');
-    $('#preview-link').on('click', function(){
-      var current_body = $('#page_body').val();
-      $('#preview_body').val(current_body);
-    })
-  })
 
-- content_for :javascript do
-  = textile_editor_initialize
+  jQuery(document).ready(function() {
+    // Enable Hallo editor
+    jQuery('.editable').hallo({
+      plugins: {
+        'halloformat': {},
+        'halloblock': {},
+        'hallolists': {},
+        'halloreundo': {}
+      }
+    });
+
+    var markdownize = function(content) {
+      var html = content.split("\n").map($.trim).filter(function(line) {
+        return line != "";
+      }).join("\n");
+      return toMarkdown(html);
+    };
+
+    var converter = new Showdown.converter();
+    var htmlize = function(content) {
+      return converter.makeHtml(content);
+    };
+
+    // Method that converts the HTML contents to Markdown
+    var showSource = function(content) {
+      var markdown = markdownize(content);
+      if (jQuery('#source').get(0).value == markdown) {
+        return;
+      }
+      jQuery('#source').get(0).value = markdown;
+    };
+
+
+    var updateHtml = function(content) {
+      if (markdownize(jQuery('.editable').html()) == content) {
+        return;
+      }
+      var html = htmlize(content);
+      jQuery('.editable').html(html);
+    };
+
+    // Update Markdown every time content is modified
+    jQuery('.editable').bind('hallomodified', function(event, data) {
+      showSource(data.content);
+    });
+    jQuery('#source').bind('keyup', function() {
+      updateHtml(this.value);
+    });
+    showSource(jQuery('.editable').html());
+  });
 

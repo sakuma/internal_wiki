@@ -185,6 +185,7 @@ GEM
     rake (10.0.3)
     rdoc (3.12)
       json (~> 1.4)
+    redcarpet (2.2.2)
     ref (1.0.2)
     rspec-core (2.12.2)
     rspec-expectations (2.12.1)
@@ -222,7 +223,6 @@ GEM
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     stringex (1.5.1)
-    textile_editor_helper (0.0.31)
     therubyracer (0.11.0)
       ref
     thor (0.16.0)
@@ -270,10 +270,10 @@ DEPENDENCIES
   pry-remote
   rails (= 3.2.9)
   rails-footnotes
+  redcarpet
   rspec-rails
   sass-rails (~> 3.2.3)
   sextant
   sorcery
-  textile_editor_helper
   therubyracer
   uglifier (>= 1.0.3)

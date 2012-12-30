@@ -16,4 +16,4 @@
 //= require bootstrap
 //= require bootstrap-editable-inline
 //= require bootstrap-editable-rails
-//= require textile-editor
+//= require_tree .
