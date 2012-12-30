@@ -13,7 +13,7 @@ gem 'redcarpet'
 gem 'haml-rails'
 gem 'sorcery'
 gem 'active_decorator'
-gem 'bootstrap-editable-rails'
+gem 'settingslogic'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -23,6 +23,7 @@ group :assets do
   gem 'libv8'
   gem 'therubyracer'
   gem 'bootstrap-sass'
+  gem 'bootstrap-editable-rails'
 end
 
 

@@ -1,0 +1,29 @@
+# defaults: &defaults
+#   cool:
+#     saweet: nested settings
+#   neat_setting: 24
+#   awesome_setting: <%= "Did you know 5 + 5 = #{5 + 5}?" %>
+
+development:
+  # <<: *defaults
+  oauth:
+    google:
+      key: ""
+      secret: ""
+      callback_url: "http://localhost:3000/oauth/callback?provider=google"
+
+test:
+  # <<: *defaults
+  oauth:
+    google:
+      key: ""
+      secret: ""
+      callback_url: "http://localhost:3000/oauth/callback?provider=google"
+
+production:
+  # <<: *defaults
+  oauth:
+    google:
+      key: ""
+      secret: ""
+      callback_url: "http://localhost:3000/oauth/callback?provider=google"

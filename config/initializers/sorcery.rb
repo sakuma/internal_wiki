@@ -1,3 +1,5 @@
+require "#{Rails.root}/lib/settings"
+
 # The first thing you need to configure is which modules you need in your app.
 # The default is nothing which will include only core features (password encryption, login/logout).
 # Available submodules are: :user_activation, :http_basic_auth, :remember_me,
@@ -98,9 +100,9 @@ Rails.application.config.sorcery.configure do |config|
   # config.github.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=github"
   # config.github.user_info_mapping = {:email => "name"}
   #
-  # config.google.key = ""
-  # config.google.secret = ""
-  config.google.callback_url = "http://localhost:3000/oauth/callback?provider=google"
+  config.google.key = Settings.oauth.google.key
+  config.google.secret = Settings.oauth.google.secret
+  config.google.callback_url = Settings.oauth.google.callback_url
   config.google.user_info_mapping = {:email => "email", :name => "name"}
   #
   # To use liveid in development mode you have to replace mydomain.com with
