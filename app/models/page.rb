@@ -29,7 +29,7 @@ class Page < ActiveRecord::Base
   end
 
   def raw_content(version = nil)
-    page(version).text_data
+    new_record? ? "" : page(version).text_data
   end
 
   def date(version = nil)
