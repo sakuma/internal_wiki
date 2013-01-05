@@ -15,6 +15,9 @@
 /tmp
 config/database.yml
 config/application.yml
+config/groonga.yml
 db/schema.rb
+db/groonga/*
+!db/groonga/migrate/
 data
 .rvmrc

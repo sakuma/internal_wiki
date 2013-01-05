@@ -16,6 +16,9 @@ GEM
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
     active_decorator (0.3.3)
+    activegroonga (2.1.2)
+      activemodel (>= 3.2.10)
+      rroonga (>= 2.1.2)
     activemodel (3.2.10)
       activesupport (= 3.2.10)
       builder (~> 3.0.0)
@@ -30,6 +33,8 @@ GEM
     activesupport (3.2.10)
       i18n (~> 0.6)
       multi_json (~> 1.0)
+    archive-zip (0.5.0)
+      io-like (>= 0.3.0)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
     better_errors (0.3.2)
@@ -93,6 +98,7 @@ GEM
       mechanize
       rails (>= 3.0.0)
     io-console (0.3)
+    io-like (0.3.0)
     journey (1.0.4)
     jquery-rails (2.1.4)
       railties (>= 3.0, < 5.0)
@@ -132,6 +138,7 @@ GEM
       faraday (~> 0.7)
       httpauth (~> 0.1)
       multi_json (~> 1.3)
+    pkg-config (1.1.4)
     polyglot (0.3.3)
     posix-spawn (0.3.6)
     pry (0.9.10)
@@ -192,6 +199,10 @@ GEM
       json (~> 1.4)
     redcarpet (2.2.2)
     ref (1.0.2)
+    rroonga (2.1.2)
+      archive-zip
+      json
+      pkg-config
     rspec-core (2.12.2)
     rspec-expectations (2.12.1)
       diff-lcs (~> 1.1.3)
@@ -261,6 +272,7 @@ PLATFORMS
 DEPENDENCIES
   RedCloth
   active_decorator
+  activegroonga
   better_errors
   binding_of_caller
   bootstrap-editable-rails
@@ -284,6 +296,7 @@ DEPENDENCIES
   rails-erd
   rails-footnotes
   redcarpet
+  rroonga
   rspec-rails
   sass-rails
   settingslogic

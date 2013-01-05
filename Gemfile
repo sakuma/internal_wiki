@@ -14,6 +14,8 @@ gem 'haml-rails'
 gem 'sorcery'
 gem 'active_decorator'
 gem 'settingslogic'
+gem 'rroonga'
+gem 'activegroonga'
 
 group :assets do
   gem 'sass-rails'
