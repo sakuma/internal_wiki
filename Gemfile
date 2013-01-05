@@ -9,16 +9,16 @@ gem 'mysql2'
 gem 'jquery-rails'
 gem 'gollum'
 gem 'RedCloth' # for Textile
-gem 'redcarpet'
+gem 'redcarpet' # for Markdown
 gem 'haml-rails'
 gem 'sorcery'
 gem 'active_decorator'
 gem 'settingslogic'
 
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-  gem 'uglifier', '>= 1.0.3'
+  gem 'sass-rails'
+  gem 'coffee-rails'
+  gem 'uglifier'
   gem 'jquery-ui-rails'
   gem 'libv8'
   gem 'therubyracer'
