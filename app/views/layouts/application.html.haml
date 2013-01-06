@@ -44,9 +44,10 @@
               - else
                 %li= link_to t('terms.new_wiki'), new_wiki_information_path
               %li
-                %form.form-inline
-                  %input.input-medium.search-query{:type => "text", :placeholder => "Search word..."}/
-                  %button.btn{:type => "submit"}= t('terms.search')
+                = form_tag(search_path, :class => 'form-inline' ) do
+                  .input-medium.search-query= text_field_tag :query, nil, :placeholder => "Search word..."
+                  = submit_tag t('terms.search'), :class => 'btn btn-primary'
+
               - if current_user
                 %li= "Logged in as #{current_user.name}"
                 %li= link_to "Log out", logout_path
