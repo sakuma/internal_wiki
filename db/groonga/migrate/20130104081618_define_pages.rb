@@ -1,6 +1,6 @@
 class DefinePages < ActiveGroonga::Migration
   def up
-    create_table("pages", :type => :hash, :key_type => "ShortText") do |table|
+    create_table("pages", :type => :hash) do |table|
       table.text("body")
     end
   end
