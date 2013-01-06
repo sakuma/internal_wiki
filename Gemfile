@@ -5,7 +5,10 @@ gem 'rails'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql2'
+gem 'sqlite3'
+# gem 'mysql2'
+# gem 'pg'
+
 gem 'jquery-rails'
 gem 'gollum'
 gem 'RedCloth' # for Textile
