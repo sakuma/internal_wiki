@@ -1,0 +1,9 @@
+-# = content_for :menu_link do
+-#   = render 'menu_link'
+
+%h1= t('terms.index_page')
+
+- @pages.each do |page|
+  %h4= link_to page.name, wiki_information_page_path(page.wiki_information_id, page)
+  = highlight(page.content, @search_word)
+

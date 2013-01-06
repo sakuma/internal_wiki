@@ -1,5 +1,7 @@
 InternalWiki::Application.routes.draw do
 
+  match "search/(*search_request)", :to => "search#index", :as => 'search'
+
   get "login" => "sessions#new", :as => "login"
   post "login" => "sessions#create"
   delete "logout" => "sessions#destroy", :as => "logout"
