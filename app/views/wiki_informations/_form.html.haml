@@ -3,11 +3,10 @@
   = error_messages_for(@wiki_info)
 
   .field
-    = f.label :name
-    = f.text_field :name
+    = f.text_field :name, :required => true, :placeholder => WikiInformation.human_attribute_name('name')
   .field
     = f.label :is_private
     = f.select :is_private, [[t('terms.publicity'), false], [t('terms.limited_publicity'), true]]
 
   .actions
-    = f.submit t('actions.save')
+    = f.submit t('actions.save'), :class => 'btn btn-primary'
