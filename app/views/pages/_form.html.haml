@@ -11,9 +11,10 @@
   = f.text_area :body, :class => 'span9', :rows => 10, :id => 'source'
   = f.submit (newly ? t('actions.regist') : t('actions.update')), :class => 'btn btn-primary'
 
-.editable= @page.raw_content
+%fieldset
+  %legend Preview
+  .well.well-small.editable= @page.raw_content
 
-  %hr
 
 :javascript
 
