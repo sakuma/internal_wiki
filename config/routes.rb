@@ -22,7 +22,6 @@ InternalWiki::Application.routes.draw do
     resources :pages do
       member do
         put 'revert'
-        post 'preview'
         get 'histories'
       end
     end

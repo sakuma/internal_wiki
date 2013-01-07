@@ -13,13 +13,7 @@
 
 .editable= @page.raw_content
 
-- unless @page.new_record?
-  = form_for(@page, :url => preview_wiki_information_page_path(@wiki_info.id, @page), :remote => true, :html => {:method => :post, :id => 'preview-link'} ) do |f|
-    = f.hidden_field :body, :id => 'preview_body'
-    = f.submit 'preview', :class => 'btn btn-inverse'
-
   %hr
-
 
 :javascript
 

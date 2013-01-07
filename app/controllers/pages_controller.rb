@@ -1,8 +1,8 @@
 class PagesController < ApplicationController
   layout :get_layout
 
-  before_filter :find_wiki_information, :only => [:index, :show, :new, :create, :edit, :update, :destroy, :preview, :histories, :revert]
-  before_filter :find_page, :only => [:show, :edit, :update, :destroy, :preview, :histories, :revert]
+  before_filter :find_wiki_information, :only => [:index, :show, :new, :create, :edit, :update, :destroy, :histories, :revert]
+  before_filter :find_page, :only => [:show, :edit, :update, :destroy, :histories, :revert]
   before_filter :find_body, :only => [:edit]
 
   def index
@@ -51,13 +51,6 @@ class PagesController < ApplicationController
   def destroy
     @page.destroy_by(current_user)
     redirect_to wiki_information_path(@wiki_info), :notice => t('terms.deleted_page')
-  end
-
-  def preview
-    @preview = @page.preview(params[:page][:body])
-    respond_to do |format|
-      format.js
-    end
   end
 
   def revert
