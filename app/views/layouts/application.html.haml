@@ -37,15 +37,15 @@
             %span.icon-bar
             %span.icon-bar
           .brand= link_to "InternalWiki", root_path
-          .container.nav-collapse
+          .nav-collapse
             %ul.nav
               - if content_for?(:menu_link)
                 = yield(:menu_link)
               - else
                 %li= link_to t('terms.new_wiki'), new_wiki_information_path
               %li
-                = form_tag(search_path, :class => 'form-inline' ) do
-                  .input-medium.search-query= text_field_tag :query, nil, :placeholder => "Search word..."
+                = form_tag('#', :class => 'form-search', :id => 'search-word-form') do
+                  = text_field_tag :query, @search_word, :placeholder => "Search word...", :class => 'input-medium search-query', :id => 'search-query'
                   = submit_tag t('terms.search'), :class => 'btn btn-primary'
 
               - if current_user
@@ -72,3 +72,9 @@
                     %p
                       = link_to(truncate(page.name, :length => 15), wiki_information_page_path(page.wiki_information, page))
                       = link_to(truncate("(#{page.wiki_information.name})", :length => 10), wiki_information_path(page.wiki_information))
+
+:javascript
+  $('#search-word-form').on('submit', function(){
+    this.action = "search?q=" + $('#search-word-form #search-query').val();
+    this.submit();
+  });

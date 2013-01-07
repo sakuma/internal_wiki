@@ -22,6 +22,8 @@ ja:
     new_page: "新規ページ"
     index_wiki: "Wiki一覧"
     index_user: "ユーザ一覧"
+    index_search: "検索結果"
+    not_found_seach_word_of: "'%{word}' を含むページは見つかりませんでした。"
     publicity: "公開"
     limited_publicity: "限定公開"
     user_information_of: "%{user}さんの情報"
