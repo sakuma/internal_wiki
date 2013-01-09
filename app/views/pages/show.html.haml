@@ -24,11 +24,10 @@
     %p= link_to "#{h[:date].to_s(:db)} (by #{h[:author]})", histories_wiki_information_page_path(@wiki_info, @page, :sha => h[:sha])
   = link_to t('terms.histories_more'), histories_wiki_information_page_path(@wiki_info, @page), :id => 'histories_more', :class => 'btn btn-inverse'
 
-:javascript
-  $(function(){
-    $('#page_name_link').editable({
+:coffeescript
+  $ ->
+    $('#page_name_link').editable {
       title: "Enter Page name",
       type: 'text',
       url: "#{wiki_information_page_path(@wiki_info, @page)}"
-    });
-  });
+    }

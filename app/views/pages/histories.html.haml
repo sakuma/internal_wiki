@@ -35,10 +35,8 @@
     = simple_format h(@page.diff(params[:sha]))
   %hr
 
-:javascript
-  $(function($) {
-    $('tbody tr[data-href]').delegate('*', 'click', function() {
-      window.location = $(this).parents('tr').data('href');
-      return false;
-    });
-  });
+:coffeescript
+  $ ->
+    $('tbody tr[data-href]').delegate '*', 'click', ->
+      window.location = $(this).parents('tr').data('href')
+
