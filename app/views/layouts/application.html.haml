@@ -73,8 +73,7 @@
                       = link_to(truncate(page.name, :length => 15), wiki_information_page_path(page.wiki_information, page))
                       = link_to(truncate("(#{page.wiki_information.name})", :length => 10), wiki_information_path(page.wiki_information))
 
-:javascript
-  $('#search-word-form').on('submit', function(){
-    this.action = "search?q=" + $('#search-word-form #search-query').val();
-    this.submit();
-  });
+:coffeescript
+  $('#search-word-form').on 'submit', ->
+    this.action = "/search?q=" + $('#search-word-form #search-query').val()
+    this.submit()
