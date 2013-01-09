@@ -13,59 +13,42 @@
 
 %fieldset
   %legend Preview
-  .well.well-small.editable= @page.raw_content
+  .well.well-small.editable= raw @page.content
 
 
-:javascript
+:coffeescript
 
-  jQuery(document).ready(function() {
-    // Enable Hallo editor
-    jQuery('.editable').hallo({
-      plugins: {
-        'halloformat': {},
-        'halloblock': {},
-        'hallolists': {},
+  $(document).ready ->
+    # Enable Hallo editor
+    $('.editable').hallo
+      plugins:
+        'halloformat': {}
+        'halloblock': {}
+        'hallolists': {}
         'halloreundo': {}
-      }
-    });
 
-    var markdownize = function(content) {
-      var html = content.split("\n").map($.trim).filter(function(line) {
-        return line != "";
-      }).join("\n");
-      return toMarkdown(html);
-    };
+    markdownize = (content) ->
+      html = content.split("\n").map($.trim).join("\n")
+      toMarkdown(html)
 
-    var converter = new Showdown.converter();
-    var htmlize = function(content) {
-      return converter.makeHtml(content);
-    };
+    converter = new Showdown.converter()
+    htmlize = (content) -> converter.makeHtml content
 
-    // Method that converts the HTML contents to Markdown
-    var showSource = function(content) {
-      var markdown = markdownize(content);
-      if (jQuery('#source').get(0).value == markdown) {
-        return;
-      }
-      jQuery('#source').get(0).value = markdown;
-    };
+    # Method that converts the HTML contents to Markdown
+    showSource = (content) ->
+      markdown = markdownize content
+      return if $('#source').get(0).value is markdown
+      $('#source').get(0).value is markdown
 
+    updateHtml = (content) ->
+      return if markdownize($('.editable').html()) is content
+      html = htmlize content
+      $('.editable').html(html)
 
-    var updateHtml = function(content) {
-      if (markdownize(jQuery('.editable').html()) == content) {
-        return;
-      }
-      var html = htmlize(content);
-      jQuery('.editable').html(html);
-    };
+    # Update Markdown every time content is modified
+    $('.editable').bind 'hallomodified', (event, data) -> showSource data.content
 
-    // Update Markdown every time content is modified
-    jQuery('.editable').bind('hallomodified', function(event, data) {
-      showSource(data.content);
-    });
-    jQuery('#source').bind('keyup', function() {
-      updateHtml(this.value);
-    });
-    showSource(jQuery('.editable').html());
-  });
+    $('#source').bind 'keyup', -> updateHtml this.value
+
+    showSource $('.editable').html()
 

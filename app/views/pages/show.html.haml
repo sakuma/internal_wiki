@@ -26,8 +26,7 @@
 
 :coffeescript
   $ ->
-    $('#page_name_link').editable {
-      title: "Enter Page name",
-      type: 'text',
+    $('#page_name_link').editable
+      title: "Enter Page name"
+      type: 'text'
       url: "#{wiki_information_page_path(@wiki_info, @page)}"
-    }
