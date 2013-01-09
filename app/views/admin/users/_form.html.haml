@@ -39,22 +39,16 @@
     .controls
       = f.submit (newly ? t('actions.add_user') : t('actions.update')), :class => 'btn btn-primary'
 
-:javascript
-  function targetId(domId){
-    if (domId === "admin_user_flag")
-      return "#limited_user_flag_area"
+:coffeescript
+  targetId = (domId) ->
+    if domId == "admin_user_flag"
+      "#limited_user_flag_area"
     else
-      return "#admin_user_flag_area"
-  }
+      "#admin_user_flag_area"
 
-  $(function() {
-    var checkedType = $("input:checked").attr("id");
-    if (checkedType) {
-      $(targetId(checkedType)).toggle();
-    }
-
-    $(":checkbox").on("click", function() {
-      $(targetId(this.id)).animate({opacity: "toggle"}, "slow");
-    });
-  });
+  $ ->
+    checkedType = $("input:checked").attr "id"
+    $(targetId(checkedType)).toggle() if checkedType
+    $(":checkbox").on "click", ->
+      $(targetId(this.id)).animate {opacity: "toggle"}, "slow"
 

@@ -20,11 +20,10 @@
 
     = submit_tag t('terms.login'), :class => 'btn btn-primary'
 
-:javascript
-  $(function(){
-    $('a.login-type-button').on("click", function(){
-      $('#original-login-area').animate({opacity: "toggle"}, "slow");
-      $('#google-login-area').animate({opacity: "toggle"}, "slow");
-      $('div.alert').hide();
-    })
-  });
+:coffeescript
+  $ ->
+    $('a.login-type-button').on 'click', ->
+      $('#original-login-area').animate {opacity: "toggle"}, "slow"
+      $('#google-login-area').animate {opacity: "toggle"}, "slow"
+      $('div.alert').hide()
+
