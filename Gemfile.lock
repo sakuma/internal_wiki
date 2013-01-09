@@ -50,6 +50,9 @@ GEM
       uniform_notifier
     choice (0.1.6)
     coderay (1.0.8)
+    coffee-filter (0.1.1)
+      coffee-script (>= 2.2.0)
+      haml (>= 3.0.18)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -278,6 +281,7 @@ DEPENDENCIES
   bootstrap-editable-rails
   bootstrap-sass
   bullet
+  coffee-filter
   coffee-rails
   gollum
   haml-rails

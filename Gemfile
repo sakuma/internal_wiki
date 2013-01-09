@@ -23,6 +23,7 @@ gem 'activegroonga'
 group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
+  gem 'coffee-filter'
   gem 'uglifier'
   gem 'jquery-ui-rails'
   gem 'libv8'
