@@ -17,7 +17,6 @@
   = link_to @page.name, [@wiki_info, @page]
   = t('terms.history_of')
 
-= raw @history_content
 - if @history_content
 
   %h4
@@ -28,7 +27,7 @@
     = form_for @page, :url => revert_wiki_information_page_path(@wiki_info, @page, :sha => params[:sha]) do |f|
       = f.submit t('actions.revert_page'), :class => 'btn btn-warning', :confirm => t('actions.confirm_revert')
 
-    = @history_content
+    = raw @history_content
 
   %hr
     %h4 Diff
