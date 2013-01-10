@@ -37,7 +37,8 @@ class Page < ActiveRecord::Base
   end
 
   def diff(version = nil)
-    page(version).version.diffs.first.diff
+    diff = page(version).version.diffs.first.diff
+    diff.respond_to?(:force_encoding) ? diff.force_encoding('UTF-8') : diff
   end
 
   def preview(data)
