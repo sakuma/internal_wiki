@@ -33,6 +33,7 @@ GEM
     activesupport (3.2.11)
       i18n (~> 0.6)
       multi_json (~> 1.0)
+    addressable (2.3.2)
     archive-zip (0.5.0)
       io-like (>= 0.3.0)
     arel (3.0.2)
@@ -60,17 +61,35 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.4.0)
+    cookiejar (0.3.0)
     coolline (0.4.0)
     daemons (1.1.9)
     diff-lcs (1.1.3)
     domain_name (0.5.7)
       unf (~> 0.0.3)
+    em-http-request (1.0.3)
+      addressable (>= 2.2.3)
+      cookiejar
+      em-socksify
+      eventmachine (>= 1.0.0.beta.4)
+      http_parser.rb (>= 0.5.3)
+    em-socksify (0.2.1)
+      eventmachine (>= 1.0.0.beta.4)
     erubis (2.7.0)
     eventmachine (1.0.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
     faraday (0.8.4)
       multipart-post (~> 1.1)
+    faye (0.8.8)
+      cookiejar (>= 0.3.0)
+      em-http-request (>= 0.3.0)
+      eventmachine (>= 0.12.0)
+      faye-websocket (>= 0.4.0)
+      rack (>= 1.0.0)
+      yajl-ruby (>= 1.0.0)
+    faye-websocket (0.4.6)
+      eventmachine (>= 0.12.0)
     github-markdown (0.5.3)
     github-markup (0.7.5)
     gollum (2.4.11)
@@ -95,6 +114,7 @@ GEM
       haml (~> 3.1)
       railties (>= 3.1, < 4.1)
     hike (1.2.1)
+    http_parser.rb (0.5.3)
     httpauth (0.2.0)
     i18n (0.6.1)
     i18n_generators (1.2.1)
@@ -147,6 +167,8 @@ GEM
     pkg-config (1.1.4)
     polyglot (0.3.3)
     posix-spawn (0.3.6)
+    private_pub (1.0.3)
+      faye
     pry (0.9.10)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
@@ -293,6 +315,7 @@ DEPENDENCIES
   jquery-ui-rails
   libv8
   meta_request
+  private_pub
   pry-coolline
   pry-doc
   pry-nav
