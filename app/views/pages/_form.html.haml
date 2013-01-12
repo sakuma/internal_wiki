@@ -8,47 +8,27 @@
   - if @page.new_record?
     .field
       = f.text_field :name, :required => true, :placeholder => Page.human_attribute_name('name')
-  = f.text_area :body, :class => 'span9', :rows => 10, :id => 'source'
+  = f.text_area :body, :class => 'span9', :rows => 10, :id => 'markdown-text'
   = f.submit (newly ? t('actions.regist') : t('actions.update')), :class => 'btn btn-primary'
 
 %fieldset
   %legend Preview
-  .well.well-small.editable= raw @page.content
+  .well.well-small#preview-result
 
 
 :coffeescript
+  $ ->
+    parse_md = ->
+      result = Markdown $('#markdown-text').val()
+      $('#preview-result').html result
 
-  $(document).ready ->
-    # Enable Hallo editor
-    $('.editable').hallo
-      plugins:
-        'halloformat': {}
-        'halloblock': {}
-        'hallolists': {}
-        'halloreundo': {}
+    prev = initial = $('#markdown-text').val()
 
-    markdownize = (content) ->
-      html = content.split("\n").map($.trim).join("\n")
-      toMarkdown(html)
+    $('#markdown-text').keyup ->
+      markdown_text = $('#markdown-text').val()
+      if (prev != markdown_text)
+        prev = markdown_text
+        parse_md()
 
-    converter = new Showdown.converter()
-    htmlize = (content) -> converter.makeHtml content
-
-    # Method that converts the HTML contents to Markdown
-    showSource = (content) ->
-      markdown = markdownize content
-      return if $('#source').get(0).value is markdown
-      $('#source').get(0).value is markdown
-
-    updateHtml = (content) ->
-      return if markdownize($('.editable').html()) is content
-      html = htmlize content
-      $('.editable').html(html)
-
-    # Update Markdown every time content is modified
-    $('.editable').bind 'hallomodified', (event, data) -> showSource data.content
-
-    $('#source').bind 'keyup', -> updateHtml this.value
-
-    showSource $('.editable').html()
+    parse_md()
 
