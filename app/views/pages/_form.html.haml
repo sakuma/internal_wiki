@@ -5,11 +5,12 @@
 
   = error_messages_for(@page)
 
-  - if @page.new_record?
-    .field
-      = f.text_field :name, :required => true, :placeholder => Page.human_attribute_name('name')
-  = f.text_area :body, :class => 'span9', :rows => 10, :id => 'markdown-text'
-  = f.submit (newly ? t('actions.regist') : t('actions.update')), :class => 'btn btn-primary'
+  #page-content
+    - if @page.new_record?
+      .field
+        = f.text_field :name, :required => true, :placeholder => Page.human_attribute_name('name')
+    = f.text_area :body, :class => 'span9', :rows => 10, :id => 'markdown-text'
+    = f.submit (newly ? t('actions.regist') : t('actions.update')), :class => 'btn btn-primary'
 
 %fieldset
   %legend Preview

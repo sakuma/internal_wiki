@@ -13,7 +13,7 @@
   = link_to truncate(@page.name, :length => 20), '#', :id => "page_name_link", :"data-resource" => "page", :"data-name" => "name", :remote => true, :method => :put
 
 %hr
-= raw(@page.content)
+#page-content= raw(@page.content)
 %hr
 
 %small.pull-right= "Last edited by #{@page.last_editor_name} #{time_ago_in_words(@page.updated_at)}"
