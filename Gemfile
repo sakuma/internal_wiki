@@ -20,6 +20,10 @@ gem 'settingslogic'
 gem 'rroonga'
 gem 'activegroonga'
 
+# WebSocket
+gem "private_pub"
+gem 'thin'
+
 group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
