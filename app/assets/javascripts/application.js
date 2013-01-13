@@ -16,4 +16,5 @@
 //= require bootstrap
 //= require bootstrap-editable-inline
 //= require bootstrap-editable-rails
+//= require private_pub
 //= require_tree .

@@ -8,4 +8,7 @@
 
 = render 'form'
 
+= subscribe_to "/pages/#{@page.id}"
+
+
 .pull-right= link_to t('actions.show_detail'), wiki_information_page_path(@wiki_info, @page)
