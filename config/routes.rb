@@ -23,6 +23,7 @@ InternalWiki::Application.routes.draw do
       member do
         put 'revert'
         get 'histories'
+        post 'preview', :as => 'preview'
       end
     end
   end

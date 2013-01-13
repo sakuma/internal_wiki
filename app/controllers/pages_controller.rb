@@ -1,8 +1,8 @@
 class PagesController < ApplicationController
   layout :get_layout
 
-  before_filter :find_wiki_information, :only => [:index, :show, :new, :create, :edit, :update, :destroy, :histories, :revert]
-  before_filter :find_page, :only => [:show, :edit, :update, :destroy, :histories, :revert]
+  before_filter :find_wiki_information, :only => [:index, :show, :new, :create, :edit, :update, :destroy, :histories, :revert, :preview]
+  before_filter :find_page, :only => [:show, :edit, :update, :destroy, :histories, :revert, :preview]
   before_filter :find_body, :only => [:edit]
 
   def index
@@ -46,6 +46,10 @@ class PagesController < ApplicationController
         format.json { render json: @page.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def preview
+    @body = params[:body]
   end
 
   def destroy

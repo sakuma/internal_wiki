@@ -16,7 +16,6 @@
   %legend Preview
   .well.well-small#preview-result
 
-
 :coffeescript
   $ ->
     parse_md = ->
@@ -24,12 +23,19 @@
       $('#preview-result').html result
 
     prev = initial = $('#markdown-text').val()
-
     $('#markdown-text').keyup ->
       markdown_text = $('#markdown-text').val()
       if (prev != markdown_text)
         prev = markdown_text
-        parse_md()
+        $.ajax
+          type: "POST"
+          url: "#{preview_wiki_information_page_path(@wiki_info, @page)}"
+          data:
+            edited_user_id: "#{current_user.id}"
+            body: markdown_text
+          dataType: 'json'
+        # parse_md()
 
+    # 初回描画
     parse_md()
 
