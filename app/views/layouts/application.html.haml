@@ -49,7 +49,7 @@
                   = submit_tag t('terms.search'), :class => 'btn btn-primary'
 
               - if current_user
-                %li= "Logged in as #{current_user.name}"
+                %li= image_tag avatar_url(current_user, :size => 50)
                 %li= link_to "Log out", logout_path
                 - if current_user.admin?
                   %li= link_to t('terms.user_control'), admin_users_path
