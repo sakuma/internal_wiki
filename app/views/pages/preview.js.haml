@@ -1,5 +1,5 @@
 - publish_to "/pages/#{@page.id}" do
   :plain
-    $('#markdown-text').val("#{@body}");
+    $('#markdown-text').val("#{escape_javascript(@body)}");
     result = Markdown($('#markdown-text').val());
     $('#preview-result').html(result);
