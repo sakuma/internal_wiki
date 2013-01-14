@@ -1,12 +1,15 @@
-= form_for @wiki_info do |f|
+.offset2
+  = form_for @wiki_info, :html => {:class => 'form-horizontal'} do |f|
 
-  = error_messages_for(@wiki_info)
+    = error_messages_for(@wiki_info)
 
-  .field
-    = f.text_field :name, :required => true, :placeholder => WikiInformation.human_attribute_name('name')
-  .field
-    = f.label :is_private
-    = f.select :is_private, [[t('terms.publicity'), false], [t('terms.limited_publicity'), true]]
-
-  .actions
-    = f.submit t('actions.save'), :class => 'btn btn-primary'
+    .control-group
+      .control-label= f.label :name
+      .controls= f.text_field :name, :required => true, :placeholder => 'wiki name...'
+    .control-group
+      .control-label= f.label :is_private
+      .controls= f.select :is_private, [[t('terms.publicity'), false], [t('terms.limited_publicity'), true]]
+    .control-group
+      .controls.actions
+        = f.submit t('actions.save'), :class => 'btn btn-primary'
+        = link_to t('actions.return_back'), @wiki_info, :class => 'btn'

@@ -15,6 +15,7 @@ ja:
     confirm_delete: "削除します。よろしいですか？"
     confirm_revert: "ページの内容を復元します。よろしいですか？"
     revert_page: "復元する"
+    return_back: "戻る"
 
   terms:
     index_page: "ページ一覧"
