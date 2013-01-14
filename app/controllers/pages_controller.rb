@@ -39,6 +39,7 @@ class PagesController < ApplicationController
     end
     respond_to do |format|
       if @page.update_attributes(params[:page].merge(:updated_by => current_user.id))
+        PrivatePub.publish_to "/pages/#{@page.id}", :body => params[:page][:body], :editing_word => ''
         format.html { redirect_to [@wiki_info, @page], :notice => t('terms.updated_page') }
         format.json { head :no_content }
       else
@@ -50,6 +51,10 @@ class PagesController < ApplicationController
 
   def preview
     @body = params[:body]
+    @editor = User.where(id: params[:edited_user_id].to_i).first
+    PrivatePub.publish_to "/pages/#{@page.id}", :body => @body,
+      :editing_word => @editor ? I18n.t('terms.editing_by', :target => @editor.name) : ''
+    render :nothing => true
   end
 
   def destroy

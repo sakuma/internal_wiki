@@ -6,6 +6,8 @@
   &raquo;
   = @page.name
 
+#editing-user.pull-right{:style => 'display: none;'}
+
 = render 'form'
 
 = subscribe_to "/pages/#{@page.id}"
@@ -38,8 +40,12 @@
         prev = markdown_text
         ajax_request "#{preview_wiki_information_page_path(@wiki_info, @page)}", markdown_text
 
-    $('#wiki-page-form').submit ->
-      ajax_request "#{preview_wiki_information_page_path(@wiki_info, @page)}", get_markdown_text()
+    PrivatePub.subscribe "/pages/#{@page.id}", (data, channel) ->
+      $('#markdown-text').val data.body
+      result = Markdown $('#markdown-text').val()
+      $('#preview-result').html result
+      $('#editing-user').html(data.editing_word)
+      $('#editing-user').show()
 
     # 初回描画
     parse_md()
