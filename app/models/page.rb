@@ -37,8 +37,7 @@ class Page < ActiveRecord::Base
   end
 
   def diff(version = nil)
-    diff = page(version).version.diffs.first.diff
-    diff.respond_to?(:force_encoding) ? diff.force_encoding('UTF-8') : diff
+    force_encoding_of(page(version).version.diffs.first.diff)
   end
 
   def preview(data)
@@ -62,7 +61,9 @@ class Page < ActiveRecord::Base
     ary = page.versions
     ary = ary.take(3) unless everything
     ary.map do |version|
-      {:author => version.author.name, :date => version.committed_date, :sha => version.sha}
+      { :author => force_encoding_of(version.author.name),
+        :date => force_encoding_of(version.committed_date),
+        :sha => force_encoding_of(version.sha) }
     end
   end
 
@@ -94,4 +95,9 @@ class Page < ActiveRecord::Base
   def delete_page(author_name)
     wiki.delete_page(page, {:message => "Deleted page --- '#{self.name}'", :name => author_name, :author => author_name})
   end
+
+  def force_encoding_of(obj)
+    obj.respond_to?(:force_encoding) ? obj.force_encoding('UTF-8') : obj
+  end
+
 end
