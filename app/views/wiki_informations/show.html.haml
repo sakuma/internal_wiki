@@ -31,8 +31,9 @@
 %div{:style => "text-align:center"}
   %h3= t('terms.index_page')
 
-  - @wiki_info.pages.each do |page|
-    = link_to page.name, wiki_information_page_path(@wiki_info, page)
+  #tag-cloud
+    - @wiki_info.pages.each do |page|
+      = link_to page.name, wiki_information_page_path(@wiki_info, page)
 
 :coffeescript
   $ ->
