@@ -7,3 +7,15 @@
   = t('terms.new_page')
 
 = render 'form'
+
+
+:coffeescript
+  $ ->
+    parse_md = ->
+      result = Markdown $('#markdown-text').val()
+      $('#preview-result').html result
+    $('#markdown-text').keyup ->
+      markdown_text = $('#markdown-text').val()
+      if (prev != markdown_text)
+        prev = markdown_text
+        parse_md()
