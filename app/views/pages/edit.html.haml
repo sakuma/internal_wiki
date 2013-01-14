@@ -16,9 +16,11 @@
 :coffeescript
   $ ->
     parse_md = ->
-      result = Markdown $('#markdown-text').val()
+      result = Markdown get_markdown_text()
       $('#preview-result').html result
-    ajax_request = (request_url, body)->
+    get_markdown_text = ->
+      $('#markdown-text').val()
+    ajax_request = (request_url, body) ->
       $.ajax
         type: "POST"
         url: request_url
@@ -26,13 +28,18 @@
           edited_user_id: "#{current_user.id}"
           body: body
         dataType: 'json'
+      .error ->
+        parse_md()
 
-    prev = initial = $('#markdown-text').val()
+    prev = initial = get_markdown_text()
     $('#markdown-text').keyup ->
-      markdown_text = $('#markdown-text').val()
-      if (prev != markdown_text)
+      markdown_text = get_markdown_text()
+      unless prev == markdown_text
         prev = markdown_text
-        ajax_request("#{preview_wiki_information_page_path(@wiki_info, @page)}", markdown_text)
+        ajax_request "#{preview_wiki_information_page_path(@wiki_info, @page)}", markdown_text
+
+    $('#wiki-page-form').submit ->
+      ajax_request "#{preview_wiki_information_page_path(@wiki_info, @page)}", get_markdown_text()
 
     # 初回描画
     parse_md()

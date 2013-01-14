@@ -1,7 +1,7 @@
 - newly = @page.new_record?
 - form_url = newly ? wiki_information_pages_path(@wiki_info) : wiki_information_page_path(@wiki_info, @page)
 - http_method = newly ? :post : :put
-= form_for(@page, :url => form_url, :method => http_method) do |f|
+= form_for(@page, :url => form_url, :html => {:method => http_method, :id => 'wiki-page-form'}) do |f|
 
   = error_messages_for(@page)
 
