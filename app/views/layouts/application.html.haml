@@ -31,21 +31,26 @@
 
     .container
       .row
-        .span9
-          = yield
-        .span3
-          - if content_for?(:right_area)
-            = yield(:right_area)
+        .span12
+          - if content_for?(:page_editable)
+            = yield(:page_editable)
           - else
-            .well.sidebar-nav
-              %h4
-                = t('terms.recent_update_pages')
-              %ul.nav.nav-list
-                - Page.accessible_by(current_user).recently.each do |page|
-                  %li
-                    %p
-                      = link_to(truncate(page.name, :length => 15), wiki_information_page_path(page.wiki_information, page))
-                      = link_to(truncate("(#{page.wiki_information.name})", :length => 10), wiki_information_path(page.wiki_information))
+            .row
+              .span9
+                = yield
+              .span3
+                - if content_for?(:right_area)
+                  = yield(:right_area)
+                - else
+                  .well.sidebar-nav
+                    %h4
+                      = t('terms.recent_update_pages')
+                    %ul.nav.nav-list
+                      - Page.accessible_by(current_user).recently.each do |page|
+                        %li
+                          %p
+                            = link_to(truncate(page.name, :length => 15), wiki_information_page_path(page.wiki_information, page))
+                            = link_to(truncate("(#{page.wiki_information.name})", :length => 10), wiki_information_path(page.wiki_information))
 
 :coffeescript
   $('#search-word-form').on 'submit', ->

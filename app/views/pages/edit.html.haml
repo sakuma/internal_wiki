@@ -1,52 +1,50 @@
 = content_for :menu_link do
   = render 'menu_link'
 
-%h2
-  = @wiki_info.name
-  &raquo;
-  = @page.name
+= content_for :page_editable do
+  .row
+    %h2
+      = @wiki_info.name
+      &raquo;
+      = @page.name
 
-#editing-user.pull-right{:style => 'display: none;'}
+    = render 'form'
 
-= render 'form'
-
-= subscribe_to "/pages/#{@page.id}"
+    = subscribe_to "/pages/#{@page.id}"
 
 
-.pull-right= link_to t('actions.show_detail'), wiki_information_page_path(@wiki_info, @page)
+  :coffeescript
+    $ ->
+      parse_md = ->
+        result = Markdown get_markdown_text()
+        $('#preview-result').html result
+      get_markdown_text = ->
+        $('#markdown-text').val()
+      sending_page_body = (request_url, body) ->
+        $.ajax
+          type: "POST"
+          url: request_url
+          data:
+            edited_user_id: "#{current_user.id}"
+            body: body
+          dataType: 'json'
+        .error ->
+          parse_md()
 
-:coffeescript
-  $ ->
-    parse_md = ->
-      result = Markdown get_markdown_text()
-      $('#preview-result').html result
-    get_markdown_text = ->
-      $('#markdown-text').val()
-    ajax_request = (request_url, body) ->
-      $.ajax
-        type: "POST"
-        url: request_url
-        data:
-          edited_user_id: "#{current_user.id}"
-          body: body
-        dataType: 'json'
-      .error ->
-        parse_md()
+      prev = initial = get_markdown_text()
+      $('#markdown-text').keyup ->
+        markdown_text = get_markdown_text()
+        unless prev == markdown_text
+          prev = markdown_text
+          sending_page_body "#{preview_wiki_information_page_path(@wiki_info, @page)}", markdown_text
 
-    prev = initial = get_markdown_text()
-    $('#markdown-text').keyup ->
-      markdown_text = get_markdown_text()
-      unless prev == markdown_text
-        prev = markdown_text
-        ajax_request "#{preview_wiki_information_page_path(@wiki_info, @page)}", markdown_text
+      PrivatePub.subscribe "/pages/#{@page.id}", (data, channel) ->
+        $('#markdown-text').val data.body
+        result = Markdown $('#markdown-text').val()
+        $('#preview-result').html result
+        $('#editing-user').html(data.editing_word)
+        $('#editing-user').show()
 
-    PrivatePub.subscribe "/pages/#{@page.id}", (data, channel) ->
-      $('#markdown-text').val data.body
-      result = Markdown $('#markdown-text').val()
-      $('#preview-result').html result
-      $('#editing-user').html(data.editing_word)
-      $('#editing-user').show()
-
-    # 初回描画
-    parse_md()
+      # parse on firstview
+      parse_md()
 
