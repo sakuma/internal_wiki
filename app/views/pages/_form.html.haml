@@ -17,3 +17,15 @@
 
 .span6
   .well.well-small#preview-result
+
+:coffeescript
+  $ ->
+    $('#markdown-text').autosize({append: "\n"})
+
+:css
+  #markdown-text {
+    vertical-align: top;
+    transition: height 0.2s;
+    -webkit-transition: height 0.2s;
+    -moz-transition: height 0.2s;
+   }
