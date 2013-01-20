@@ -9,6 +9,9 @@ InternalWiki::Application.routes.draw do
   match "oauth/callback" => "sessions#callback"
   match "oauth/:provider" => "sessions#oauth", :as => :auth_at_provider
 
+  match "/setting" => "users#setting", :as => 'user_setting', :via => :get
+  match "/setting/:id" => "users#update", :as => 'update_setting', :via => :put
+
   namespace :admin do
     resources :users do
       member do
