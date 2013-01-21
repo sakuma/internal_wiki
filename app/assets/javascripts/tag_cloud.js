@@ -1,9 +1,9 @@
 /**
  * http://taobao.jp(Copyrights@taobao.jp)
  */
-var radius = 150;
+var radius = 200;
 var dtr = Math.PI/180;
-var d=300;
+var d=400;
 
 var mcList = [];
 var active = false;
