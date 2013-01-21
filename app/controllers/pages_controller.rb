@@ -39,7 +39,7 @@ class PagesController < ApplicationController
     end
     respond_to do |format|
       if @page.update_attributes(params[:page].merge(:updated_by => current_user.id))
-        PrivatePub.publish_to "/pages/#{@page.id}", :body => params[:page][:body], :editing_word => ''
+        PrivatePub.publish_to "/pages/#{@page.id}", :body => params[:page][:body], :editing_word => '' rescue nil
         format.html { redirect_to [@wiki_info, @page], :notice => t('terms.updated_page') }
         format.json { head :no_content }
       else
