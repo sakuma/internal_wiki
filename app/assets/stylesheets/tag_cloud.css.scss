@@ -1,0 +1,38 @@
+@CHARSET "utf-8";
+
+/**
+ * http://taobao.jp(Copyrights@taobao.jp)
+ */
+
+#tag-cloud {
+ position:relative;
+ width:500px;
+ height:500px;
+ margin: 0 auto 0 auto;
+ float:center;
+ text-align:center;
+
+  a {
+   position:absolute;
+   top:0px;
+   left:0px;
+   color:#000;
+   font-weight:bold;
+   text-decoration:none;
+   padding: 3px 6px;
+  }
+
+  a:hover {
+   border: 1px solid #eee;
+   background: #7cfc00;
+  }
+
+  .red { color:red; }
+  .orange { color:orange; }
+  .yellow { color:yellow; }
+  .green { color:green; }
+  .blue { color:blue; }
+  .indigo { color:indigo; }
+  .violet { color:violet; }
+}
+
