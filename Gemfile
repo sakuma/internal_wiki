@@ -30,8 +30,8 @@ group :assets do
   gem 'coffee-filter'
   gem 'uglifier'
   gem 'jquery-ui-rails'
-  gem 'libv8'
-  gem 'therubyracer'
+  gem 'libv8', '~> 3.11.8'
+  gem 'therubyracer', '0.11.1'
   gem 'bootstrap-sass'
   gem 'bootstrap-editable-rails'
 end
