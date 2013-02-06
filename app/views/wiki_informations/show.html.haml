@@ -33,7 +33,7 @@
 
   #tag-cloud
     - @wiki_info.pages.each do |page|
-      = link_to page.name, wiki_information_page_path(@wiki_info, page)
+      = link_to page.name, page_path(wiki_name: @wiki_info.name, page_name: page.name)
 
 :coffeescript
   $ ->
