@@ -16,7 +16,7 @@
               - if content_for?(:menu_link)
                 = yield(:menu_link)
               - else
-                %li= link_to t('terms.new_wiki'), new_wiki_information_path
+                %li= link_to t('terms.new_wiki'), new_wiki_info_path
 
             - if current_user
               %ul.nav.pull-right
@@ -56,8 +56,8 @@
                       - Page.accessible_by(current_user).recently.each do |page|
                         %li
                           %p
-                            = link_to(truncate(page.name, :length => 15), wiki_information_page_path(page.wiki_information, page))
-                            = link_to(truncate("(#{page.wiki_information.name})", :length => 10), wiki_information_path(page.wiki_information))
+                            = link_to truncate(page.name, length: 15), page_path(wiki_name: page.wiki_information.name, page_name: page.name)
+                            = link_to truncate("(#{page.wiki_information.name})", length: 10), wiki_info_path(wiki_name: page.wiki_information.name)
 
 :coffeescript
   $('#search-word-form').on 'submit', ->

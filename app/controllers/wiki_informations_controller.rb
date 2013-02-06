@@ -20,7 +20,7 @@ class WikiInformationsController < ApplicationController
     @wiki_info = WikiInformation.new(params[:wiki_information].merge(:created_by => current_user.id))
 
     if @wiki_info.save
-      redirect_to @wiki_info, notice: 'Wiki information was successfully created.'
+      redirect_to wiki_info_path(wiki_name: @wiki_info.name), notice: 'Wiki information was successfully created.'
     else
       render :new
     end
@@ -29,7 +29,7 @@ class WikiInformationsController < ApplicationController
   def update
     respond_to do |format|
       if @wiki_info.update_attributes(params[:wiki_information])
-        format.html {redirect_to wiki_information_path(@wiki_info), notice: 'Wiki information was successfully updated.'}
+        format.html { redirect_to wiki_information_path(@wiki_info), notice: 'Wiki information was successfully updated.'}
         format.json { head :no_content }
       else
         format.html { render :edit}
@@ -40,7 +40,7 @@ class WikiInformationsController < ApplicationController
 
   def destroy
     @wiki_info.destroy
-    redirect_to wiki_informations_path
+    redirect_to wiki_infos_path
   end
 
   def add_authority_user
@@ -57,6 +57,6 @@ class WikiInformationsController < ApplicationController
   end
 
   def find_wiki_info
-    @wiki_info = WikiInformation.find(params[:id])
+    @wiki_info = WikiInformation.where(name: params[:wiki_name]).first
   end
 end
