@@ -14,8 +14,6 @@
 //= require jquery_ujs
 //= require jquery.ui.all
 //= require bootstrap
-//= require bootstrap-editable-inline
-//= require bootstrap-editable-rails
 //= require private_pub
 //= require underscore
 //= require backbone
