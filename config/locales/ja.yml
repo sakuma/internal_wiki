@@ -16,6 +16,7 @@ ja:
     confirm_revert: "ページの内容を復元します。よろしいですか？"
     revert_page: "復元する"
     return_back: "戻る"
+    cancel: "キャンセル"
 
   terms:
     index_page: "ページ一覧"
