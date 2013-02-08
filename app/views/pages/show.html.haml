@@ -30,4 +30,4 @@
     $('#page_name_link').editable
       title: "Enter Page name"
       type: 'text'
-      url: "#{wiki_information_page_path(@wiki_info, @page)}"
+      url: "#{page_path(wiki_name: @wiki_info.name, page_name: @page.name)}"

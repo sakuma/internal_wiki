@@ -31,13 +31,17 @@ InternalWiki::Application.routes.draw do
   put ':wiki_name' => 'wiki_informations#update', :as => 'wiki_info'
   delete ':wiki_name' => 'wiki_informations#destroy', :as => 'wiki_info'
 
-  scope ':wiki_name/' do
-    get ':page_name' => 'pages#show', :as => 'page'
-    get ':page_name/edit' => 'pages#edit', :as => 'edit_page'
-    delete ':page_name' => 'pages#destroy', :as => 'page'
-    get ':page_name/histories' => 'pages#histories', :as => 'histories_page'
-    put ':page_name' => 'pages#revert', :as => 'revert_page'
-    post 'add_authority_user' => 'wiki_informations#add_authority_user', :as => 'add_authority_user'
+  scope ':wiki_name' do
+    post '' => 'pages#create', :as => 'pages'
+    get '/new' => 'pages#new', :as => 'new_page'
+    get '/:page_name' => 'pages#show', :as => 'page'
+    get '/:page_name/edit' => 'pages#edit', :as => 'edit_page'
+    put '/:page_name' => 'pages#update', :as => 'page'
+    post '/:page_name/preview' => 'pages#preview', :as => 'preview_page'
+    delete '/:page_name' => 'pages#destroy', :as => 'page'
+    get '/:page_name/histories' => 'pages#histories', :as => 'histories_page'
+    put '/:page_name' => 'pages#revert', :as => 'revert_page'
+    post '/add_authority_user' => 'wiki_informations#add_authority_user', :as => 'add_authority_user'
     delete '/remove_authority_user' => 'wiki_informations#remove_authority_user', :as => 'remove_authority_user'
   end
 
