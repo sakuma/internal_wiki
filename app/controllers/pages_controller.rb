@@ -14,12 +14,6 @@ class PagesController < ApplicationController
   end
 
   def edit
-    respond_to do |format|
-      format.html
-      format.json do
-        render json: @page
-      end
-    end
   end
 
   def show
@@ -44,7 +38,6 @@ class PagesController < ApplicationController
       return
     end
     respond_to do |format|
-      binding.remote_pry
       if @page.update_attributes(params[:page].merge(:updated_by => current_user.id))
         PrivatePub.publish_to "/pages/#{@page.id}", :body => params[:page][:body], :editing_word => '' rescue nil
         format.html { redirect_to page_path(wiki_name: @wiki_info.name, page_name: @page.name), :notice => t('terms.updated_page') }

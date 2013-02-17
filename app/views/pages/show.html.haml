@@ -1,30 +1,33 @@
 = content_for :menu_link do
   = render 'menu_link'
 
-#container
-  = render 'shared/flash_messages'
+= render 'shared/flash_messages'
 
+.pull-right
+  = link_to raw('<i class="icon-pencil"></i>'), edit_page_path(wiki_name: @wiki_info.name, page_name: @page.name), class: 'btn btn-primary'
+  = link_to raw('<i class="icon-trash"></i>'), page_path(wiki_name: @wiki_info.name, page_name: @page.name), confirm: t('actions.confirm_delete'), method: :delete, class: 'btn btn-danger'
 
+%h2
+  = truncate(@wiki_info.name, :length => 20)
+  &raquo;
+  = link_to truncate(@page.name, :length => 20), '#', :id => "page_name_link", :"data-resource" => "page", :"data-name" => "name", :remote => true, :method => :put
 
-  .pull-right
-    -# = link_to raw('<i class="icon-pencil"></i>'), edit_page_path(wiki_name: @wiki_info.name, page_name: @page.name), class: 'btn btn-primary'
-    = link_to raw('<i class="icon-pencil"></i>'), '#edit_page', class: 'btn btn-primary'
-    = link_to raw('<i class="icon-trash"></i>'), page_path(wiki_name: @wiki_info.name, page_name: @page.name), confirm: t('actions.confirm_delete'), method: :delete, class: 'btn btn-danger'
+%hr
+#page-content= raw(@page.content)
+%hr
 
-  %h2
-    = truncate(@wiki_info.name, :length => 20)
-    &raquo;
-    = link_to truncate(@page.name, :length => 20), '#', :id => "page_name_link", :"data-resource" => "page", :"data-name" => "name", :remote => true, :method => :put
+%small.pull-right= "Last edited by #{@page.last_editor_name} #{time_ago_in_words(@page.updated_at)}"
 
-  %hr
-  #page-content= raw(@page.content)
-  %hr
+- unless @page.histories.empty?
+  %h4= t('terms.page_history')
+  - @page.histories.each do |h|
+    %p= link_to "#{h[:date].to_s(:db)} (by #{h[:author]})", histories_page_path(wiki_name: @wiki_info.name, page_name: @page.name, sha: h[:sha])
+  = link_to t('terms.histories_more'), histories_page_path(wiki_name: @wiki_info.name, page_name: @page.name), id: 'histories_more', class: 'btn btn-inverse'
 
-  %small.pull-right= "Last edited by #{@page.last_editor_name} #{time_ago_in_words(@page.updated_at)}"
-
-  - unless @page.histories.empty?
-    %h4= t('terms.page_history')
-    - @page.histories.each do |h|
-      %p= link_to "#{h[:date].to_s(:db)} (by #{h[:author]})", histories_page_path(wiki_name: @wiki_info.name, page_name: @page.name, sha: h[:sha])
-    = link_to t('terms.histories_more'), histories_page_path(wiki_name: @wiki_info.name, page_name: @page.name), id: 'histories_more', class: 'btn btn-inverse'
-
+-# TODO: Backbone.jsで置き換え
+:coffeescript
+  $ ->
+    $('#page_name_link').editable
+      title: "Enter Page name"
+      type: 'text'
+      url: "#{page_path(wiki_name: @wiki_info.name, page_name: @page.name)}"
