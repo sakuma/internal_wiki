@@ -24,6 +24,10 @@ class Page < ActiveRecord::Base
 
   scope :recently, ->{ limit(5).order('pages.updated_at DESC') }
 
+  def wiki_name
+    wiki_information.name
+  end
+
   def content(version = nil)
     new_record? ? nil : page(version).formatted_data
   end
