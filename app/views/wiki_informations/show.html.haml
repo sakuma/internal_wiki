@@ -10,6 +10,7 @@
 %h5.pull-right
   %b= WikiInformation.human_attribute_name(:created_by)
   \:
+  = image_tag avatar_url(@wiki_info.creator, size: 20)
   = @wiki_info.creator.name
 
 %h1{:style => "text-align:center"}
