@@ -16,7 +16,12 @@
 #page-content= raw(@page.content)
 %hr
 
-%small.pull-right= "Last edited by #{@page.last_editor_name} #{time_ago_in_words(@page.updated_at)}"
+%small.pull-right
+  = "Last edited by "
+  = image_tag(avatar_url(@wiki_info.creator, size: 20))
+  = @page.last_editor_name
+  = time_ago_in_words(@page.updated_at)
+
 
 - unless @page.histories.empty?
   %h4= t('terms.page_history')
