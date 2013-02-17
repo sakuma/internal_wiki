@@ -72,7 +72,7 @@ class Page < ActiveRecord::Base
   end
 
   def author_name(version = nil)
-    page(version).version.author.name
+    force_encoding_of(page(version).version.author.name)
   end
 
   private
