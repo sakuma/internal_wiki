@@ -3,9 +3,7 @@ window.InternalWiki =
   Collections: {}
   Views: {}
   Routers: {}
-  initialize: ->
-    new InternalWiki.Routers.Pages
-    Backbone.history.start()
+  initialize: -> alert 'Hello from Backbone!'
 
 $(document).ready ->
   InternalWiki.initialize()
