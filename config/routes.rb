@@ -29,7 +29,9 @@ InternalWiki::Application.routes.draw do
   get ':wiki_name' => 'wiki_informations#show', :as => 'wiki_info'
   get ':wiki_name/edit' => 'wiki_informations#edit', :as => 'edit_wiki_info'
   put ':wiki_name' => 'wiki_informations#update', :as => 'wiki_info'
-  delete ':wiki_name' => 'wiki_informations#destroy', :as => 'wiki_info'
+  post '/add_authority_user' => 'wiki_informations#add_authority_user', :as => 'add_authority_user'
+  delete '/:wiki_name/remove_authority_user' => 'wiki_informations#remove_authority_user', :as => 'remove_authority_user'
+  delete '/:wiki_name' => 'wiki_informations#destroy', :as => 'wiki_info'
 
   scope ':wiki_name' do
     post '' => 'pages#create', :as => 'pages'
@@ -41,8 +43,6 @@ InternalWiki::Application.routes.draw do
     delete '/:page_name' => 'pages#destroy', :as => 'page'
     get '/:page_name/histories' => 'pages#histories', :as => 'histories_page'
     put '/:page_name' => 'pages#revert', :as => 'revert_page'
-    post '/add_authority_user' => 'wiki_informations#add_authority_user', :as => 'add_authority_user'
-    delete '/remove_authority_user' => 'wiki_informations#remove_authority_user', :as => 'remove_authority_user'
   end
 
   # scope :wiki_informations do
