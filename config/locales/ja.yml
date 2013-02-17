@@ -28,6 +28,7 @@ ja:
     not_found_seach_word_of: "'%{word}' を含むページは見つかりませんでした。"
     publicity: "公開"
     limited_publicity: "限定公開"
+    private_members: "閲覧ユーザー"
     user_information_of: "%{user}さんの情報"
     visible_wikis: "閲覧できるwiki"
     login: "ログイン"

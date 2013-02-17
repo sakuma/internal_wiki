@@ -25,6 +25,10 @@ class WikiInformation < ActiveRecord::Base
     end
   end
 
+  def private?
+    is_private?
+  end
+
   def git_directory(overwrite_name = nil)
     BASE_GIT_DIRECTORY.join("#{overwrite_name or name}.git").to_s
   end
