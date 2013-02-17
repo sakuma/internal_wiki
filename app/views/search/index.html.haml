@@ -7,6 +7,7 @@
   = t('terms.not_found_seach_word_of', word: @search_word)
 - else
   - @pages.each do |page|
-    %h4= link_to page.name, wiki_information_page_path(page.wiki_information_id, page)
-    = highlight(page.content, @search_word)
+    .well.search-result
+      %h4= link_to page.name, page_path(wiki_name: page.wiki_information.name, page_name: page.name)
+      = highlight(page.content, @search_word)
 
