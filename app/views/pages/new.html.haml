@@ -6,7 +6,7 @@
     %h2
       = @wiki_info.name
       &raquo;
-      = text_field_tag :page, nil, :placeholder => Page.human_attribute_name('name'), :id => 'new-page-name'
+      = text_field_tag :page, nil, :placeholder => Page.human_attribute_name('name'), :id => 'new-page-name', required: true
     = render 'form'
 
 
