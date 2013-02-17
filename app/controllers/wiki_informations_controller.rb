@@ -29,7 +29,7 @@ class WikiInformationsController < ApplicationController
   def update
     respond_to do |format|
       if @wiki_info.update_attributes(params[:wiki_information])
-        format.html { redirect_to wiki_information_path(@wiki_info), notice: 'Wiki information was successfully updated.'}
+        format.html { redirect_to wiki_info_path(wiki_name: @wiki_info.name), notice: 'Wiki information was successfully updated.'}
         format.json { head :no_content }
       else
         format.html { render :edit}
@@ -40,20 +40,20 @@ class WikiInformationsController < ApplicationController
 
   def destroy
     @wiki_info.destroy
-    redirect_to wiki_infos_path
+    redirect_to root_path
   end
 
   def add_authority_user
     user = User.where(:email => params[:email]).first
     @wiki_info.visible_authority_users << user if user
-    redirect_to wiki_information_path(@wiki_info)
+    redirect_to wiki_info_path(wiki_name: @wiki_info.name), notice: "added #{user.name}"
   end
 
   def remove_authority_user
     user = User.where(:email => params[:email]).first
     member_ship = @wiki_info.private_memberships.find_by_user_id(user.id)
     member_ship.destroy
-    redirect_to wiki_information_path(@wiki_info)
+    redirect_to wiki_info_path(wiki_name: @wiki_info.name), notice: "removed #{user.name}"
   end
 
   def find_wiki_info
