@@ -15,12 +15,4 @@
 //= require jquery.ui.all
 //= require bootstrap
 //= require private_pub
-//= require underscore
-//= require backbone
-//= require internal_wiki
-//= require_tree ../templates
-//= require_tree ./models
-//= require_tree ./collections
-//= require_tree ./views
-//= require_tree ./routers
 //= require_tree .

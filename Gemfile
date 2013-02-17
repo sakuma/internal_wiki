@@ -19,7 +19,6 @@ gem 'active_decorator'
 gem 'settingslogic'
 gem 'rroonga'
 gem 'activegroonga'
-gem 'backbone-on-rails'
 
 # WebSocket
 gem "private_pub"
