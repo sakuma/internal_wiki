@@ -13,6 +13,8 @@ InternalWiki::Application.routes.draw do
 
   match "/setting" => "users#setting", :as => 'user_setting', :via => :get
   match "/setting/:id" => "users#update", :as => 'update_setting', :via => :put
+  get "/users/:token/activate" => "users#activate", :as => 'activate_user'
+  put "/users/:token/register" => "users#register", :as => 'regist_user'
 
   namespace :admin do
     resources :users do
@@ -22,6 +24,7 @@ InternalWiki::Application.routes.draw do
       end
     end
   end
+  match "/admin/users/invite" => 'admin/users#invite_user', :as => 'invite_user', :via => :post
 
   get '/' => 'wiki_informations#index', :as => 'wiki_infos'
   get 'wiki_info/new' => 'wiki_informations#new', :as => 'new_wiki_info'

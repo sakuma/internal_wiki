@@ -19,12 +19,18 @@ class User < ActiveRecord::Base
     where(["NOT id IN (?)", wiki.visible_authority_users.pluck("users.id")])
   end
   scope :not_admin, ->{ where(:admin => false) }
+  scope :active, ->{where(activation_state: 'active')}
+  scope :pending, ->{where(activation_state: 'pending')}
 
-  validates :name, :presence => true, :uniqueness => true
-  validates :email, :presence => true, :uniqueness => true
+  validates_presence_of :name, if: Proc.new {|user| user.activate?}
+  validates :email, presence: true, uniqueness: true
 
   validates_inclusion_of :admin, :in => lambda{|u| u.admin_validetes_include_values}, :message => :invalid_admin_select
   validates_inclusion_of :limited, :in => lambda{|u| u.limited__validetes_include_values}, :message => :invalid_limited_select
+
+  def activate?
+   activation_state == "active"
+  end
 
   def unvisible_wikis
     WikiInformation.all - visible_wikis

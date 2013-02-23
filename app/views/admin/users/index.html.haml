@@ -8,7 +8,7 @@
     %th email
     %th admin
     %th limited
-  - @users.each do |user|
+  - @active_users.each do |user|
     %tr
       %td= link_to user.name, admin_user_path(user)
       %td= user.email
@@ -17,4 +17,62 @@
       %td= link_to t('actions.editing'), edit_admin_user_path(user)
       %td= link_to t('actions.deleting'), admin_user_path(user), :method => :delete, :confirm => t('actions.confirm_delete')
 
-%h3= link_to t('actions.add_user'), new_admin_user_path, :class => 'btn'
+- unless @invalidity_users.empty?
+  %h2= t('terms.index_pending_user')
+
+  %table
+    %tr
+      %th email
+      %th admin
+      %th limited
+    - @invalidity_users.each do |user|
+      %tr
+        %td= user.email
+        %td= user.admin
+        %td= user.limited
+        %td= link_to t('actions.editing'), edit_admin_user_path(user)
+        %td= link_to t('actions.deleting'), admin_user_path(user), :method => :delete, :confirm => t('actions.confirm_delete')
+
+= link_to t('actions.add_user'), '#invite-user-form', class: 'btn btn-primary', data: {toggle: "modal"}
+
+#invite-user-form.modal.hide.fade{"tab-index" => "-1", "role" => "dialog", "aria-labelledby" => "invite-user-label", "aria-hidden" => "true"}
+  .modal-header
+    %button.close{"data-dismiss" => "modal", "aria-hidden" => "true"} &times;
+    %h3#invite-user-label Invite user
+  .modal-body
+    %p
+      = form_for User.new, url: invite_user_path, html: {class: 'form-horizontal'} do |f|
+        .control-group
+          = f.label :email, class: "control-label"
+          .controls
+            = f.email_field :email, placeholder: User.human_attribute_name(:email)
+        .control-group#admin_user_flag_area
+          = f.label :admin, :class => "control-label"
+          .controls
+            = f.check_box :admin, :id => 'admin_user_flag'
+
+        .control-group#limited_user_flag_area
+          = f.label :limited, :class => "control-label"
+          .controls
+            = f.check_box :limited, :id => 'limited_user_flag'
+
+        .control-group.actions
+          .controls
+            = f.submit t('actions.add_user'), class: 'btn btn-primary', id: 'invite_user_button'
+
+
+:coffeescript
+  targetId = (domId) ->
+    if domId is "admin_user_flag"
+      "#limited_user_flag_area"
+    else
+      "#admin_user_flag_area"
+
+  $ ->
+    checkedType = $("input:checked").attr "id"
+    $(targetId(checkedType)).toggle() if checkedType
+    $(":checkbox").on "click", ->
+      $(targetId(this.id)).animate {opacity: "toggle"}, "slow"
+
+  $('#invite_user_button').on 'click', (ev) ->
+    location.reload
