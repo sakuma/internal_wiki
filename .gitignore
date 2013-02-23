@@ -21,3 +21,4 @@ db/groonga/*
 !db/groonga/migrate/
 data
 .rvmrc
+vendor/bundle
