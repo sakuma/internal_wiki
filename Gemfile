@@ -52,6 +52,7 @@ group :development, :test do
   gem 'meta_request' # development log viewer for Chrome. via --- https://chrome.google.com/webstore/detail/railspanel/gjpfobpafnhjhbajcjgccbbdofdckggg
   gem 'thin' # Replace WEBrick on development.
   gem 'rails-erd'
+  gem 'letter_opener'
 
   #test
   gem 'rspec-rails'
