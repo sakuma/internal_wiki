@@ -24,6 +24,7 @@ ja:
     new_page: "新規ページ"
     index_wiki: "Wiki一覧"
     index_user: "ユーザ一覧"
+    index_pending_user: "未登録ユーザ"
     index_search: "検索結果"
     not_found_seach_word_of: "'%{word}' を含むページは見つかりませんでした。"
     publicity: "公開"
@@ -48,6 +49,7 @@ ja:
     created_page: "ページを追加しました。"
     editing_by: "%{target} が編集中です。"
     setting: "設定"
+    user_regist: "ユーザ登録"
 
   date:
     abbr_day_names:

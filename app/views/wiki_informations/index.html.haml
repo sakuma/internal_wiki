@@ -14,7 +14,7 @@
     %tr
       %td= link_to wiki_info.name, wiki_info_path(wiki_name: wiki_info.name)
       %td= wiki_info.private_policy
-      %td= wiki_info.creator.name
+      %td= wiki_info.creator.try(:name)
       %td= link_to t('actions.editing')
       %td= link_to t('actions.deleting'), wiki_info_path(wiki_name: wiki_info.name), :method => :delete, :confirm => t('actions.confirm_delete')
 

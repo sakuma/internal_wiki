@@ -3,7 +3,8 @@ class Admin::UsersController < ApplicationController
   before_filter :find_user, :only => [:show, :edit, :update, :destroy, :add_visibility_wiki, :delete_visibility_wiki]
 
   def index
-    @users = User.all
+    @active_users = User.active.all
+    @invalidity_users = User.pending.all
   end
 
   def show
@@ -50,6 +51,12 @@ class Admin::UsersController < ApplicationController
     @user.visible_wikis.delete(wiki)
     @user.reload
     redirect_to admin_user_path(@user), :notice => 'Add wiki'
+  end
+
+  def invite_user
+    user = User.create(params[:user].merge(name: '', password: 'sample', password_confirmation: 'sample'))
+    flash_msg = user.valid? ? {notice: "'#{user.email}' is invited"} : {error: "failed inviting"}
+    redirect_to admin_users_path, flash_msg
   end
 
 
