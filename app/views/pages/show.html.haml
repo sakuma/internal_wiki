@@ -10,7 +10,7 @@
 %h2
   = link_to truncate(@wiki_info.name, length: 20), wiki_info_path(wiki_name: @wiki_info.name)
   &raquo;
-  = link_to truncate(@page.name, :length => 20), '#', :id => "page_name_link", :"data-resource" => "page", :"data-name" => "name", :remote => true, :method => :put
+  = truncate(@page.name, length: 20)
 
 %hr
 #page-content= raw(@page.content)
@@ -28,11 +28,3 @@
   - @page.histories.each do |h|
     %p= link_to "#{h[:date].to_s(:db)} (by #{h[:author]})", histories_page_path(wiki_name: @wiki_info.name, page_name: @page.name, sha: h[:sha])
   = link_to t('terms.histories_more'), histories_page_path(wiki_name: @wiki_info.name, page_name: @page.name), id: 'histories_more', class: 'btn btn-inverse'
-
--# TODO: Backbone.jsで置き換え
-:coffeescript
-  $ ->
-    $('#page_name_link').editable
-      title: "Enter Page name"
-      type: 'text'
-      url: "#{page_path(wiki_name: @wiki_info.name, page_name: @page.name)}"
