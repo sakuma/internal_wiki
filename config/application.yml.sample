@@ -6,6 +6,8 @@
 
 development:
   # <<: *defaults
+  site_protocol: http
+  site_domain: localhost:3000
   oauth:
     google:
       key: ""
@@ -14,6 +16,8 @@ development:
 
 test:
   # <<: *defaults
+  site_protocol: http
+  site_domain: localhost:3000
   oauth:
     google:
       key: ""
@@ -22,6 +26,8 @@ test:
 
 production:
   # <<: *defaults
+  site_protocol: http
+  site_domain: localhost:3000
   oauth:
     google:
       key: ""
