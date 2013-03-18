@@ -78,7 +78,7 @@ class Page < ActiveRecord::Base
   private
 
   def wiki
-    @wiki ||= Gollum::Wiki.new(self.git_directory)
+    @wiki ||= ::Gollum::Wiki.new(self.git_directory)
   end
 
   def page(version = nil)
