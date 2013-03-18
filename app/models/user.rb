@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-  attr_protected :id, :updated_at, :created_at
+  attr_accessible :name, :email, :salt, :admin, :limited, :password, :password_confirmation
 
   attr_accessor :password, :password_confirmation
 
