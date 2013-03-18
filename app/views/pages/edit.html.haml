@@ -10,7 +10,14 @@
 
     = render 'form'
 
-    = subscribe_to "/pages/#{@page.id}"
+    -# = subscribe_to "/pages/#{@page.id}"
+  :coffeescript
+    -# source = new EventSource("/pages/#{@page.id}")
+    -# source.addEventListener "pages.update.#{@page.id}", (e) ->
+    -#   page = $.parseJSON(e.data).page
+    -#   console.log page
+    -#   -# $('#chat').append($('<li>').text("#{message.name}: #{message.content}"))
+
 
 
   :coffeescript
