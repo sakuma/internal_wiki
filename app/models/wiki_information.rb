@@ -17,7 +17,7 @@ class WikiInformation < ActiveRecord::Base
 
   scope :accessible_by, ->(user) do
     if user.admin?
-      scoped
+      all
     elsif user.limited
       user.visible_wikis
     else
