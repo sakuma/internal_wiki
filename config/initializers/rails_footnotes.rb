@@ -1,5 +1,7 @@
-if defined?(Footnotes) && Rails.env.development?
-  Footnotes.run! # first of all
-
-  # ... other init code
-end
+# TODO: error research
+#
+# if defined?(Footnotes) && Rails.env.development?
+#   Footnotes.run! # first of all
+#
+#   # ... other init code
+# end

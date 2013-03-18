@@ -1,3 +1,4 @@
+require 'sorcery/engine'
 require "#{Rails.root}/lib/settings"
 
 # The first thing you need to configure is which modules you need in your app.
