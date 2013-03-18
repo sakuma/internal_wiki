@@ -10,29 +10,38 @@ gem 'sqlite3'
 # gem 'pg'
 
 gem 'jquery-rails'
-gem 'gollum'
+gem 'grit', github: 'fdiary/grit'
+gem 'gollum', github: 'gollum/gollum'
 gem 'RedCloth' # for Textile
 gem 'redcarpet' # for Markdown
-gem 'haml-rails'
-gem 'sorcery'
+gem 'sorcery', :github => 'NoamB/sorcery'
 gem 'active_decorator'
 gem 'settingslogic'
 gem 'rroonga'
 gem 'activegroonga'
 
 # WebSocket
-gem "private_pub"
-gem 'thin'
+# gem "private_pub"
+# gem 'thin'
+# gem 'puma'
+# gem 'redis'
+
+gem 'protected_attributes'
+gem 'haml', '4.0.1.rc.1'
+gem 'haml-rails'
+gem 'sass-rails', :github => 'rails/sass-rails'
+gem 'sprockets-rails', :github => 'rails/sprockets-rails'
+gem 'coffee-rails', '~> 4.0.0.beta1'
+gem 'turbolinks'
 
 group :assets do
-  gem 'sass-rails'
-  gem 'coffee-rails'
+
   gem 'uglifier'
   gem 'jquery-ui-rails'
   gem 'libv8'
   gem 'therubyracer'
   gem 'bootstrap-sass'
-  gem 'bootstrap-editable-rails'
+  # gem 'bootstrap-editable-rails'
 end
 
 
