@@ -2,7 +2,7 @@
 - form_url = newly ? wiki_infos_path : wiki_info_path(wiki_name: @wiki_info.name)
 - http_method = newly ? :post : :put
 .offset2
-  = form_for @wiki_info, url: form_url, html: {class: 'form-horizontal'} do |f|
+  = form_for @wiki_info, url: form_url, html: {method: http_method, class: 'form-horizontal'} do |f|
 
     = error_messages_for(@wiki_info)
 
