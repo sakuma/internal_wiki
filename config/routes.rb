@@ -2,17 +2,17 @@ InternalWiki::Application.routes.draw do
 
   root :to => "wiki_informations#index"
 
-  match "search/(*search_request)", :to => "search#index", :as => 'search'
+  get "search/(*search_request)", :to => "search#index", :as => 'search'
 
   get "login" => "sessions#new", :as => "login"
   post "login" => "sessions#create"
   delete "logout" => "sessions#destroy", :as => "logout"
   get "logout" => "sessions#destroy" # ログインできなくなる対策で
-  match "oauth/callback" => "sessions#callback"
-  match "oauth/:provider" => "sessions#oauth", :as => :auth_at_provider
+  get "oauth/callback" => "sessions#callback"
+  get "oauth/:provider" => "sessions#oauth", :as => :auth_at_provider
 
-  match "/setting" => "users#setting", :as => 'user_setting', :via => :get
-  match "/setting/:id" => "users#update", :as => 'update_setting', :via => :put
+  get "/setting" => "users#setting", :as => 'user_setting'
+  put "/setting/:id" => "users#update", :as => 'update_setting'
   get "/users/:token/activate" => "users#activate", :as => 'activate_user'
   put "/users/:token/register" => "users#register", :as => 'regist_user'
 
@@ -24,11 +24,11 @@ InternalWiki::Application.routes.draw do
       end
     end
   end
-  match "/admin/users/invite" => 'admin/users#invite_user', :as => 'invite_user', :via => :post
+  post "/admin/users/invite" => 'admin/users#invite_user', :as => 'invite_user'
 
-  get '/' => 'wiki_informations#index', :as => 'wiki_infos'
+  get '/' => 'wiki_informations#index', :as => 'wiki_infomations'
   get 'wiki_info/new' => 'wiki_informations#new', :as => 'new_wiki_info'
-  post 'wiki_infos' => 'wiki_informations#create', :as => 'wiki_infos'
+  post 'wiki_infomations' => 'wiki_informations#create', :as => 'wiki_infos'
   get ':wiki_name' => 'wiki_informations#show', :as => 'wiki_info'
   get ':wiki_name/edit' => 'wiki_informations#edit', :as => 'edit_wiki_info'
   put ':wiki_name' => 'wiki_informations#update', :as => 'wiki_info'
