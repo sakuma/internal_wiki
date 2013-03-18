@@ -1,103 +1,161 @@
-GEM
-  remote: https://rubygems.org/
+GIT
+  remote: git://github.com/NoamB/sorcery.git
+  revision: 53717ea0b155e907fb2f66b0a0e0d4ff184e82ea
   specs:
-    RedCloth (4.2.9)
-    actionmailer (3.2.12)
-      actionpack (= 3.2.12)
-      mail (~> 2.4.4)
-    actionpack (3.2.12)
-      activemodel (= 3.2.12)
-      activesupport (= 3.2.12)
-      builder (~> 3.0.0)
-      erubis (~> 2.7.0)
-      journey (~> 1.0.4)
-      rack (~> 1.4.5)
-      rack-cache (~> 1.2)
-      rack-test (~> 0.6.1)
-      sprockets (~> 2.2.1)
-    active_decorator (0.3.3)
-    activegroonga (2.1.3)
-      activemodel (>= 3.2.10)
-      rroonga (>= 2.1.2)
-    activemodel (3.2.12)
-      activesupport (= 3.2.12)
-      builder (~> 3.0.0)
-    activerecord (3.2.12)
-      activemodel (= 3.2.12)
-      activesupport (= 3.2.12)
-      arel (~> 3.0.2)
-      tzinfo (~> 0.3.29)
-    activeresource (3.2.12)
-      activemodel (= 3.2.12)
-      activesupport (= 3.2.12)
-    activesupport (3.2.12)
-      i18n (~> 0.6)
-      multi_json (~> 1.0)
-    addressable (2.3.2)
-    archive-zip (0.5.0)
-      io-like (>= 0.3.0)
-    arel (3.0.2)
-    bcrypt-ruby (3.0.1)
-    better_errors (0.6.0)
-      coderay (>= 1.0.0)
-      erubis (>= 2.6.6)
-    binding_of_caller (0.7.1)
-      debug_inspector (>= 0.0.1)
-    bootstrap-editable-rails (0.0.4)
-      railties (~> 3.1)
-    bootstrap-sass (2.3.0.0)
-      sass (~> 3.2)
-    builder (3.0.4)
-    bullet (4.3.0)
-      uniform_notifier
-    choice (0.1.6)
-    coderay (1.0.8)
-    coffee-rails (3.2.2)
-      coffee-script (>= 2.2.0)
-      railties (~> 3.2.0)
-    coffee-script (2.2.0)
-      coffee-script-source
-      execjs
-    coffee-script-source (1.4.0)
-    cookiejar (0.3.0)
-    coolline (0.4.0)
-    daemons (1.1.9)
-    debug_inspector (0.0.2)
-    diff-lcs (1.1.3)
-    domain_name (0.5.7)
-      unf (~> 0.0.3)
-    em-http-request (1.0.3)
-      addressable (>= 2.2.3)
-      cookiejar
-      em-socksify
-      eventmachine (>= 1.0.0.beta.4)
-      http_parser.rb (>= 0.5.3)
-    em-socksify (0.2.1)
-      eventmachine (>= 1.0.0.beta.4)
-    erubis (2.7.0)
-    eventmachine (1.0.0)
-    execjs (1.4.0)
-      multi_json (~> 1.0)
-    faraday (0.8.5)
-      multipart-post (~> 1.1)
-    github-markdown (0.5.3)
-    github-markup (0.7.5)
-    gollum (2.4.11)
-      github-markdown (~> 0.5.3)
-      github-markup (>= 0.7.4, < 1.0.0)
-      grit (~> 2.5.0)
-      mustache (>= 0.99.4, < 1.0.0)
-      nokogiri (~> 1.5.5)
-      pygments.rb (~> 0.3.2)
-      sanitize (~> 2.0.3)
-      sinatra (~> 1.3.3)
-      stringex (~> 1.5.1)
-      useragent (~> 0.4.15)
+    sorcery (0.8.1)
+      bcrypt-ruby (~> 3.0.0)
+      oauth (~> 0.4.4)
+      oauth2 (~> 0.8.0)
+
+GIT
+  remote: git://github.com/fdiary/grit.git
+  revision: cf7cfd36cca19d8c745d18ca39e31e648bf3555a
+  specs:
     grit (2.5.0)
       diff-lcs (~> 1.1)
       mime-types (~> 1.15)
       posix-spawn (~> 0.3.6)
-    haml (4.0.0)
+
+GIT
+  remote: git://github.com/gollum/gollum.git
+  revision: fe706c184e7252f7946bf2e9e8c8128d08b5c281
+  specs:
+    gollum (2.4.11)
+      github-markdown (~> 0.5.3)
+      github-markup (>= 0.7.5, < 1.0.0)
+      grit (~> 2.5.0)
+      mustache (>= 0.99.4, < 1.0.0)
+      nokogiri (~> 1.5.6)
+      pygments.rb (~> 0.4.2)
+      sanitize (~> 2.0.3)
+      sinatra (~> 1.3.5)
+      stringex (~> 1.5.1)
+      useragent (~> 0.4.16)
+
+GIT
+  remote: git://github.com/rails/activerecord-deprecated_finders.git
+  revision: c00788c2b7e01170f63bd9651f7efd8deb4bd4b0
+  specs:
+    activerecord-deprecated_finders (0.0.3)
+
+GIT
+  remote: git://github.com/rails/arel.git
+  revision: 933ea218116645eafaf3b7ea5695520db0f9d9ba
+  specs:
+    arel (4.0.0.beta2.20130314230643)
+
+GIT
+  remote: git://github.com/rails/journey.git
+  revision: e64274443f8420df2518cf2206a2c640d9d8e196
+  specs:
+    journey (2.0.0.20120723141804)
+
+GIT
+  remote: git://github.com/rails/rails.git
+  revision: b365354e593da172c55770aed22c8211dbc18b08
+  specs:
+    actionmailer (4.0.0.beta1)
+      actionpack (= 4.0.0.beta1)
+      mail (~> 2.5.3)
+    actionpack (4.0.0.beta1)
+      activesupport (= 4.0.0.beta1)
+      builder (~> 3.1.0)
+      erubis (~> 2.7.0)
+      rack (~> 1.5.2)
+      rack-test (~> 0.6.2)
+    activemodel (4.0.0.beta1)
+      activesupport (= 4.0.0.beta1)
+      builder (~> 3.1.0)
+    activerecord (4.0.0.beta1)
+      activemodel (= 4.0.0.beta1)
+      activerecord-deprecated_finders (~> 0.0.3)
+      activesupport (= 4.0.0.beta1)
+      arel (~> 4.0.0.beta2)
+    activesupport (4.0.0.beta1)
+      i18n (~> 0.6, >= 0.6.4)
+      minitest (~> 4.2)
+      multi_json (~> 1.3)
+      thread_safe (~> 0.1)
+      tzinfo (~> 0.3.33)
+    rails (4.0.0.beta1)
+      actionmailer (= 4.0.0.beta1)
+      actionpack (= 4.0.0.beta1)
+      activerecord (= 4.0.0.beta1)
+      activesupport (= 4.0.0.beta1)
+      bundler (>= 1.3.0, < 2.0)
+      railties (= 4.0.0.beta1)
+      sprockets-rails (~> 2.0.0.rc3)
+    railties (4.0.0.beta1)
+      actionpack (= 4.0.0.beta1)
+      activesupport (= 4.0.0.beta1)
+      rake (>= 0.8.7)
+      rdoc (~> 3.4)
+      thor (>= 0.17.0, < 2.0)
+
+GIT
+  remote: git://github.com/rails/sass-rails.git
+  revision: d435679b0fe528b954a9abd0059f975d94707574
+  specs:
+    sass-rails (4.0.0.beta1)
+      railties (>= 4.0.0.beta, < 5.0)
+      sass (>= 3.1.10)
+      sprockets-rails (~> 2.0.0.rc0)
+      tilt (~> 1.3)
+
+GIT
+  remote: git://github.com/rails/sprockets-rails.git
+  revision: afce1e65f7c6df4ae96522b26e755915d238ff80
+  specs:
+    sprockets-rails (2.0.0.rc3)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      sprockets (~> 2.8)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    RedCloth (4.2.9)
+    active_decorator (0.3.4)
+    activegroonga (2.1.3)
+      activemodel (>= 3.2.10)
+      rroonga (>= 2.1.2)
+    addressable (2.3.3)
+    archive-zip (0.5.0)
+      io-like (>= 0.3.0)
+    atomic (1.0.1)
+    bcrypt-ruby (3.0.1)
+    better_errors (0.7.2)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+    binding_of_caller (0.7.1)
+      debug_inspector (>= 0.0.1)
+    bootstrap-sass (2.3.1.0)
+      sass (~> 3.2)
+    builder (3.1.4)
+    bullet (4.4.0)
+      uniform_notifier
+    choice (0.1.6)
+    coderay (1.0.9)
+    coffee-rails (4.0.0.beta1)
+      coffee-script (>= 2.2.0)
+      railties (>= 4.0.0.beta, < 5.0)
+    coffee-script (2.2.0)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.6.1)
+    coolline (0.4.0)
+    debug_inspector (0.0.2)
+    diff-lcs (1.2.1)
+    domain_name (0.5.9)
+      unf (>= 0.0.5, < 1.0.0)
+    erubis (2.7.0)
+    execjs (1.4.0)
+      multi_json (~> 1.0)
+    faraday (0.8.6)
+      multipart-post (~> 1.1)
+    github-markdown (0.5.3)
+    github-markup (0.7.5)
+    haml (4.0.1.rc.1)
       tilt
     haml-rails (0.4)
       actionpack (>= 3.1, < 4.1)
@@ -105,30 +163,28 @@ GEM
       haml (>= 3.1, < 4.1)
       railties (>= 3.1, < 4.1)
     hike (1.2.1)
-    http_parser.rb (0.5.3)
     httpauth (0.2.0)
-    i18n (0.6.1)
+    i18n (0.6.4)
     i18n_generators (1.2.1)
       mechanize
       rails (>= 3.0.0)
     io-console (0.3)
     io-like (0.3.0)
-    journey (1.0.4)
     jquery-rails (2.2.1)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    jquery-ui-rails (4.0.1)
+    jquery-ui-rails (4.0.2)
       jquery-rails
       railties (>= 3.1.0)
     json (1.7.7)
-    jwt (0.1.5)
-      multi_json (>= 1.0)
+    jwt (0.1.8)
+      multi_json (>= 1.5)
     launchy (2.2.0)
       addressable (~> 2.3)
     letter_opener (1.1.0)
       launchy (~> 2.2.0)
     libv8 (3.11.8.13)
-    mail (2.4.4)
+    mail (2.5.3)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -140,20 +196,21 @@ GEM
       nokogiri (~> 1.4)
       ntlm-http (~> 0.1, >= 0.1.1)
       webrobots (~> 0.0, >= 0.0.9)
-    meta_request (0.2.1)
+    meta_request (0.2.2)
       rack-contrib
-      rails
+      railties
     method_source (0.8.1)
     mime-types (1.21)
-    multi_json (1.6.1)
-    multipart-post (1.1.5)
+    minitest (4.6.2)
+    multi_json (1.7.0)
+    multipart-post (1.2.0)
     mustache (0.99.4)
     net-http-digest_auth (1.2.1)
     net-http-persistent (2.8)
     nokogiri (1.5.6)
     ntlm-http (0.1.1)
     oauth (0.4.7)
-    oauth2 (0.8.0)
+    oauth2 (0.8.1)
       faraday (~> 0.8)
       httpauth (~> 0.1)
       jwt (~> 0.1.4)
@@ -162,6 +219,8 @@ GEM
     pkg-config (1.1.4)
     polyglot (0.3.3)
     posix-spawn (0.3.6)
+    protected_attributes (1.0.0)
+      activemodel (>= 4.0.0.beta, < 5.0)
     pry (0.9.12)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
@@ -176,31 +235,19 @@ GEM
       pry (~> 0.9.10)
     pry-rails (0.2.2)
       pry (>= 0.9.10)
-    pry-remote (0.1.6)
+    pry-remote (0.1.7)
       pry (~> 0.9)
       slop (~> 3.0)
-    pygments.rb (0.3.7)
+    pygments.rb (0.4.2)
       posix-spawn (~> 0.3.6)
       yajl-ruby (~> 1.1.0)
-    rack (1.4.5)
-    rack-cache (1.2)
-      rack (>= 0.4)
+    rack (1.5.2)
     rack-contrib (1.1.0)
       rack (>= 0.9.1)
-    rack-protection (1.3.2)
-      rack
-    rack-ssl (1.3.3)
+    rack-protection (1.5.0)
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
-    rails (3.2.12)
-      actionmailer (= 3.2.12)
-      actionpack (= 3.2.12)
-      activerecord (= 3.2.12)
-      activeresource (= 3.2.12)
-      activesupport (= 3.2.12)
-      bundler (~> 1.0)
-      railties (= 3.2.12)
     rails-erd (1.1.0)
       activerecord (>= 3.0)
       activesupport (>= 3.0)
@@ -208,15 +255,10 @@ GEM
       ruby-graphviz (~> 1.0.4)
     rails-footnotes (3.7.9)
       rails (>= 3.0.0)
-    railties (3.2.12)
-      actionpack (= 3.2.12)
-      activesupport (= 3.2.12)
-      rack-ssl (~> 1.3.2)
-      rake (>= 0.8.7)
-      rdoc (~> 3.4)
-      thor (>= 0.14.6, < 2.0)
+    rails-observers (0.1.1)
+      railties (~> 4.0.0.beta)
     rake (10.0.3)
-    rdoc (3.12.1)
+    rdoc (3.12.2)
       json (~> 1.4)
     redcarpet (2.2.2)
     ref (1.0.2)
@@ -224,65 +266,58 @@ GEM
       archive-zip
       json
       pkg-config
-    rspec-core (2.12.2)
-    rspec-expectations (2.12.1)
-      diff-lcs (~> 1.1.3)
-    rspec-mocks (2.12.2)
-    rspec-rails (2.12.2)
+    rspec-core (2.13.1)
+    rspec-expectations (2.13.0)
+      diff-lcs (>= 1.1.3, < 2.0)
+    rspec-mocks (2.13.0)
+    rspec-rails (2.13.0)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
-      rspec-core (~> 2.12.0)
-      rspec-expectations (~> 2.12.0)
-      rspec-mocks (~> 2.12.0)
+      rspec-core (~> 2.13.0)
+      rspec-expectations (~> 2.13.0)
+      rspec-mocks (~> 2.13.0)
     ruby-graphviz (1.0.8)
     sanitize (2.0.3)
       nokogiri (>= 1.4.4, < 1.6)
-    sass (3.2.5)
-    sass-rails (3.2.6)
-      railties (~> 3.2.0)
-      sass (>= 3.1.10)
-      tilt (~> 1.3)
+    sass (3.2.7)
     settingslogic (2.0.9)
-    sextant (0.2.3)
-      activesupport (>= 3.2)
-      rails (>= 3.2)
-    sinatra (1.3.4)
+    sinatra (1.3.6)
       rack (~> 1.4)
       rack-protection (~> 1.3)
       tilt (~> 1.3, >= 1.3.3)
-    slop (3.4.3)
-    sorcery (0.8.1)
-      bcrypt-ruby (~> 3.0.0)
-      oauth (~> 0.4.4)
-      oauth2 (~> 0.8.0)
-    sprockets (2.2.2)
+    slop (3.4.4)
+    sprockets (2.9.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     sqlite3 (1.3.7)
     stringex (1.5.1)
-    therubyracer (0.11.3)
+    therubyracer (0.11.4)
       libv8 (~> 3.11.8.12)
       ref
     thor (0.17.0)
-    tilt (1.3.3)
+    thread_safe (0.1.0)
+      atomic
+    tilt (1.3.5)
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
-    tzinfo (0.3.35)
+    turbolinks (1.0.0)
+      coffee-rails
+    tzinfo (0.3.37)
     uglifier (1.3.0)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
-    unf (0.0.5)
+    unf (0.1.0)
       unf_ext
     unf_ext (0.0.6)
-    uniform_notifier (1.1.1)
+    uniform_notifier (1.2.0)
     useragent (0.4.16)
-    webrobots (0.1.0)
+    webrobots (0.1.1)
     yajl-ruby (1.1.0)
-    yard (0.8.4.1)
+    yard (0.8.5.2)
 
 PLATFORMS
   ruby
@@ -291,35 +326,42 @@ DEPENDENCIES
   RedCloth
   active_decorator
   activegroonga
+  activerecord-deprecated_finders!
+  arel!
   better_errors
   binding_of_caller
-  bootstrap-editable-rails
   bootstrap-sass
   bullet
-  coffee-rails
-  gollum
+  coffee-rails (~> 4.0.0.beta1)
+  gollum!
+  grit!
+  haml (= 4.0.1.rc.1)
   haml-rails
   i18n_generators
+  journey!
   jquery-rails
   jquery-ui-rails
   letter_opener
   libv8
   meta_request
+  protected_attributes
   pry-coolline
   pry-doc
   pry-nav
   pry-rails
   pry-remote
-  rails
+  rails (= 4.0.0.beta1)!
   rails-erd
   rails-footnotes
+  rails-observers
   redcarpet
   rroonga
   rspec-rails
-  sass-rails
+  sass-rails!
   settingslogic
-  sextant
-  sorcery
+  sorcery!
+  sprockets-rails!
   sqlite3
   therubyracer
+  turbolinks
   uglifier
