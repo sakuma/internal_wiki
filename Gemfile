@@ -1,6 +1,11 @@
 source 'https://rubygems.org'
+ruby "2.0.0"
 
-gem 'rails'
+gem 'rails', '4.0.0.beta1', github: 'rails/rails'
+gem 'rails-observers'
+gem 'arel',      github: 'rails/arel'
+gem 'journey', :github => 'rails/journey'
+gem 'activerecord-deprecated_finders', :github => 'rails/activerecord-deprecated_finders'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -55,11 +60,10 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'i18n_generators'
-  gem 'sextant'
   gem 'rails-footnotes'
   gem 'bullet'
   gem 'meta_request' # development log viewer for Chrome. via --- https://chrome.google.com/webstore/detail/railspanel/gjpfobpafnhjhbajcjgccbbdofdckggg
-  gem 'thin' # Replace WEBrick on development.
+  # gem 'thin' # Replace WEBrick on development.
   gem 'rails-erd'
   gem 'letter_opener'
 
