@@ -16,7 +16,7 @@ gem 'sqlite3'
 
 gem 'jquery-rails'
 gem 'grit', github: 'fdiary/grit'
-gem 'gollum', github: 'gollum/gollum'
+gem 'gollum-lib'
 gem 'RedCloth' # for Textile
 gem 'redcarpet' # for Markdown
 gem 'sorcery', :github => 'NoamB/sorcery'
@@ -43,8 +43,8 @@ group :assets do
 
   gem 'uglifier'
   gem 'jquery-ui-rails'
-  gem 'libv8'
-  gem 'therubyracer'
+  # gem 'libv8'
+  # gem 'therubyracer'
   gem 'bootstrap-sass'
   # gem 'bootstrap-editable-rails'
 end
