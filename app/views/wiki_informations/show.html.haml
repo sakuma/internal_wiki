@@ -37,7 +37,7 @@
   :coffeescript
     $ ->
       $('#add_user_input_field').autocomplete
-        source: #{User.not_admin.visible_wiki_candidates_on(@wiki_info).pluck(:email)}
+        source: #{User.active.not_admin.visible_wiki_candidates_on(@wiki_info).pluck(:email)}
 
 %hr/
 
