@@ -44,13 +44,13 @@ class WikiInformationsController < ApplicationController
   end
 
   def add_authority_user
-    user = User.where(:email => params[:email]).first
+    user = User.active.where(email: params[:email]).first
     @wiki_info.visible_authority_users << user if user
     redirect_to wiki_info_path(wiki_name: @wiki_info.name), notice: "added #{user.name}"
   end
 
   def remove_authority_user
-    user = User.where(:email => params[:email]).first
+    user = User.active.where(email: params[:email]).first
     member_ship = @wiki_info.private_memberships.find_by_user_id(user.id)
     member_ship.destroy
     redirect_to wiki_info_path(wiki_name: @wiki_info.name), notice: "removed #{user.name}"
