@@ -26,13 +26,11 @@ InternalWiki::Application.routes.draw do
   end
   post "/admin/users/invite" => 'admin/users#invite_user', :as => 'invite_user'
 
-  get '/' => 'wiki_informations#index', :as => 'wiki_infomations'
-  get 'wiki_info/new' => 'wiki_informations#new', :as => 'new_wiki_info'
-  post 'wiki_infomations' => 'wiki_informations#create', :as => 'wiki_infos'
-  get ':wiki_name' => 'wiki_informations#show', :as => 'wiki_info'
+  resources :wiki_infos, :controller => 'wiki_informations', :only => [:index, :new, :create]
+  get ':wiki_name' => 'wiki_informations#show', :as => 'wiki'
   get ':wiki_name/edit' => 'wiki_informations#edit', :as => 'edit_wiki_info'
-  put ':wiki_name' => 'wiki_informations#update', :as => 'wiki_info'
-  post '/add_authority_user' => 'wiki_informations#add_authority_user', :as => 'add_authority_user'
+  put ':wiki_name' => 'wiki_informations#update', :as => 'update_wiki'
+  post ':wiki_name/add_authority_user' => 'wiki_informations#add_authority_user', :as => 'add_authority_user'
   delete '/:wiki_name/remove_authority_user' => 'wiki_informations#remove_authority_user', :as => 'remove_authority_user'
   delete '/:wiki_name' => 'wiki_informations#destroy', :as => 'wiki_info'
 
@@ -41,24 +39,12 @@ InternalWiki::Application.routes.draw do
     get '/new' => 'pages#new', :as => 'new_page'
     get '/:page_name' => 'pages#show', :as => 'page'
     get '/:page_name/edit' => 'pages#edit', :as => 'edit_page'
-    put '/:page_name' => 'pages#update', :as => 'page'
+    put '/:page_name' => 'pages#update', :as => 'update_page'
     post '/:page_name/preview' => 'pages#preview', :as => 'preview_page'
-    delete '/:page_name' => 'pages#destroy', :as => 'page'
+    delete '/:page_name' => 'pages#destroy', :as => 'delete_page'
     get '/:page_name/histories' => 'pages#histories', :as => 'histories_page'
     put '/:page_name' => 'pages#revert', :as => 'revert_page'
   end
-
-  # scope :wiki_informations do
-  #   resources :pages do
-  #     member do
-  #       put 'revert'
-  #       get 'histories'
-  #       post 'preview', :as => 'preview'
-  #     end
-  #   end
-  # end
-  # post "wiki_informations/:id/add_authority_user" => "wiki_informations#add_authority_user", :as => 'add_authority_user'
-  # delete "wiki_informations/:id/remove_authority_user" => "wiki_informations#remove_authority_user", :as => 'remove_authority_user'
 
 
   # The priority is based upon order of creation:
