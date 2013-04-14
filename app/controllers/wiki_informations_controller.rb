@@ -1,6 +1,6 @@
 class WikiInformationsController < ApplicationController
 
-  before_filter :find_wiki_info, :only => [:show, :edit, :update, :destroy, :add_authority_user, :remove_authority_user]
+  before_filter :find_wiki_info, only: %i[show edit update destroy add_authority_user remove_authority_user]
 
   def index
     @wiki_informations = WikiInformation.accessible_by(current_user)
