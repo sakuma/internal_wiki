@@ -37,13 +37,13 @@ InternalWiki::Application.routes.draw do
   scope ':wiki_name' do
     post '' => 'pages#create', :as => 'pages'
     get '/new' => 'pages#new', :as => 'new_page'
+    get '/:page_name/histories' => 'pages#histories', :as => 'histories_page'
+    put '/:page_name/histories/revert_page' => 'pages#revert', :as => 'revert_page'
     get '/:page_name' => 'pages#show', :as => 'page'
     get '/:page_name/edit' => 'pages#edit', :as => 'edit_page'
     put '/:page_name' => 'pages#update', :as => 'update_page'
     post '/:page_name/preview' => 'pages#preview', :as => 'preview_page'
     delete '/:page_name' => 'pages#destroy', :as => 'delete_page'
-    get '/:page_name/histories' => 'pages#histories', :as => 'histories_page'
-    put '/:page_name' => 'pages#revert', :as => 'revert_page'
   end
 
 

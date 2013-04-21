@@ -21,7 +21,7 @@
     = "(by #{@page.author_name(params[:sha])})"
 
   %hr
-    = form_for @page, url: revert_page_path(wiki_name: @wiki_info.name, page_name: @page.name, sha: params[:sha]) do |f|
+    = form_for @page, as: :page, url: revert_page_path(wiki_name: @wiki_info.name, page_name: @page.name, sha: params[:sha]), method: :put do |f|
       = f.submit t('actions.revert_page'), class: 'btn btn-warning', confirm: t('actions.confirm_revert')
 
     = raw @history_content
