@@ -2,7 +2,7 @@ InternalWiki::Application.routes.draw do
 
   root :to => "wiki_informations#index"
 
-  get "search/(*search_request)", :to => "search#index", :as => 'search'
+  get "search" => "search#index", :as => 'search'
 
   get "login" => "sessions#new", :as => "login"
   post "login" => "sessions#create"
