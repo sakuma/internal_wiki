@@ -26,8 +26,8 @@ gem 'rroonga'
 gem 'activegroonga'
 
 # WebSocket
-# gem "private_pub"
-# gem 'thin'
+gem "private_pub"
+gem 'thin'
 # gem 'puma'
 # gem 'redis'
 
