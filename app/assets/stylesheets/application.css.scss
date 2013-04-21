@@ -25,7 +25,12 @@
   }
 }
 
-strong.highlight {
-  background-color: yellow;
-}
+div.well.search-result {
+  overflow-y: scroll;
+  max-height: 200px;
+  height: 100%;
 
+  strong.highlight {
+    background-color: yellow;
+  }
+}
