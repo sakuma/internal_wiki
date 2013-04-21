@@ -1,14 +1,9 @@
 source 'https://rubygems.org'
 ruby "2.0.0"
 
-gem 'rails', '4.0.0.beta1', github: 'rails/rails'
-gem 'rails-observers'
-gem 'arel',      github: 'rails/arel'
-gem 'journey', :github => 'rails/journey'
-gem 'activerecord-deprecated_finders', :github => 'rails/activerecord-deprecated_finders'
-
-# Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'rails', github: 'rails/rails'
+gem 'rails-observers'
 
 gem 'sqlite3'
 # gem 'mysql2'
@@ -32,11 +27,10 @@ gem 'thin'
 # gem 'redis'
 
 gem 'protected_attributes'
-gem 'haml', '4.0.1.rc.1'
 gem 'haml-rails'
 gem 'sass-rails', :github => 'rails/sass-rails'
 gem 'sprockets-rails', :github => 'rails/sprockets-rails'
-gem 'coffee-rails', '~> 4.0.0.beta1'
+gem 'coffee-rails'
 gem 'turbolinks'
 
 group :assets do
