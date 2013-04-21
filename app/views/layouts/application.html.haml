@@ -34,8 +34,8 @@
       .row
         .span12
           .pull-right
-            = form_tag('#', :class => 'form-search', :id => 'search-word-form') do
-              = text_field_tag :query, @search_word, :placeholder => "Search word...", :class => 'input-medium search-query', :id => 'search-query'
+            = form_tag('#', :class => 'form-search', :id => 'search-word-form', :method => :get) do
+              = text_field_tag :q, @search_word, :placeholder => "Search word...", :class => 'input-medium search-query', :id => 'search-query'
               = submit_tag t('terms.search'), :class => 'btn btn-primary'
 
           - if content_for?(:page_editable)
