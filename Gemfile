@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby "2.0.0"
 
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-gem 'rails', github: 'rails/rails'
+gem 'rails', '4.0.0.rc2'
 gem 'rails-observers'
 
 gem 'sqlite3'
@@ -10,11 +10,11 @@ gem 'sqlite3'
 # gem 'pg'
 
 gem 'jquery-rails'
-gem 'grit', github: 'fdiary/grit'
+gem 'grit'
 gem 'gollum-lib'
 gem 'RedCloth' # for Textile
 gem 'redcarpet' # for Markdown
-gem 'sorcery', :github => 'NoamB/sorcery'
+gem 'sorcery'
 gem 'active_decorator'
 gem 'settingslogic'
 gem 'rroonga'
@@ -28,8 +28,8 @@ gem 'thin'
 
 gem 'protected_attributes'
 gem 'haml-rails'
-gem 'sass-rails', :github => 'rails/sass-rails'
-gem 'sprockets-rails', :github => 'rails/sprockets-rails'
+gem 'sass-rails', '~> 4.0.0.rc2' #:github => 'rails/sass-rails'
+gem 'sprockets-rails' #, :github => 'rails/sprockets-rails'
 gem 'coffee-rails'
 gem 'turbolinks'
 
