@@ -10,7 +10,7 @@ gem 'rails-observers'
 gem 'pg'
 
 gem 'jquery-rails'
-gem 'grit'
+gem 'gitlab-grit'
 gem 'gollum-lib'
 gem 'RedCloth' # for Textile
 gem 'redcarpet' # for Markdown
@@ -20,8 +20,7 @@ gem 'settingslogic'
 
 # WebSocket
 gem "private_pub"
-# gem 'thin'
-gem 'puma'
+gem 'thin'
 # gem 'redis'
 
 gem 'protected_attributes'
@@ -30,6 +29,8 @@ gem 'sass-rails'#, '~> 4.0.0.rc2' #:github => 'rails/sass-rails'
 gem 'sprockets-rails' #, :github => 'rails/sprockets-rails'
 gem 'coffee-rails'
 gem 'turbolinks'
+
+gem 'foreman'
 
 group :assets do
 
