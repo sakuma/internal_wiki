@@ -1,0 +1,30 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  # host: localhost
+  database: internal_wiki_dev
+  pool: 10
+  username: #postgres
+  password:
+  # port: 5432
+
+test: &test
+  adapter: postgresql
+  encoding: unicode
+  # host: localhost
+  database: internal_wiki_test
+  pool: 10
+  username: #postgres
+  password:
+  # port: 5432
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  # host: localhost
+  database: internal_wiki_prod
+  pool: 10
+  username: #postgres
+  password:
+  # port: 5432
+
