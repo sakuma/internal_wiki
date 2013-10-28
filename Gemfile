@@ -2,12 +2,12 @@ source 'https://rubygems.org'
 ruby "2.0.0"
 
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-gem 'rails', '4.0.0.rc2'
+gem 'rails', '4.0.0'
 gem 'rails-observers'
 
-gem 'sqlite3'
+# gem 'sqlite3'
 # gem 'mysql2'
-# gem 'pg'
+gem 'pg'
 
 gem 'jquery-rails'
 gem 'grit'
@@ -22,13 +22,13 @@ gem 'activegroonga'
 
 # WebSocket
 gem "private_pub"
-gem 'thin'
-# gem 'puma'
+# gem 'thin'
+gem 'puma'
 # gem 'redis'
 
 gem 'protected_attributes'
 gem 'haml-rails'
-gem 'sass-rails', '~> 4.0.0.rc2' #:github => 'rails/sass-rails'
+gem 'sass-rails'#, '~> 4.0.0.rc2' #:github => 'rails/sass-rails'
 gem 'sprockets-rails' #, :github => 'rails/sprockets-rails'
 gem 'coffee-rails'
 gem 'turbolinks'
