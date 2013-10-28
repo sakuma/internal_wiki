@@ -17,8 +17,6 @@ gem 'redcarpet' # for Markdown
 gem 'sorcery'
 gem 'active_decorator'
 gem 'settingslogic'
-gem 'rroonga'
-gem 'activegroonga'
 
 # WebSocket
 gem "private_pub"
