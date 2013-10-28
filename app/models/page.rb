@@ -89,15 +89,16 @@ class Page < ActiveRecord::Base
   def create_page
     wiki.write_page(name, FORMAT, body || '',
                     {:message => "Created page --- '#{self.name}'",
-                     :name => self.recent_editor.name, :author => self.recent_editor.name})
+                     :name => self.recent_editor.try(:name) ,
+                     :email=> self.recent_editor.try(:email)})
   end
 
   def update_page
-    wiki.update_page(page, name, FORMAT, (body || self.raw_content), {:message => "Edited page --- '#{self.name}'", :name => self.recent_editor.name, :author => self.recent_editor.name})
+    wiki.update_page(page, name, FORMAT, (body || self.raw_content), {:message => "Edited page --- '#{self.name}'", :name => self.recent_editor.name, :email => self.recent_editor.email})
   end
 
   def delete_page(author_name)
-    wiki.delete_page(page, {:message => "Deleted page --- '#{self.name}'", :name => author_name, :author => author_name})
+    wiki.delete_page(page, {:message => "Deleted page --- '#{self.name}'", :name => author_name})
   end
 
   def force_encoding_of(obj)
