@@ -9,8 +9,6 @@ require 'rails/all'
 # require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
-require 'active_groonga/railtie'
-
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
   Bundler.require(*Rails.groups(:assets => %w(development test)))
@@ -31,9 +29,6 @@ module InternalWiki
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
-
-    # Activate observers that should always be running.
-    config.active_record.observers = [:wiki_information_observer, :page_observer]
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.

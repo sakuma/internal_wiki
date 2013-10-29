@@ -54,9 +54,12 @@
                     %ul.nav.nav-list
                       - Page.accessible_by(current_user).recently.each do |page|
                         %li
-                          %p
-                            = link_to truncate(page.name, length: 15), page_path(wiki_name: page.wiki_information.name, page_name: page.name)
-                            = link_to truncate("(#{page.wiki_information.name})", length: 10), wiki_info_path(wiki_name: page.wiki_information.name)
+                          %small
+                            \/
+                            = link_to truncate(page.wiki_information.name, length: 8), wiki_info_path(wiki_name: page.wiki_information.name)
+                            \/
+                            = link_to truncate(page.url_name, length: 8), page_path(wiki_name: page.wiki_information.name, page_name: page.url_name)
+                            = truncate(" ( #{page.name} )", length: 13)
 
 :coffeescript
   $('#search-word-form').on 'submit', ->

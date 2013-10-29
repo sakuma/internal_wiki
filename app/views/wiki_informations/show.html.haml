@@ -46,5 +46,5 @@
 
   #tag-cloud
     - @wiki_info.pages.each do |page|
-      = link_to page.name, page_path(wiki_name: @wiki_info.name, page_name: page.name)
+      = link_to page.url_name, page_path(wiki_name: @wiki_info.name, page_name: page.url_name)
 

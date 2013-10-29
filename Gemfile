@@ -10,20 +10,17 @@ gem 'rails-observers'
 gem 'pg'
 
 gem 'jquery-rails'
-gem 'grit'
+gem 'gitlab-grit'
 gem 'gollum-lib'
 gem 'RedCloth' # for Textile
 gem 'redcarpet' # for Markdown
 gem 'sorcery'
 gem 'active_decorator'
 gem 'settingslogic'
-gem 'rroonga'
-gem 'activegroonga'
 
 # WebSocket
 gem "private_pub"
-# gem 'thin'
-gem 'puma'
+gem 'thin'
 # gem 'redis'
 
 gem 'protected_attributes'
@@ -32,6 +29,8 @@ gem 'sass-rails'#, '~> 4.0.0.rc2' #:github => 'rails/sass-rails'
 gem 'sprockets-rails' #, :github => 'rails/sprockets-rails'
 gem 'coffee-rails'
 gem 'turbolinks'
+
+gem 'foreman'
 
 group :assets do
 
@@ -48,11 +47,15 @@ group :development, :test do
   # gem 'debugger'
   gem 'pry-rails'
   gem 'pry-doc'
-  gem 'pry-nav'
-  gem 'pry-coolline'
+  gem 'pry-debugger'
+  # gem 'pry-nav'
+  # gem 'pry-coolline'
+  gem 'pry-stack_explorer'
   gem 'pry-remote'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'hirb'
+  gem 'hirb-unicode'
   gem 'i18n_generators'
   gem 'rails-footnotes'
   gem 'bullet'
