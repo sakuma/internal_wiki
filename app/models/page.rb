@@ -18,8 +18,6 @@ class Page < ActiveRecord::Base
   before_create  :create_page
   before_update  :update_page
 
-  attr_accessor :body
-
   scope :accessible_by, ->(user) do
     ids = WikiInformation.accessible_by(user).map(&:id)
     includes(:wiki_information).
