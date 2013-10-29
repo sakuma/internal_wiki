@@ -3,10 +3,12 @@
 
 = content_for :page_editable do
   .row
-    %h2
-      = @wiki_info.name
-      &raquo;
-      = text_field_tag :page, nil, :placeholder => Page.human_attribute_name('name'), :id => 'new-page-name', required: true
+    %h2.text-center
+      = "/#{@wiki_info.name}/"
+      = text_field_tag :page, nil, :placeholder => Page.human_attribute_name('url_name'), :id => 'new-page-url-name', required: true
+      %small (使用可能文字: A-Z, a-z, -)
+    %h3.text-center
+      = text_field_tag :page, nil, :placeholder => t('terms.page_name_format_placeholder'), :id => 'new-page-name', required: true
     = render 'form'
 
 
@@ -22,3 +24,5 @@
           parse_md()
       $('#new-page-name').keyup ->
         $('#page_name').val( $('#new-page-name').val())
+      $('#new-page-url-name').keyup ->
+        $('#page_url_name').val( $('#new-page-url-name').val())

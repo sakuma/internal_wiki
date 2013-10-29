@@ -3,10 +3,8 @@
 
 = content_for :page_editable do
   .row
-    %h2
-      = @wiki_info.name
-      &raquo;
-      = @page.name
+    %h3.text-center
+      = text_field_tag :page, @page.name, :placeholder => t('terms.page_name_format_placeholder'), :id => 'edit-page-name', required: true
 
     = render 'form'
 
@@ -23,6 +21,9 @@
 
   :coffeescript
     $ ->
+      $('#edit-page-name').keyup ->
+        $('#page_name').val( $('#edit-page-name').val())
+
       parse_md = ->
         result = Markdown get_markdown_text()
         $('#preview-result').html result
@@ -44,7 +45,7 @@
         markdown_text = get_markdown_text()
         unless prev == markdown_text
           prev = markdown_text
-          sending_page_body "#{preview_page_path(wiki_name: @wiki_info.name, page_name: @page.name)}", markdown_text
+          sending_page_body "#{preview_page_path(wiki_name: @wiki_info.name, page_name: @page.url_name)}", markdown_text
 
       PrivatePub.subscribe "/pages/#{@page.id}", (data, channel) ->
         $('#markdown-text').val data.body

@@ -9,7 +9,8 @@ ja:
 
     attributes:
       page:
-        name: "ページ名"
+        name: "ページタイトル"
+        url_name: "ページURL"
         recent_editor: :activerecord.models.recent_editor  #g
         updated_by: updated_by  #g
         wiki_information: :activerecord.models.wiki_information  #g

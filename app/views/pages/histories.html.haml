@@ -4,14 +4,14 @@
 - content_for :right_area do
   %table.table.table-hover
     - @page.histories(true).each do |history|
-      %tr{"data-href" => (histories_page_path(wiki_name: @wiki_info.name, page_name: @page.name, sha: history[:sha]))}
+      %tr{"data-href" => (histories_page_path(wiki_name: @wiki_info.name, page_name: @page.url_name, sha: history[:sha]))}
         %td= history[:date].to_s(:db)
         %td= history[:author]
 
 %h2
   = truncate(@wiki_info.name, length: 20)
   &raquo;
-  = link_to @page.name, page_path(wiki_name: @wiki_info.name, page_name: @page.name)
+  = link_to @page.url_name, page_path(wiki_name: @wiki_info.name, page_name: @page.url_name)
   = t('terms.history_of')
 
 - if @history_content
@@ -21,7 +21,7 @@
     = "(by #{@page.author_name(params[:sha])})"
 
   %hr
-    = form_for @page, as: :page, url: revert_page_path(wiki_name: @wiki_info.name, page_name: @page.name, sha: params[:sha]), method: :put do |f|
+    = form_for @page, as: :page, url: revert_page_path(wiki_name: @wiki_info.name, page_name: @page.url_name, sha: params[:sha]), method: :put do |f|
       = f.submit t('actions.revert_page'), class: 'btn btn-warning', confirm: t('actions.confirm_revert')
 
     = raw @history_content

@@ -11,7 +11,7 @@
 
   - @pages.each do |page|
     %tr
-      %td= link_to page.name, wiki_information_page_path(@wiki_info, page)
+      %td= link_to page.url_name, wiki_information_page_path(@wiki_info, page)
       %td= link_to t('actions.editing'), edit_wiki_information_page_path(@wiki_info, page)
       %td= link_to t('actions.deleting'), wiki_information_page_path(@wiki_info, page), :method => :delete, :confirm => t('actions.confirm_delete')
 

@@ -9,7 +9,7 @@ class WikiInformation < ActiveRecord::Base
   has_many :visible_wikis, :through => :visibilities, :source => :user
   belongs_to :creator, :class_name => 'User', :foreign_key => 'created_by'
 
-  validates :name, :presence => true, :uniqueness => true, :format => { :with => /\A[-a-z]+\Z/i, :message => :wrong_format_wiki_name}
+  validates :name, :presence => true, :uniqueness => true, :format => { :with => /\A[-a-z]+\Z/i, :message => :wrong_format_name}
 
   before_update :rename_repository_directory
   after_create :prepare_git_repository
@@ -52,7 +52,7 @@ class WikiInformation < ActiveRecord::Base
 
   def prepare_git_repository
     Grit::Repo.init(self.git_directory)
-    self.pages.create(:name => 'Welcome', :body => 'Getting started guide', :updated_by => self.created_by)
+    self.pages.create(:url_name => 'welcome', :name => 'Welcome', :body => 'Getting started guide', :updated_by => self.created_by)
 
     if is_private?
       self.private_memberships.create(:user_id => self.created_by, :admin => true)
