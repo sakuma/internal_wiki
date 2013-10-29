@@ -9,7 +9,7 @@ class WikiInformation < ActiveRecord::Base
   has_many :visible_wikis, :through => :visibilities, :source => :user
   belongs_to :creator, :class_name => 'User', :foreign_key => 'created_by'
 
-  validates :name, :presence => true, :uniqueness => true
+  validates :name, :presence => true, :uniqueness => true, :format => { :with => /\A[-a-z]+\Z/i, :message => :wrong_format_wiki_name}
 
   before_update :rename_repository_directory
   after_create :prepare_git_repository
