@@ -28,6 +28,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     addressable (2.3.5)
+    ansi (1.4.3)
     arel (4.0.1)
     atomic (1.1.14)
     bcrypt-ruby (3.0.1)
@@ -113,6 +114,7 @@ GEM
       activesupport (>= 3.1, < 4.1)
       haml (>= 3.1, < 4.1)
       railties (>= 3.1, < 4.1)
+    hashr (0.0.22)
     hike (1.2.3)
     hirb (0.7.1)
     hirb-unicode (0.0.5)
@@ -229,6 +231,8 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rake (10.1.0)
     redcarpet (3.0.0)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     rspec-core (2.14.6)
     rspec-expectations (2.14.3)
       diff-lcs (>= 1.1.3, < 2.0)
@@ -272,6 +276,14 @@ GEM
     thread_safe (0.1.3)
       atomic
     tilt (1.4.1)
+    tire (0.6.1)
+      activemodel (>= 3.0)
+      activesupport
+      ansi
+      hashr (~> 0.0.19)
+      multi_json (~> 1.3)
+      rake
+      rest-client (~> 1.6)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
@@ -332,5 +344,6 @@ DEPENDENCIES
   sorcery
   sprockets-rails
   thin
+  tire
   turbolinks
   uglifier
