@@ -24,9 +24,9 @@ class PagesController < ApplicationController
   end
 
   def create
-    @page = @wiki_info.pages.build(params[:page].merge(:updated_by => current_user.id))
+    @page = @wiki_info.pages.build(page_params.merge(:updated_by => current_user.id))
     if @page.save
-      redirect_to page_path(wiki_name: @wiki_info.name, page_name: @page.name), :notice => t('terms.created_page')
+      redirect_to page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), :notice => t('terms.created_page')
     else
       render :new
     end
@@ -38,9 +38,9 @@ class PagesController < ApplicationController
       return
     end
     respond_to do |format|
-      if @page.update_attributes(params[:page].merge(:updated_by => current_user.id))
+      if @page.update_attributes(page_params.merge(:updated_by => current_user.id))
         PrivatePub.publish_to "/pages/#{@page.id}", :body => params[:page][:body], :editing_word => '' rescue nil
-        format.html { redirect_to page_path(wiki_name: @wiki_info.name, page_name: @page.name), :notice => t('terms.updated_page') }
+        format.html { redirect_to page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), :notice => t('terms.updated_page') }
         format.json { head :no_content }
       else
         format.html { render :edit }
@@ -64,7 +64,7 @@ class PagesController < ApplicationController
 
   def revert
     if @page.revert(current_user, params[:sha])
-      redirect_to page_path(wiki_name: @wiki_info.name, page_name: @page.name), :notice => t('terms.reverted_to', :target => @page.date(params[:sha]).to_s(:db))
+      redirect_to page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), :notice => t('terms.reverted_to', :target => @page.date(params[:sha]).to_s(:db))
     else
       render :histories
     end
@@ -73,12 +73,16 @@ class PagesController < ApplicationController
 
   private
 
+  def page_params
+    params.require(:page).permit(:name, :url_name, :body)
+  end
+
   def find_wiki_information
     @wiki_info = WikiInformation.where(name: params[:wiki_name]).first!
   end
 
   def find_page
-    @page = @wiki_info.pages.where(name: params[:page_name]).first
+    @page = @wiki_info.pages.where(url_name: params[:page_name]).first
   end
 
   def find_body
