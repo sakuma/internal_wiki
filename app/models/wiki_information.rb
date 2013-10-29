@@ -12,6 +12,8 @@ class WikiInformation < ActiveRecord::Base
   validates :name, :presence => true, :uniqueness => true
 
   before_update :rename_repository_directory
+  after_create :prepare_git_repository
+  after_destroy :cleanup_git_repository
 
   BASE_GIT_DIRECTORY = Rails.root.join('data')
 
@@ -47,5 +49,21 @@ class WikiInformation < ActiveRecord::Base
     before, after = self.name_change
     File.rename(self.git_directory(before), self.git_directory(after))
   end
+
+  def prepare_git_repository
+    Grit::Repo.init(self.git_directory)
+    self.pages.create(:name => 'Welcome', :body => 'Getting started guide', :updated_by => self.created_by)
+
+    if is_private?
+      self.private_memberships.create(:user_id => self.created_by, :admin => true)
+    end
+  end
+
+  def cleanup_git_repository
+    FileUtils.rm_rf(self.git_directory)
+  rescue => e
+    logger.warn "Failed Cleanup Git Repository: #{e.message}"
+  end
+
 
 end
