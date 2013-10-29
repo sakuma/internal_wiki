@@ -22,6 +22,7 @@ gem 'settingslogic'
 gem "private_pub"
 gem 'thin'
 # gem 'redis'
+gem 'tire' # for ElasticSearch
 
 gem 'protected_attributes'
 gem 'haml-rails'
@@ -29,7 +30,6 @@ gem 'sass-rails'#, '~> 4.0.0.rc2' #:github => 'rails/sass-rails'
 gem 'sprockets-rails' #, :github => 'rails/sprockets-rails'
 gem 'coffee-rails'
 gem 'turbolinks'
-
 gem 'foreman'
 
 group :assets do
