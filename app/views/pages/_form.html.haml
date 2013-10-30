@@ -2,9 +2,10 @@
 - form_url = newly ? pages_path(wiki_name: @wiki_info.name) : page_path(wiki_name: @wiki_info.name, page_name: @page.url_name)
 - http_method = newly ? :post : :put
 
+= error_messages_for(@page)
+
 .span6
   = form_for(@page, url: form_url, html: {method: http_method, id: 'wiki-page-form'}) do |f|
-    = error_messages_for(@page)
     #page-content
       .field
         - if @page.new_record?

@@ -9,7 +9,7 @@ class Page < ActiveRecord::Base
 
   validates_uniqueness_of :name, :scope => :wiki_information_id
   validates :name, :presence => true, :uniqueness => true
-  validates :url_name, :presence => true, :uniqueness => true, :format => { :with => /\A[-a-z]+\Z/i, :message => :wrong_format_name}
+  validates :url_name, presence: true, uniqueness: true, format: { with: /\A[-a-z]+\Z/i, message: :wrong_format_name, if: Proc.new{|page| page.url_name.present?}}
 
   # Temporarily hard coded
   # FORMAT = :textile
