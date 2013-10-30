@@ -42,18 +42,21 @@
 
       prev = initial = get_markdown_text()
       $('#markdown-text').keyup ->
+        $('#page-submit-btn').removeAttr("disabled").addClass("btn-primary")
+        $('#editing-user').hide()
         markdown_text = get_markdown_text()
         unless prev == markdown_text
           prev = markdown_text
           sending_page_body "#{preview_page_path(wiki_name: @wiki_info.name, page_name: @page.url_name)}", markdown_text
 
       PrivatePub.subscribe "/pages/#{@page.id}", (data, channel) ->
-        $('#markdown-text').val data.body
-        result = Markdown $('#markdown-text').val()
-        $('#preview-result').html result
-        $('#editing-user').html(data.editing_word)
-        $('#editing-user').show()
+        unless data.edited_user_id == "#{current_user.id}"
+          $('#markdown-text').val data.body
+          result = Markdown $('#markdown-text').val()
+          $('#preview-result').html result
+          $('#editing-user').html(data.editing_word)
+          $('#editing-user').show()
+          $('#page-submit-btn').attr("disabled", "true").removeClass("btn-primary")
 
       # parse on firstview
       parse_md()
-

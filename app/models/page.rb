@@ -4,6 +4,9 @@ class Page < ActiveRecord::Base
   belongs_to :wiki_information
   belongs_to :recent_editor, :class_name => 'User', :foreign_key => :updated_by
 
+  include Tire::Model::Search
+  include Tire::Model::Callbacks
+
   validates_uniqueness_of :name, :scope => :wiki_information_id
   validates :name, :presence => true, :uniqueness => true
   validates :url_name, :presence => true, :uniqueness => true, :format => { :with => /\A[-a-z]+\Z/i, :message => :wrong_format_name}
@@ -14,8 +17,6 @@ class Page < ActiveRecord::Base
 
   before_create  :create_page
   before_update  :update_page
-
-  attr_accessor :body
 
   scope :accessible_by, ->(user) do
     ids = WikiInformation.accessible_by(user).map(&:id)

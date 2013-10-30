@@ -8,5 +8,13 @@
 - else
   - @pages.each do |page|
     .well.search-result
-      %h4= link_to page.url_name, page_path(wiki_name: page.wiki_information.name, page_name: page.url_name)
+      %h4
+        \/
+        = link_to highlight(page.wiki_information.name, @search_word) , pages_path(wiki_name: page.wiki_information.name)
+        \/
+        = link_to highlight(page.url_name, @search_word) , page_path(wiki_name: page.wiki_information.name, page_name: page.url_name)
+        %small
+          \(
+          = highlight(page.name, @search_word)
+          \)
       = highlight(page.content, @search_word)
