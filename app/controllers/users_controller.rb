@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
 
-  layout 'login', :only => [:register, :activate]
+  layout 'login', only: [:register, :activate]
 
-  skip_before_filter :require_login, :only => [:register, :activate]
+  skip_before_filter :require_login, only: [:register, :activate]
 
   def setting
     @user = current_user
@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   def update
     @user = User.where(id: params[:id]).first
     if @user.update_attributes(params[:user])
-      redirect_to user_setting_path, :notice => 'successfully update'
+      redirect_to user_setting_path, notice: 'successfully update'
     else
       render :setting
     end
