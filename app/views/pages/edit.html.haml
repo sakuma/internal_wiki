@@ -4,7 +4,7 @@
 = content_for :page_editable do
   .row
     %h3.text-center
-      = text_field_tag :page, @page.name, :placeholder => t('terms.page_name_format_placeholder'), :id => 'edit-page-name', required: true
+      = text_field_tag :page, @page.name, placeholder: t('terms.page_name_format_placeholder'), id: 'edit-page-name', required: true
 
     #editing-user.label.label-warning.offset2{style: 'display: none;'}
     = render 'form'
