@@ -2,35 +2,15 @@
 
   = render 'shared/flash_messages'
 
-  = form_for(@user, :url => update_setting_path(current_user), :html => {:method => :put, :class => "form-horizontal"}) do |f|
-
-    = error_messages_for(@user)
+  = form_for(@user, url: update_setting_path(current_user), html: {method: :put, class: "form-horizontal"}) do |f|
 
     .control-group
       .controls
         %h2= t('terms.setting')
 
-    .control-group
-      = f.label :name, :class => "control-label"
-      .controls
-        = f.text_field :name, :placeholder => User.human_attribute_name(:name)
-
-    .control-group
-      = f.label :email, :class => "control-label"
-      .controls
-        = f.text_field :email, :placeholder => User.human_attribute_name(:email)
-
-    .control-group
-      = f.label :password, :class => "control-label"
-      .controls
-        = f.password_field :password, :placeholder => User.human_attribute_name(:password)
-
-    .control-group
-      = f.label :password_confirmation, :class => "control-label"
-      .controls
-        = f.password_field :password_confirmation, :placeholder => User.human_attribute_name(:password_confirmation)
+    = render 'profile_form', f: f
 
     .control-group.actions
       .controls
-        = f.submit t('actions.update'), :class => 'btn btn-primary'
+        = f.submit t('actions.update'), class: 'btn btn-primary'
 

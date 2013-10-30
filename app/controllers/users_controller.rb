@@ -4,10 +4,6 @@ class UsersController < ApplicationController
 
   skip_before_filter :require_login, :only => [:register, :activate]
 
-  def new
-    @user = User.new(params[:user])
-  end
-
   def setting
     @user = current_user
   end
