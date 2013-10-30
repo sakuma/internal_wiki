@@ -40,6 +40,7 @@ ja:
     successfully_login: "ログインに成功しました。"
     search: "検索"
     page_history: "履歴"
+    page_url_name_pattern: "(使用可能文字: A-Z, a-z, -)"
     histories_more: "さらに履歴を見る"
     history_of: "の履歴"
     user_control: "ユーザ管理"

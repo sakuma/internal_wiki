@@ -1,6 +1,7 @@
 - newly = @page.new_record?
 - form_url = newly ? pages_path(wiki_name: @wiki_info.name) : page_path(wiki_name: @wiki_info.name, page_name: @page.url_name)
 - http_method = newly ? :post : :put
+- canceled_to_url = newly ? wiki_info_path(wiki_name: @wiki_info.name) : page_path(wiki_name: @wiki_info.name, page_name: @page.url_name)
 
 = error_messages_for(@page)
 
@@ -14,7 +15,7 @@
       = f.text_area :body, class: 'span6', rows: 10, id: 'markdown-text'
       .form-actions
         = f.submit (newly ? t('actions.regist') : t('actions.update')), class: 'btn btn-primary', id: 'page-submit-btn'
-        = link_to t('actions.cancel'), newly ? wiki_info_path(wiki_name: @wiki_info.name) : page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), class: 'btn'
+        = link_to t('actions.cancel'), canceled_to_url, class: 'btn'
 
 .span6
   .well.well-small#preview-result
