@@ -22,13 +22,13 @@ class User < ActiveRecord::Base
   scope :active, ->{ where(activation_state: 'active') }
   scope :pending, ->{ where(activation_state: 'pending') }
 
-  validates_presence_of :name, if: Proc.new {|user| user.activate?}
+  validates_presence_of :name, if: Proc.new {|user| user.activated?}
   validates :email, presence: true, uniqueness: true
 
   validates_inclusion_of :admin, in: lambda{|u| u.admin_validetes_include_values}, message: :invalid_admin_select
   validates_inclusion_of :limited, in: lambda{|u| u.limited__validetes_include_values}, message: :invalid_limited_select
 
-  def activate?
+  def activated?
    activation_state == "active"
   end
 

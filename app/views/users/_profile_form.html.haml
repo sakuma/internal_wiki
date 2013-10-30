@@ -1,0 +1,24 @@
+= error_messages_for(@user)
+
+.control-group
+  = f.label :name, class: "control-label"
+  .controls
+    = f.text_field :name, placeholder: User.human_attribute_name(:name), required: true
+
+.control-group
+  = f.label :email, class: "control-label"
+  .controls
+    - if @user.activated?
+      = f.text_field :email, placeholder: User.human_attribute_name(:email), required: true
+    - else
+      %big= @user.email
+
+.control-group
+  = f.label :password, class: "control-label"
+  .controls
+    = f.password_field :password, placeholder: User.human_attribute_name(:password), required: true
+
+.control-group
+  = f.label :password_confirmation, class: "control-label"
+  .controls
+    = f.password_field :password_confirmation, placeholder: User.human_attribute_name(:password_confirmation), required: true
