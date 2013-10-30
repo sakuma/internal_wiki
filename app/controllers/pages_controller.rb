@@ -52,7 +52,7 @@ class PagesController < ApplicationController
   def preview
     @body = params[:body]
     @editor = User.where(id: params[:edited_user_id].to_i).first
-    PrivatePub.publish_to "/pages/#{@page.id}", :body => @body,
+    PrivatePub.publish_to "/pages/#{@page.id}", :body => @body, :edited_user_id => current_user.id.to_s,
       :editing_word => @editor ? I18n.t('terms.editing_by', :target => @editor.name) : ''
     render :nothing => true
   end

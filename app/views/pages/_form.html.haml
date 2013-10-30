@@ -13,7 +13,7 @@
         = f.hidden_field :name
       = f.text_area :body, class: 'span6', rows: 10, id: 'markdown-text'
       .form-actions
-        = f.submit (newly ? t('actions.regist') : t('actions.update')), class: 'btn btn-primary'
+        = f.submit (newly ? t('actions.regist') : t('actions.update')), class: 'btn btn-primary', id: 'page-submit-btn'
         = link_to t('actions.cancel'), newly ? wiki_info_path(wiki_name: @wiki_info.name) : page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), :class => 'btn'
 
 .span6
