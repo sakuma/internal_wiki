@@ -6,18 +6,10 @@
     %h3.text-center
       = text_field_tag :page, @page.name, :placeholder => t('terms.page_name_format_placeholder'), :id => 'edit-page-name', required: true
 
+    #editing-user.label.label-warning.offset2{style: 'display: none;'}
     = render 'form'
 
     = subscribe_to "/pages/#{@page.id}"
-
-  -# :coffeescript
-    -# source = new EventSource("/pages/#{@page.id}")
-    -# source.addEventListener "pages.update.#{@page.id}", (e) ->
-    -#   page = $.parseJSON(e.data).page
-    -#   console.log page
-    -#   -# $('#chat').append($('<li>').text("#{message.name}: #{message.content}"))
-
-
 
   :coffeescript
     $ ->
@@ -51,12 +43,14 @@
 
       PrivatePub.subscribe "/pages/#{@page.id}", (data, channel) ->
         unless data.edited_user_id == "#{current_user.id}"
+          $('#markdown-text').animate({borderColor: '#fbf300' }, 'slow')
           $('#markdown-text').val data.body
           result = Markdown $('#markdown-text').val()
           $('#preview-result').html result
           $('#editing-user').html(data.editing_word)
           $('#editing-user').show()
           $('#page-submit-btn').attr("disabled", "true").removeClass("btn-primary")
+          $('#markdown-text').animate({borderColor: '#fff' }, 'slow')
 
       # parse on firstview
       parse_md()
