@@ -27,7 +27,7 @@ class SessionsController < ApplicationController
       redirect_to root_path, notice: "Logged in from #{provider.titleize}!"
     else
       begin
-        user_hash = Config.send(provider.to_sym).get_user_hash
+        user_hash = sorcery_fetch_user_hash(provider)
         if @user = User.where(email: user_hash[:user_info]["email"]).first
           @user.authentications.create!(uid: user_hash[:uid], provider: provider)
           reset_session # protect from session fixation attack
