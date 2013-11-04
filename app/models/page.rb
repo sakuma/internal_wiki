@@ -4,9 +4,6 @@ class Page < ActiveRecord::Base
   belongs_to :wiki_information
   belongs_to :recent_editor, class_name: 'User', foreign_key: :updated_by
 
-  include Tire::Model::Search
-  include Tire::Model::Callbacks
-
   validates_uniqueness_of :name, scope: :wiki_information_id
   validates :name, presence: true, uniqueness: true
   validates :url_name, presence: true, uniqueness: true, format: { with: /\A[-a-z]+\Z/i, message: :wrong_format_name, if: Proc.new{|page| page.url_name.present?}}
@@ -23,8 +20,33 @@ class Page < ActiveRecord::Base
     includes(:wiki_information).
     where(["wiki_informations.id IN (?)", ids])
   end
-
   scope :recently, ->{ limit(5).order('pages.updated_at DESC') }
+
+  ######################################
+  # ElasticSearch
+  #
+
+  include Tire::Model::Search
+  include Tire::Model::Callbacks
+
+  mapping do
+    indexes :id, :index => :not_analyzed
+    indexes :url_name, nalyzer: 'snowball', boost: 100
+    indexes :name, analyzer: 'snowball'
+    indexes :body, analyzer: 'snowball'
+    indexes :wiki_information_id, :index => :not_analyzed
+  end
+
+  def self.search(params)
+    tire.search(load: true) do
+      query do
+        string params[:q], default_operator: "AND"
+        terms :wiki_information_id, params[:ids]
+      end
+    end
+  end
+
+  #######################################
 
   def wiki_name
     wiki_information.name
