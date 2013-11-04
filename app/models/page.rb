@@ -28,13 +28,37 @@ class Page < ActiveRecord::Base
 
   include Tire::Model::Search
   include Tire::Model::Callbacks
-
-  mapping do
-    indexes :id, :index => :not_analyzed
-    indexes :url_name, nalyzer: 'snowball', boost: 100
-    indexes :name, analyzer: 'snowball'
-    indexes :body, analyzer: 'snowball'
-    indexes :wiki_information_id, :index => :not_analyzed
+  settings :analysis => {
+    :filter  => {
+      :ngram_filter => {
+        :type => "nGram",
+        :min_gram => 2,
+        :max_gram => 5,
+      }
+    },
+    :analyzer => {
+      :index_ngram_analyzer => {
+        :type  => "custom",
+        :tokenizer  => "standard",
+        :filter  => ["lowercase", "ngram_filter"],
+      },
+      :search_ngram_analyzer => {
+        :type  => "custom",
+        :tokenizer  => "standard",
+        :filter  => ["standard", "lowercase", "ngram_filter"],
+      }
+    }
+  } do
+    mapping do
+      [:url_name, :name, :body].each do |attribute|
+        indexes attribute, type: 'string', index_analyzer: 'index_ngram_analyzer',
+          search_analyzer: 'search_ngram_analyzer'
+      end
+      # indexes :url_name, nalyzer: 'snowball', boost: 100
+      # indexes :name, analyzer: 'snowball'
+      # indexes :body, analyzer: 'snowball'
+      indexes :wiki_information_id, index: :not_analyzed
+    end
   end
 
   def self.search(params)
