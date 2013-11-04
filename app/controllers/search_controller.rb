@@ -4,7 +4,8 @@ class SearchController < ApplicationController
     if @search_word.blank?
       @pages = []
     else
-      @pages = Page.search(params[:q], load: true)
+      params[:ids] = WikiInformation.accessible_by(current_user).map(&:id)
+      @pages = Page.search(params)
     end
   end
 end
