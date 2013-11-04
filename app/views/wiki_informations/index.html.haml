@@ -1,20 +1,17 @@
-%h1= t('terms.index_wiki')
+%h1.text-center= t('terms.index_wiki')
 
 = render 'shared/flash_messages'
 
-%table{:style => 'margin: 0 auto 0 auto;'}
-  %tr
-    %th= WikiInformation.human_attribute_name(:name)
-    %th= WikiInformation.human_attribute_name(:is_private)
-    %th= WikiInformation.human_attribute_name(:created_by)
-    %th
-    %th
-
-  - @wiki_informations.each do |wiki_info|
+%table.table.table-hover{style: 'margin: 0 auto 0 auto;'}
+  - @wiki_informations.each do |wiki|
     %tr
-      %td= link_to wiki_info.name, wiki_info_path(wiki_name: wiki_info.name)
-      %td= wiki_info.private_policy
-      %td= wiki_info.creator.try(:name)
-      %td= link_to t('actions.editing')
-      %td= link_to t('actions.deleting'), wiki_info_path(wiki_name: wiki_info.name), :method => :delete, :confirm => t('actions.confirm_delete')
-
+      %td
+        .label{class: "label-#{wiki.private_policy_label}"}= wiki.private_policy
+      %td
+        %h3
+          = link_to wiki.name, wiki_info_path(wiki_name: wiki.name)
+          %small.text-center= l wiki.updated_at
+      %td
+        .pull-right
+          = link_to t('actions.editing'), edit_wiki_info_path(wiki_name: wiki.name)
+          = link_to raw('<i class="icon-remove-sign"></i>'), wiki_info_path(wiki_name: wiki.name), method: :delete, confirm: t('actions.confirm_delete')

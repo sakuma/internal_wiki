@@ -3,35 +3,29 @@
 
 = render 'shared/flash_messages'
 
-.pull-left.label{:class => ("label-#{@wiki_info.private_policy_label}")}= @wiki_info.private_policy
+.pull-left.label{class: ("label-#{@wiki_info.private_policy_label}")}= @wiki_info.private_policy
 - if @wiki_info.is_private && @wiki_info.controllable_by?(current_user)
   = link_to t('terms.private_members'), "#private_members", id: 'private_members_modal', data: {toggle: "modal"}
 
-%h5.pull-right
-  %b= WikiInformation.human_attribute_name(:created_by)
-  \:
-  = image_tag avatar_url(@wiki_info.creator, size: 20)
-  = @wiki_info.creator.name
-
-%h1{:style => "text-align:center"}
-  = truncate(@wiki_info.name, :length => 20)
+%h1.text-center= truncate(@wiki_info.name, length: 20)
 
 - if @wiki_info.is_private && @wiki_info.controllable_by?(current_user)
   #private_members.modal.hide.fade{"tab-index" => "-1", "role" => "dialog", "aria-labelledby" => "private-members-label", "aria-hidden" => "true"}
     .modal-header
       %button.close{"data-dismiss" => "modal", "aria-hidden" => "true"} &times;
-      %h3#private-members-label= PrivateMembership.model_name.human
+      %h3#private-members-label.text-center= PrivateMembership.model_name.human
     .modal-body
       %p
         - @wiki_info.visible_authority_users.each do |user|
-          %ul.unstyled
+          %ul.unstyled.text-center
             %li
               = "#{user.name} (#{user.email})"
-              = link_to raw('<i class="icon-remove"></i>'), remove_authority_user_path(wiki_name: @wiki_info.name, email: user.email), method: :delete, confirm: t('actions.confirm_delete'), class: 'btn btn-warning'
+              = link_to raw('<i class="icon-remove"></i>'), remove_authority_user_path(wiki_name: @wiki_info.name, email: user.email), method: :delete, confirm: t('actions.confirm_delete'), class: 'btn btn-warning btn-small'
 
-        = form_tag add_authority_user_path(wiki_name: @wiki_info.name), class: 'form-inline' do |f|
-          = text_field_tag :email, nil, placeholder: 'Email', id: "add_user_input_field"
-          = submit_tag t('actions.add_user'), :class => 'btn btn-primary'
+        .text-center
+          = form_tag add_authority_user_path(wiki_name: @wiki_info.name), class: 'form-inline' do |f|
+            = text_field_tag :email, nil, placeholder: 'Email', id: "add_user_input_field"
+            = submit_tag t('actions.add_user'), class: 'btn btn-primary'
     .modal-footer
 
   :coffeescript
@@ -47,4 +41,3 @@
   #tag-cloud
     - @wiki_info.pages.each do |page|
       = link_to page.url_name, page_path(wiki_name: @wiki_info.name, page_name: page.url_name)
-

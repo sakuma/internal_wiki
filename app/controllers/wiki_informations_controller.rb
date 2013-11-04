@@ -20,7 +20,7 @@ class WikiInformationsController < ApplicationController
     @wiki_info = WikiInformation.new(params[:wiki_information].merge(created_by: current_user.id))
 
     if @wiki_info.save
-      redirect_to wiki_info_path(wiki_name: @wiki_info.name), notice: 'Wiki information was successfully created.'
+      redirect_to wiki_info_path(wiki_name: @wiki_info.name), notice: t('terms.created_wiki')
     else
       render :new
     end
@@ -29,7 +29,7 @@ class WikiInformationsController < ApplicationController
   def update
     respond_to do |format|
       if @wiki_info.update_attributes(params[:wiki_information])
-        format.html { redirect_to wiki_info_path(wiki_name: @wiki_info.name), notice: 'Wiki information was successfully updated.'}
+        format.html { redirect_to edit_wiki_info_path(wiki_name: @wiki_info.name), notice: t('terms.updated_wiki')}
         format.json { head :no_content }
       else
         format.html { render :edit}
@@ -44,16 +44,35 @@ class WikiInformationsController < ApplicationController
   end
 
   def add_authority_user
-    user = User.active.where(email: params[:email]).first
-    @wiki_info.visible_authority_users << user if user
-    redirect_to wiki_info_path(wiki_name: @wiki_info.name), notice: "added #{user.name}"
+    result = {success: '', failed: ''}
+    user = User.active.where(email: params[:email]).first!
+    @wiki_info.visible_authority_users << user
+    result[:success] = "Added #{user.name}"
+  rescue => e
+    logger.warn "Failed add user: #{e.message}"
+    result[:failed] = "Failed add user: #{e.message}"
+  ensure
+    if request.xhr?
+      render partial: 'private_members', layout: false
+    else
+      redirect_to edit_wiki_info_path(wiki_name: @wiki_info.name), notice: result[:success], error: result[:failed]
+    end
   end
 
   def remove_authority_user
+    result = {success: '', failed: ''}
     user = User.active.where(email: params[:email]).first
-    member_ship = @wiki_info.private_memberships.find_by_user_id(user.id)
-    member_ship.destroy
-    redirect_to wiki_info_path(wiki_name: @wiki_info.name), notice: "removed #{user.name}"
+    @wiki_info.private_memberships.find_by(user_id: user.id).destroy!
+    result[:success] = "Removed #{user.name}"
+  rescue
+    logger.warn "Failed remove user #{user.name}"
+    result[:failed] = "Failed remove user #{user.name}"
+  ensure
+    if request.xhr?
+      render partial: 'private_members', layout: false
+    else
+      redirect_to edit_wiki_info_path(wiki_name: @wiki_info.name), notice: result[:success], error: result[:failed]
+    end
   end
 
   def find_wiki_info

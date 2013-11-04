@@ -49,6 +49,8 @@ ja:
     deleted_page: "ページを削除しました。"
     updated_page: "ページを更新しました。"
     created_page: "ページを追加しました。"
+    updated_wiki: "Wiki情報を更新しました。"
+    created_wiki: "Wikiを作成しました。"
     editing_by: "%{target} が編集中です。"
     setting: "設定"
     user_regist: "ユーザ登録"

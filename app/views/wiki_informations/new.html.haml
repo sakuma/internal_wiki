@@ -1,3 +1,11 @@
-%h1{:style => 'text-align: center;'}= t('actions.new_wiki')
+%h1{style: 'text-align: center;'}= t('actions.new_wiki')
 
-= render 'form'
+.offset2
+  = form_for @wiki_info, url: wiki_info_path(wiki_name: @wiki_info.name) , html: {method: :put, class: 'form-horizontal'} do |f|
+
+    = render 'form'
+
+    .control-group
+      .controls.actions
+        = f.submit t('actions.save'), class: 'btn btn-primary'
+        = link_to t('actions.return_back'), root_path, :class => 'btn'
