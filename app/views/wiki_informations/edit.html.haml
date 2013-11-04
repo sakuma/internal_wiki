@@ -1,3 +1,25 @@
-%h1{:style => 'text-align: center;'}= t('actions.editing')
+= render 'shared/flash_messages'
 
-= render 'form'
+.offset2
+  = form_for @wiki_info, url: wiki_info_path(wiki_name: @wiki_info.name) , html: {method: :put, class: 'form-horizontal'} do |f|
+
+    = render 'form', f: f
+
+    .control-group
+      .controls.actions
+        = f.submit t('actions.update'), :class => 'btn btn-primary'
+        = link_to t('actions.return_back'), root_path, :class => 'btn'
+
+  #private-members{style: 'display: none;'}
+    = render 'private_members'
+
+:coffee
+  $ ->
+    if "#{@wiki_info.private?}" == "true"
+      $('#private-members').show()
+    $('#wiki_information_is_private').change ->
+      is_private = $('#wiki_information_is_private option:selected').val()
+      if is_private == "true"
+        $('#private-members').show()
+      else
+        $('#private-members').hide()

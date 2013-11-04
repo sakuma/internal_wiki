@@ -1,18 +1,8 @@
-- newly = @wiki_info.new_record?
-- form_url = newly ? wiki_infos_path : wiki_info_path(wiki_name: @wiki_info.name)
-- http_method = newly ? :post : :put
-.offset2
-  = form_for @wiki_info, url: form_url, html: {method: http_method, class: 'form-horizontal'} do |f|
+= error_messages_for(@wiki_info)
 
-    = error_messages_for(@wiki_info)
-
-    .control-group
-      .control-label= f.label :name
-      .controls= f.text_field :name, :required => true, :placeholder => 'wiki name...'
-    .control-group
-      .control-label= f.label :is_private
-      .controls= f.select :is_private, [[t('terms.publicity'), false], [t('terms.limited_publicity'), true]]
-    .control-group
-      .controls.actions
-        = f.submit t('actions.save'), :class => 'btn btn-primary'
-        = link_to t('actions.return_back'), root_path, :class => 'btn'
+.control-group
+  .control-label= f.label :name
+  .controls= f.text_field :name, :required => true, :placeholder => 'wiki name...'
+.control-group
+  .control-label= f.label :is_private
+  .controls= f.select :is_private, [[t('terms.publicity'), false], [t('terms.limited_publicity'), true]]

@@ -1,0 +1,26 @@
+%hr
+.text-center
+  %h3= t('terms.private_members')
+
+  - @wiki_info.visible_authority_users.each do |user|
+    %ul.unstyled
+      %li
+        %h4
+          = "#{user.name} (#{user.email})"
+          = link_to raw('&times;'), remove_authority_user_path(wiki_name: @wiki_info.name, email: user.email), remote: true, method: :delete, class: 'handling-private-member remove-private-member', style: 'color: #F00; font-weight: bold;'
+
+  .text-center
+    = form_tag add_authority_user_path(wiki_name: @wiki_info.name), remote: true, class: 'form-inline handling-private-member'  do
+      = text_field_tag :email, nil, placeholder: 'Email'
+      = submit_tag '+', class: 'btn btn-small btn-primary'
+
+:coffee
+  $ ->
+    $('.remove-private-member').click ->
+      if confirm "#{t('actions.confirm_delete')}"
+        $(this).parent().hide("highlight", 'slow')
+      else
+        return false
+
+    $('body').on 'ajax:success', '.handling-private-member', (data, res, xhr) ->
+      $('#private-members').html(res)
