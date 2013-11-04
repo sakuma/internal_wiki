@@ -27,6 +27,7 @@ InternalWiki::Application.routes.draw do
   post "/admin/users/invite" => 'admin/users#invite_user', :as => 'invite_user'
 
   resources :wiki_infos, :controller => 'wiki_informations', :only => [:index, :new, :create]
+  get ':wiki_name/candidates_users' => 'wiki_informations#visible_wiki_candidates_users', :as => :candidates_users
   get ':wiki_name' => 'wiki_informations#show', :as => 'wiki'
   get ':wiki_name/edit' => 'wiki_informations#edit', :as => 'edit_wiki_info'
   put ':wiki_name' => 'wiki_informations#update', :as => 'update_wiki'
