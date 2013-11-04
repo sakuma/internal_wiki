@@ -15,8 +15,6 @@
             %ul.nav
               - if content_for?(:menu_link)
                 = yield(:menu_link)
-              - else
-                %li= link_to t('terms.new_wiki'), new_wiki_info_path
 
             %ul.nav
               = form_tag('#', :class => 'form-search', :id => 'search-word-form', :method => :get) do

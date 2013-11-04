@@ -6,9 +6,10 @@
 .pull-left.label{class: ("label-#{@wiki_info.private_policy_label}")}= @wiki_info.private_policy
 - if @wiki_info.is_private? && @wiki_info.controllable_by?(current_user)
   = link_to t('terms.private_members'), "#private_members", id: 'private_members_modal', data: {toggle: "modal"}
-.pull-right
-  = link_to fa_icon('edit'), edit_wiki_info_path(wiki_name: @wiki_info.name), class: 'action-icons'
-  = link_to fa_icon('trash-o'), wiki_info_path(wiki_name: @wiki_info.name), class: 'action-icons', method: :delete, confirm: t('actions.confirm_delete')
+- unless current_user.limited?
+  .pull-right
+    = link_to fa_icon('edit'), edit_wiki_info_path(wiki_name: @wiki_info.name), class: 'action-icons'
+    = link_to fa_icon('trash-o'), wiki_info_path(wiki_name: @wiki_info.name), class: 'action-icons', method: :delete, confirm: t('actions.confirm_delete')
 
 :coffee
   $('.action-icons').hover (e) ->
