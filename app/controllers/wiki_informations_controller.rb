@@ -1,5 +1,6 @@
 class WikiInformationsController < ApplicationController
 
+  before_filter :reject_limited_user, except: %i[index show]
   before_filter :find_wiki_info, only: %i[show edit update destroy add_authority_user remove_authority_user]
 
   def index
@@ -77,7 +78,17 @@ class WikiInformationsController < ApplicationController
     end
   end
 
+
+  private
+
   def find_wiki_info
     @wiki_info = WikiInformation.where(name: params[:wiki_name]).first
+  end
+
+  def reject_limited_user
+    if current_user.limited?
+      redirect_to root_path and return
+    end
+    true
   end
 end

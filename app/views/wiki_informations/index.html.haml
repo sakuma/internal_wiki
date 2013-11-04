@@ -1,3 +1,6 @@
+= content_for :menu_link do
+  = render 'wiki_informations/menu_link'
+
 %h1.text-center= t('terms.index_wiki')
 
 = render 'shared/flash_messages'
@@ -14,9 +17,10 @@
             = link_to fa_icon('edit'), edit_wiki_info_path(wiki_name: wiki.name)
             = link_to fa_icon('trash-o'), wiki_info_path(wiki_name: wiki.name), method: :delete, confirm: t('actions.confirm_delete')
 
-:coffee
-  $ ->
-    $('.wiki-items').hover (e) ->
-      $('.actions', $(e.target).parent()).show()
-    , (e) ->
-      $('.actions', $(e.target).parent()).hide()
+- unless current_user.limited?
+  :coffee
+    $ ->
+      $('.wiki-items').hover (e) ->
+        $('.actions', $(e.target).parent()).show()
+      , (e) ->
+        $('.actions', $(e.target).parent()).hide()
