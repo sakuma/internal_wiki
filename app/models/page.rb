@@ -38,11 +38,9 @@ class Page < ActiveRecord::Base
   end
 
   def self.search(params)
-    tire.search(load: true) do
-      query do
-        string params[:q], default_operator: "AND"
-        terms :wiki_information_id, params[:ids]
-      end
+    tire.search(load: true) do |s|
+      s.query { string params[:q], default_operator: 'AND' }
+      s.filter :terms, wiki_information_id: params[:ids]
     end
   end
 
