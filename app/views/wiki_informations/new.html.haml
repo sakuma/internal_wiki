@@ -1,9 +1,9 @@
 %h1{style: 'text-align: center;'}= t('actions.new_wiki')
 
 .offset2
-  = form_for @wiki_info, url: wiki_info_path(wiki_name: @wiki_info.name) , html: {method: :put, class: 'form-horizontal'} do |f|
+  = form_for @wiki_info, url: wiki_infos_path, html: {method: :post, class: 'form-horizontal'} do |f|
 
-    = render 'form'
+    = render 'form', f: f
 
     .control-group
       .controls.actions
