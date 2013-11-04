@@ -22,31 +22,43 @@ class Page < ActiveRecord::Base
   end
   scope :recently, ->{ limit(5).order('pages.updated_at DESC') }
 
-  ######################################
-  # ElasticSearch
-  #
+
+  ##############  ElasticSearch config #######################
 
   include Tire::Model::Search
   include Tire::Model::Callbacks
 
-  mapping do
-    indexes :id, :index => :not_analyzed
-    indexes :url_name, nalyzer: 'snowball', boost: 100
-    indexes :name, analyzer: 'snowball'
-    indexes :body, analyzer: 'snowball'
-    indexes :wiki_information_id, :index => :not_analyzed
+  settings analysis: {
+    filter: { ngram_filter: { type: "nGram", min_gram: 2, max_gram: 5 } },
+    analyzer: {
+      search_ngram_analyzer: {
+        type: "custom",
+        tokenizer: "standard",
+        filter: ["standard", "lowercase", "ngram_filter"],
+      }
+    }
+  } do
+    mapping do
+      [:url_name, :name, :body].each do |attribute|
+        indexes attribute, analyzer: 'search_ngram_analyzer'
+      end
+      indexes :wiki_information_id, type: 'integer', index: :not_analyzed
+    end
   end
 
   def self.search(params)
-    tire.search(load: true) do
-      query do
-        string params[:q], default_operator: "AND"
-        terms :wiki_information_id, params[:ids]
+    tire.search(load: true) do |s|
+      s.query do
+        string "body:#{params[:q]} OR name:#{params[:q]}", default_operator: 'AND'
+      end
+      s.filter :terms, wiki_information_id: params[:ids]
+      s.facet "wiki_group" do
+        terms :wiki_information_id
       end
     end
   end
 
-  #######################################
+  ##############  ElasticSearch config #######################
 
   def wiki_name
     wiki_information.name
