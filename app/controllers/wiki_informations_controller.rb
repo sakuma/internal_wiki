@@ -1,7 +1,7 @@
 class WikiInformationsController < ApplicationController
 
   before_filter :reject_limited_user, except: %i[index show]
-  before_filter :find_wiki_info, only: %i[show edit update destroy add_authority_user remove_authority_user]
+  before_filter :find_wiki_info, only: %i[show edit update destroy add_authority_user remove_authority_user visible_wiki_candidates_users]
 
   def index
     @wiki_informations = WikiInformation.accessible_by(current_user)
@@ -76,6 +76,11 @@ class WikiInformationsController < ApplicationController
     else
       redirect_to edit_wiki_info_path(wiki_name: @wiki_info.name), notice: result[:success], error: result[:failed]
     end
+  end
+
+  def visible_wiki_candidates_users
+    email_list = User.active.not_admin.visible_wiki_candidates_on(@wiki_info).pluck(:email)
+    render json: email_list, layout: false
   end
 
 
