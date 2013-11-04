@@ -13,6 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.all
-//= require bootstrap
+//= require twitter/bootstrap
 //= require private_pub
 //= require_tree .

@@ -35,14 +35,14 @@
 
     .container
       .row
-        .span12
+        .col-md-12
           - if content_for?(:page_editable)
             = yield(:page_editable)
           - else
             .row
-              .span9
+              .col-md-9
                 = yield
-              .span3
+              .col-md-3
                 - if content_for?(:right_area)
                   = yield(:right_area)
                 - else

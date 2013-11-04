@@ -39,7 +39,7 @@ group :assets do
   gem 'jquery-ui-rails'
   # gem 'libv8'
   # gem 'therubyracer'
-  gem 'bootstrap-sass'
+  gem 'bootstrap-sass-rails'
   # gem 'bootstrap-editable-rails'
 end
 
