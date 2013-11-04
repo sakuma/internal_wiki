@@ -4,7 +4,7 @@
 = render 'shared/flash_messages'
 
 .pull-left.label{class: ("label-#{@wiki_info.private_policy_label}")}= @wiki_info.private_policy
-- if @wiki_info.is_private && @wiki_info.controllable_by?(current_user)
+- if @wiki_info.is_private? && @wiki_info.controllable_by?(current_user)
   = link_to t('terms.private_members'), "#private_members", id: 'private_members_modal', data: {toggle: "modal"}
 .pull-right
   = link_to fa_icon('edit'), edit_wiki_info_path(wiki_name: @wiki_info.name), class: 'action-icons'
@@ -26,6 +26,7 @@
     .modal-body
       %p
         - @wiki_info.visible_authority_users.each do |user|
+          - next if user == current_user
           %ul.unstyled.text-center
             %li
               = "#{user.name} (#{user.email})"

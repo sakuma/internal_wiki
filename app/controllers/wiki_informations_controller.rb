@@ -46,6 +46,7 @@ class WikiInformationsController < ApplicationController
   def add_authority_user
     result = {success: '', failed: ''}
     user = User.active.where(email: params[:email]).first!
+    user.visible_wikis << @wiki_info
     @wiki_info.visible_authority_users << user
     result[:success] = "Added #{user.name}"
   rescue => e
@@ -61,11 +62,12 @@ class WikiInformationsController < ApplicationController
 
   def remove_authority_user
     result = {success: '', failed: ''}
-    user = User.active.where(email: params[:email]).first
+    user = User.active.where(email: params[:email]).first!
+    user.visibilities.find_by(wiki_information_id: @wiki_info.id).destroy!
     @wiki_info.private_memberships.find_by(user_id: user.id).destroy!
     result[:success] = "Removed #{user.name}"
-  rescue
-    logger.warn "Failed remove user #{user.name}"
+  rescue => e
+    logger.warn "Failed remove user #{user.name}: #{e.message}"
     result[:failed] = "Failed remove user #{user.name}"
   ensure
     if request.xhr?

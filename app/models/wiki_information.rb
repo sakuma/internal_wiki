@@ -41,10 +41,12 @@ class WikiInformation < ActiveRecord::Base
   end
 
   def collaborator_for_private_wiki?(user)
-    membership = private_memberships.find_by_user_id(user.id)
-    return false unless membership
-    return true if membership.admin?
-    false
+    return true if user.admin?
+    if private_memberships.find_by(user_id: user.id).present?
+      true
+    else
+      false
+    end
   end
 
   private
@@ -72,6 +74,7 @@ class WikiInformation < ActiveRecord::Base
 
   def clear_private_memberships
     private_memberships.delete_all
+    visibilities.delete_all
   end
 
 end
