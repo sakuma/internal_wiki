@@ -1,43 +1,38 @@
 - newly = @user.new_record?
 - form_url = newly ? admin_users_path : admin_user_path(@user)
 - http_method = newly ? :post : :put
-= form_for(@user, :url => form_url, :html => {:method => http_method, :class => "form-horizontal"}) do |f|
+= form_for(@user, :url => form_url, :html => {:method => http_method, :class => "form-horizontal", role: 'form'}) do |f|
 
   = error_messages_for(@user)
 
-  .control-group
-    = f.label :name, :class => "control-label"
-    .controls
-      = f.text_field :name, :placeholder => User.human_attribute_name(:name)
+  .form-group
+    .col-sm-3.control-label= f.label :name, :class => "control-label"
+    .col-sm-5= f.text_field :name, :placeholder => User.human_attribute_name(:name), class: 'form-control'
 
-  .control-group
-    = f.label :email, :class => "control-label"
-    .controls
-      = f.text_field :email, :placeholder => User.human_attribute_name(:email)
+  .form-group
+    .col-sm-3.control-label= f.label :email, :class => "control-label"
+    .col-sm-5= f.text_field :email, :placeholder => User.human_attribute_name(:email), class: 'form-control'
 
-  .control-group
-    = f.label :password, :class => "control-label"
-    .controls
-      = f.password_field :password, :placeholder => User.human_attribute_name(:password)
+  .form-group
+    .col-sm-3.control-label= f.label :password, :class => "control-label"
+    .col-sm-5= f.password_field :password, :placeholder => User.human_attribute_name(:password), class: 'form-control'
 
-  .control-group
-    = f.label :password_confirmation, :class => "control-label"
-    .controls
-      = f.password_field :password_confirmation, :placeholder => User.human_attribute_name(:password_confirmation)
+  .form-group
+    .col-sm-3.control-label= f.label :password_confirmation, :class => "control-label"
+    .col-sm-5= f.password_field :password_confirmation, :placeholder => User.human_attribute_name(:password_confirmation), class: 'form-control'
 
-  .control-group#admin_user_flag_area
-    = f.label :admin, :class => "control-label"
-    .controls
-      = f.check_box :admin, :id => 'admin_user_flag'
+  .form-group#admin_user_flag_area
+    .col-sm-3.control-label= f.label :admin, :class => "control-label"
+    .col-sm-5= f.check_box :admin, :id => 'admin_user_flag', class: 'form-control'
 
-  .control-group#limited_user_flag_area
-    = f.label :limited, :class => "control-label"
-    .controls
-      = f.check_box :limited, :id => 'limited_user_flag'
+  .form-group#limited_user_flag_area
+    .col-sm-3.control-label= f.label :limited, :class => "control-label"
+    .col-sm-5= f.check_box :limited, :id => 'limited_user_flag', class: 'form-control'
 
-  .control-group.actions
-    .controls
+  .form-group
+    .col-sm-offset-3.col-sm-10
       = f.submit (newly ? t('actions.add_user') : t('actions.update')), :class => 'btn btn-primary'
+      = link_to t('actions.show_detail'), admin_user_path(@user), :class => 'btn'
 
 :coffeescript
   targetId = (domId) ->
@@ -51,4 +46,3 @@
     $(targetId(checkedType)).toggle() if checkedType
     $(":checkbox").on "click", ->
       $(targetId(this.id)).animate {opacity: "toggle"}, "slow"
-
