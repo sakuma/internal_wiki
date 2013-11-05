@@ -10,11 +10,13 @@
  *
  *= require_self
  *= require jquery.ui.all
+ *= require twitter/bootstrap
  *= require font-awesome
  *= require_tree .
  */
 
 @import "twitter/bootstrap";
+
 @import "font-awesome";
 
 .field_with_errors label {

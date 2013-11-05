@@ -3,26 +3,26 @@
 
 = render 'shared/flash_messages'
 
-.offset2
-  = form_for @wiki_info, url: wiki_info_path(wiki_name: @wiki_info.name) , html: {method: :put, class: 'form-horizontal'} do |f|
+.col-md-offset-2
+  = form_for @wiki_info, url: wiki_info_path(wiki_name: @wiki_info.name) , html: {method: :put, class: 'form-horizontal', role: 'form'} do |f|
 
     = render 'form', f: f
 
-    .control-group
-      .controls.actions
+    .form-group
+      .col-sm-offset-3.col-sm-10
         = f.submit t('actions.update'), :class => 'btn btn-primary'
         = link_to t('actions.return_back'), root_path, :class => 'btn'
 
-  #private-members{style: 'display: none;'}
+  #private-members.hide
     = render 'private_members'
 
 :coffee
   $ ->
     if "#{@wiki_info.private?}" == "true"
-      $('#private-members').show()
+      $('#private-members').removeClass('hide')
     $('#wiki_information_is_private').change ->
       is_private = $('#wiki_information_is_private option:selected').val()
       if is_private == "true"
-        $('#private-members').show()
+        $('#private-members').removeClass('hide')
       else
-        $('#private-members').hide()
+        $('#private-members').addClass('hide')

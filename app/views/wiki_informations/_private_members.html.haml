@@ -4,7 +4,7 @@
 
   - @wiki_info.visible_authority_users.each do |user|
     - next if user == current_user
-    %ul.unstyled
+    %ul.list-unstyled
       %li
         %h4
           = "#{user.name} (#{user.email})"
@@ -13,7 +13,7 @@
   .text-center
     = form_tag add_authority_user_path(wiki_name: @wiki_info.name), remote: true, class: 'form-inline handling-private-member'  do
       = text_field_tag :email, nil, placeholder: 'Email'
-      = submit_tag '+', class: 'btn btn-small btn-primary'
+      = submit_tag '+', class: 'btn btn-xs btn-primary'
 
 :coffee
   $ ->

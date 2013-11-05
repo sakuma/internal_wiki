@@ -3,18 +3,23 @@
 
 = render 'shared/flash_messages'
 
-.pull-left
-  %h3
-    %small= WikiInformation.human_attribute_name('name')
+.row
+  .col-md-2
+    .label{class: ("label-#{@wiki_info.private_policy_label}")}= @wiki_info.private_policy + 'wiki'
     =truncate(@wiki_info.name, length: 20)
+  .col-md-7
+    %h2
+      .text-center= truncate(@page.name, length: 20)
+  .col-md-3
+    .pull-right
+      = link_to fa_icon('edit 2x'), edit_page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), class: 'action-icons'
+      = link_to fa_icon('trash-o 2x'), page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), confirm: t('actions.confirm_delete'), method: :delete, class: 'action-icons'
 
-.pull-right
-  %h3
-    = link_to raw('<i class="icon-pencil"></i>'), edit_page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), class: 'btn btn-primary'
-    = link_to raw('<i class="icon-trash"></i>'), page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), confirm: t('actions.confirm_delete'), method: :delete, class: 'btn btn-danger'
-
-%h2
-  .text-center= truncate(@page.name, length: 20)
+:coffee
+  $('.action-icons').hover (e) ->
+    $(e.target).addClass('fa-3x')
+  , (e) ->
+    $(e.target).removeClass('fa-3x')
 
 %hr
 #page-content= raw(@page.content)
