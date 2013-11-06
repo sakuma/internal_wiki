@@ -1,24 +1,24 @@
 !!!
-%html{:lang => "en"}
+%html{lang: 'en'}
   %head
     = render 'shared/layout/head'
   %body
-    %nav.navbar.navbar-default{:role => 'navigation'}
+    %nav.navbar.navbar-default{role: 'navigation'}
       .navbar-brand= link_to "InternalWiki", root_path
       - if content_for?(:menu_link)
         = yield(:menu_link)
 
-      = form_tag('#', :class => 'navbar-form navbar-left', :role => 'search', :id => 'search-word-form', :method => :get) do
+      = form_tag('#', class: 'navbar-form navbar-left', role: 'search', id: 'search-word-form', method: :get) do
         .form-group
-          = text_field_tag :q, @search_word, :placeholder => "Search word...", :class => 'form-control', :id => 'search-query'
-        = submit_tag t('terms.search'), :class => 'btn btn-primary'
+          = text_field_tag :q, @search_word, placeholder: 'Search word...', class: 'form-control', id: 'search-query'
+        = submit_tag t('terms.search'), class: 'btn btn-primary'
       - if current_user
         %ul.nav.navbar-nav.navbar-right
           %li
-            %a{:class => "dropdown-toggle", :"data-toggle" => "dropdown", :href => "#"}
-              = image_tag avatar_url(current_user, :size => 25)
-              %b{:class => "caret"}
-            %ul{:class => "dropdown-menu"}
+            %a{class: 'dropdown-toggle', :"data-toggle" => "dropdown", href: "#"}
+              = image_tag avatar_url(current_user, size: 25)
+              %b{class: "caret"}
+            %ul{class: 'dropdown-menu'}
               %li= link_to t('terms.setting'), user_setting_path
               %li= link_to t('terms.logout'), logout_path
               - if current_user.admin?
