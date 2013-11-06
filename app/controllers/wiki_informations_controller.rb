@@ -79,7 +79,9 @@ class WikiInformationsController < ApplicationController
   end
 
   def visible_wiki_candidates_users
-    email_list = User.active.not_admin.visible_wiki_candidates_on(@wiki_info).pluck(:email)
+    users = User.active.visible_wiki_candidates_on(@wiki_info)
+    users = users.where("users.email LIKE ?", "%#{params[:q]}%") if params[:q].present?
+    email_list = users.map {|user| {"value" => user.email, "name" => user.name, "tokens" => user.email}}
     render json: email_list, layout: false
   end
 

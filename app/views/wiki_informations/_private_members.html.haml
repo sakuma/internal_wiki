@@ -12,7 +12,7 @@
 
   .text-center
     = form_tag add_authority_user_path(wiki_name: @wiki_info.name), remote: true, class: 'form-inline handling-private-member'  do
-      = text_field_tag :email, nil, placeholder: 'Email'
+      = text_field_tag :email, nil, placeholder: 'Email', id: "add-user-input-field", class: 'typeahead tt-query', :"data-provide" => "typeahead"
       = submit_tag '+', class: 'btn btn-xs btn-primary'
 
 :coffee
@@ -25,3 +25,9 @@
 
     $('body').on 'ajax:success', '.handling-private-member', (data, res, xhr) ->
       $('#private-members').html(res)
+
+    $('#add-user-input-field').typeahead
+      name: 'Email'
+      prefetch: "#{candidates_users_path(wiki_name: @wiki_info.name)}"
+      remote: "#{candidates_users_path(wiki_name: @wiki_info.name)}?q=%QUERY"
+      limit: 10
