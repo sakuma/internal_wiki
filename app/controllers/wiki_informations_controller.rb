@@ -1,6 +1,7 @@
 class WikiInformationsController < ApplicationController
 
-  before_filter :find_wiki_info, only: %i[show edit update destroy add_authority_user remove_authority_user]
+  before_filter :reject_limited_user, except: %i[index show]
+  before_filter :find_wiki_info, only: %i[show edit update destroy add_authority_user remove_authority_user visible_wiki_candidates_users]
 
   def index
     @wiki_informations = WikiInformation.accessible_by(current_user)
@@ -77,7 +78,24 @@ class WikiInformationsController < ApplicationController
     end
   end
 
+  def visible_wiki_candidates_users
+    users = User.active.visible_wiki_candidates_on(@wiki_info)
+    users = users.where("users.email LIKE ?", "%#{params[:q]}%") if params[:q].present?
+    email_list = users.map {|user| {"value" => user.email, "name" => user.name, "tokens" => user.email}}
+    render json: email_list, layout: false
+  end
+
+
+  private
+
   def find_wiki_info
     @wiki_info = WikiInformation.where(name: params[:wiki_name]).first
+  end
+
+  def reject_limited_user
+    if current_user.limited?
+      redirect_to root_path and return
+    end
+    true
   end
 end

@@ -6,11 +6,12 @@ module WikiInformationDecorator
   end
 
   def private_policy_label
-    is_private ? "important" : "success"
+    is_private ? "danger" : "success"
   end
 
   def controllable_by?(user)
     return true if user.admin?
+    return false if user.limited?
     collaborator_for_private_wiki?(user)
   end
 

@@ -1,10 +1,10 @@
--# = content_for :menu_link do
--#   = render 'menu_link'
+= content_for :menu_link do
+  = render 'wiki_informations/menu_link'
 
 %h1= t('terms.index_page')
 
 - if @pages.empty?
-  = t('terms.not_found_seach_word_of', word: @search_word)
+  = t('terms.not_found_seach_word_of', word: @search_word.join(', '))
 - else
   - @pages.each do |page|
     .well.search-result

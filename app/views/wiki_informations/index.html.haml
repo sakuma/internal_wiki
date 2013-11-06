@@ -1,3 +1,6 @@
+= content_for :menu_link do
+  = render 'wiki_informations/menu_link'
+
 %h1.text-center= t('terms.index_wiki')
 
 = render 'shared/flash_messages'
@@ -6,17 +9,21 @@
   - @wiki_informations.each do |wiki|
     %tr.wiki-items
       %td
-        %h3
-          %small.label{class: "label-#{wiki.private_policy_label}"}= wiki.private_policy
-          = link_to wiki.name, wiki_info_path(wiki_name: wiki.name)
-          %small.text-center= l wiki.updated_at
-          .pull-right.actions{style: 'display: none;'}
-            = link_to fa_icon('edit'), edit_wiki_info_path(wiki_name: wiki.name)
-            = link_to fa_icon('trash-o'), wiki_info_path(wiki_name: wiki.name), method: :delete, confirm: t('actions.confirm_delete')
+        .col-md-2
+          .label{class: "label-#{wiki.private_policy_label}"}= wiki.private_policy
+        .col-md-8
+          %h3
+            = link_to wiki.name, wiki_info_path(wiki_name: wiki.name)
+            %small.pull-right= l wiki.updated_at
+        .col-md-2.actions{style: 'display: none;'}
+          %h4
+            = link_to fa_icon('edit 2x'), edit_wiki_info_path(wiki_name: wiki.name)
+            = link_to fa_icon('trash-o 2x'), wiki_info_path(wiki_name: wiki.name), method: :delete, confirm: t('actions.confirm_delete')
 
-:coffee
-  $ ->
-    $('.wiki-items').hover (e) ->
-      $('.actions', $(e.target).parent()).show()
-    , (e) ->
-      $('.actions', $(e.target).parent()).hide()
+- unless current_user.limited?
+  :coffee
+    $ ->
+      $('.wiki-items').hover (e) ->
+        $('.actions', $(e.target).parent()).show()
+      , (e) ->
+        $('.actions', $(e.target).parent()).hide()

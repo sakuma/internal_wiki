@@ -1,11 +1,14 @@
-%h1{style: 'text-align: center;'}= t('actions.new_wiki')
+= content_for :menu_link do
+  = render 'menu_link'
 
-.offset2
-  = form_for @wiki_info, url: wiki_infos_path, html: {method: :post, class: 'form-horizontal'} do |f|
+%h1.text-center= t('actions.new_wiki')
+
+.col-md-offset-2
+  = form_for @wiki_info, url: wiki_infos_path, html: {method: :post, class: 'form-horizontal', role: 'form'} do |f|
 
     = render 'form', f: f
 
-    .control-group
-      .controls.actions
+    .form-group
+      .col-sm-offset-3.col-sm-10
         = f.submit t('actions.save'), class: 'btn btn-primary'
         = link_to t('actions.return_back'), root_path, :class => 'btn'

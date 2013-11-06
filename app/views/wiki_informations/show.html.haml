@@ -3,45 +3,55 @@
 
 = render 'shared/flash_messages'
 
-.pull-left.label{class: ("label-#{@wiki_info.private_policy_label}")}= @wiki_info.private_policy
-- if @wiki_info.is_private? && @wiki_info.controllable_by?(current_user)
-  = link_to t('terms.private_members'), "#private_members", id: 'private_members_modal', data: {toggle: "modal"}
-.pull-right
-  = link_to fa_icon('edit'), edit_wiki_info_path(wiki_name: @wiki_info.name), class: 'action-icons'
-  = link_to fa_icon('trash-o'), wiki_info_path(wiki_name: @wiki_info.name), class: 'action-icons', method: :delete, confirm: t('actions.confirm_delete')
+.row
+  .col-md-2
+    .label{class: ("label-#{@wiki_info.private_policy_label}")}= @wiki_info.private_policy
+    - if @wiki_info.is_private? && @wiki_info.controllable_by?(current_user)
+      %br
+      = link_to t('terms.private_members'), "#private_members", id: 'private_members_modal', data: {toggle: "modal"}
+  .col-md-7
+    %h1.text-center= truncate(@wiki_info.name, length: 20)
+  .col-md-3
+    - unless current_user.limited?
+      .pull-right
+        = link_to fa_icon('edit 2x'), edit_wiki_info_path(wiki_name: @wiki_info.name), class: 'action-icons'
+        = link_to fa_icon('trash-o 2x'), wiki_info_path(wiki_name: @wiki_info.name), class: 'action-icons', method: :delete, confirm: t('actions.confirm_delete')
 
 :coffee
   $('.action-icons').hover (e) ->
-    $(e.target).addClass('fa-2x')
+    $(e.target).addClass('fa-3x')
   , (e) ->
-    $(e.target).removeClass('fa-2x')
+    $(e.target).removeClass('fa-3x')
 
-%h1.text-center= truncate(@wiki_info.name, length: 20)
 
 - if @wiki_info.is_private && @wiki_info.controllable_by?(current_user)
-  #private_members.modal.hide.fade{"tab-index" => "-1", "role" => "dialog", "aria-labelledby" => "private-members-label", "aria-hidden" => "true"}
-    .modal-header
-      %button.close{"data-dismiss" => "modal", "aria-hidden" => "true"} &times;
-      %h3#private-members-label.text-center= PrivateMembership.model_name.human
-    .modal-body
-      %p
-        - @wiki_info.visible_authority_users.each do |user|
-          - next if user == current_user
-          %ul.unstyled.text-center
-            %li
-              = "#{user.name} (#{user.email})"
-              = link_to raw('<i class="icon-remove"></i>'), remove_authority_user_path(wiki_name: @wiki_info.name, email: user.email), method: :delete, confirm: t('actions.confirm_delete'), class: 'btn btn-warning btn-small'
+  #private_members.modal.fade
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{"data-dismiss" => "modal", "aria-hidden" => "true"} &times;
+          %h3#private-members-label.text-center= PrivateMembership.model_name.human
+        .modal-body
+          %p
+            - @wiki_info.visible_authority_users.each do |user|
+              - next if user == current_user
+              %ul.list-unstyled.text-center
+                %li
+                  = "#{user.name} (#{user.email})"
+                  = link_to raw('&times;'), remove_authority_user_path(wiki_name: @wiki_info.name, email: user.email), method: :delete, confirm: t('actions.confirm_delete'), style: 'color: #F00; font-weight: bold;'
+        .modal-footer
+          .text-center
+            = form_tag add_authority_user_path(wiki_name: @wiki_info.name) do |f|
+              = text_field_tag :email, nil, placeholder: 'Email', id: "add-user-input-field", class: 'typeahead tt-query', :"data-provide" => "typeahead"
+              = submit_tag '+', class: 'btn btn-primary btn-xs'
 
-        .text-center
-          = form_tag add_authority_user_path(wiki_name: @wiki_info.name), class: 'form-inline' do |f|
-            = text_field_tag :email, nil, placeholder: 'Email', id: "add_user_input_field"
-            = submit_tag t('actions.add_user'), class: 'btn btn-primary'
-    .modal-footer
-
-  :coffeescript
-    $ ->
-      $('#add_user_input_field').autocomplete
-        source: #{User.active.not_admin.visible_wiki_candidates_on(@wiki_info).pluck(:email)}
+    :coffeescript
+      $ ->
+        $('#add-user-input-field').typeahead
+          name: 'Email'
+          prefetch: "#{candidates_users_path(wiki_name: @wiki_info.name)}"
+          remote: "#{candidates_users_path(wiki_name: @wiki_info.name)}?q=%QUERY"
+          limit: 10
 
 %hr/
 

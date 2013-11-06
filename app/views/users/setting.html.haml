@@ -1,16 +1,14 @@
-.offset2
+.col-md-offset-2
 
   = render 'shared/flash_messages'
 
-  = form_for(@user, url: update_setting_path(current_user), html: {method: :put, class: "form-horizontal"}) do |f|
+  = form_for(@user, url: update_setting_path(current_user), html: {method: :put, class: "form-horizontal", role: 'form'}) do |f|
 
-    .control-group
-      .controls
+    .form-group
+      .col-sm-offset-3.col-sm-10
         %h2= t('terms.setting')
 
     = render 'profile_form', f: f
 
-    .control-group.actions
-      .controls
-        = f.submit t('actions.update'), class: 'btn btn-primary'
-
+    .form-group
+      .col-sm-offset-3.col-sm-10= f.submit t('actions.update'), class: 'btn btn-primary'

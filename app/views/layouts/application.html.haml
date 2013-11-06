@@ -3,48 +3,37 @@
   %head
     = render 'shared/layout/head'
   %body
-    .navbar
-      .navbar-inner
-        .container
-          %a.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse"}
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-          .brand= link_to "InternalWiki", root_path
-          .nav-collapse
-            %ul.nav
-              - if content_for?(:menu_link)
-                = yield(:menu_link)
-              - else
-                %li= link_to t('terms.new_wiki'), new_wiki_info_path
+    %nav.navbar.navbar-default{:role => 'navigation'}
+      .navbar-brand= link_to "InternalWiki", root_path
+      - if content_for?(:menu_link)
+        = yield(:menu_link)
 
-            %ul.nav
-              = form_tag('#', :class => 'form-search', :id => 'search-word-form', :method => :get) do
-                = text_field_tag :q, @search_word, :placeholder => "Search word...", :class => 'input-medium search-query', :id => 'search-query'
-                = submit_tag t('terms.search'), :class => 'btn btn-primary'
-
-            - if current_user
-              %ul.nav.pull-right
-                %li.divider-vertical
-                  %a{:class => "dropdown-toggle", :"data-toggle" => "dropdown", :href => "#"}
-                    =image_tag avatar_url(current_user, :size => 25)
-                    %b{:class => "caret"}
-                  %ul{:class => "dropdown-menu"}
-                    %li= link_to t('terms.setting'), user_setting_path
-                    %li= link_to t('terms.logout'), logout_path
-                    - if current_user.admin?
-                      %li= link_to t('terms.user_control'), admin_users_path
+      = form_tag('#', :class => 'navbar-form navbar-left', :role => 'search', :id => 'search-word-form', :method => :get) do
+        .form-group
+          = text_field_tag :q, @search_word, :placeholder => "Search word...", :class => 'form-control', :id => 'search-query'
+        = submit_tag t('terms.search'), :class => 'btn btn-primary'
+      - if current_user
+        %ul.nav.navbar-nav.navbar-right
+          %li
+            %a{:class => "dropdown-toggle", :"data-toggle" => "dropdown", :href => "#"}
+              = image_tag avatar_url(current_user, :size => 25)
+              %b{:class => "caret"}
+            %ul{:class => "dropdown-menu"}
+              %li= link_to t('terms.setting'), user_setting_path
+              %li= link_to t('terms.logout'), logout_path
+              - if current_user.admin?
+                %li= link_to t('terms.user_control'), admin_users_path
 
     .container
       .row
-        .span12
+        .col-md-12
           - if content_for?(:page_editable)
             = yield(:page_editable)
           - else
             .row
-              .span9
+              .col-md-9
                 = yield
-              .span3
+              .col-md-3
                 - if content_for?(:right_area)
                   = yield(:right_area)
                 - else
