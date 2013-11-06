@@ -16,3 +16,7 @@
 //= require twitter/bootstrap
 //= require private_pub
 //= require_tree .
+
+jQuery(function($){
+ $('a[rel=tooltip]').tooltip();
+});
