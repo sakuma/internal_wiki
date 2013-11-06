@@ -41,17 +41,17 @@
                   = link_to raw('&times;'), remove_authority_user_path(wiki_name: @wiki_info.name, email: user.email), method: :delete, confirm: t('actions.confirm_delete'), style: 'color: #F00; font-weight: bold;'
         .modal-footer
           .text-center
-            = form_tag add_authority_user_path(wiki_name: @wiki_info.name), class: 'form-inline' do |f|
-              = text_field_tag :email, nil, placeholder: 'Email', id: "add_user_input_field"
+            = form_tag add_authority_user_path(wiki_name: @wiki_info.name) do |f|
+              = text_field_tag :email, nil, placeholder: 'Email', id: "add-user-input-field", class: 'typeahead tt-query', :"data-provide" => "typeahead"
               = submit_tag '+', class: 'btn btn-primary btn-xs'
 
-  :coffeescript
-    $ ->
-      $('#add_user_input_field').typeahead
-        source: =>
-          $.getJSON("#{candidates_users_path(wiki_name: @wiki_info.name)}", (data) =>
-            return typeahead.process(data)
-          )
+    :coffeescript
+      $ ->
+        $('#add-user-input-field').typeahead
+          name: 'Email'
+          prefetch: "#{candidates_users_path(wiki_name: @wiki_info.name)}"
+          remote: "#{candidates_users_path(wiki_name: @wiki_info.name)}?q=%QUERY"
+          limit: 10
 
 %hr/
 
