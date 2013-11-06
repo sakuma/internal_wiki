@@ -42,14 +42,13 @@
         .modal-footer
           .text-center
             = form_tag add_authority_user_path(wiki_name: @wiki_info.name) do |f|
-              = text_field_tag :email, nil, placeholder: 'Email', id: "add-user-input-field", class: 'typeahead tt-query', :"data-provide" => "typeahead"
+              = text_field_tag :email, nil, placeholder: 'Email', id: "add-user-input-field", class: 'typeahead tt-query'
               = submit_tag '+', class: 'btn btn-primary btn-xs'
 
     :coffeescript
       $ ->
         $('#add-user-input-field').typeahead
           name: 'Email'
-          prefetch: "#{candidates_users_path(wiki_name: @wiki_info.name)}"
           remote: "#{candidates_users_path(wiki_name: @wiki_info.name)}?q=%QUERY"
           limit: 10
 

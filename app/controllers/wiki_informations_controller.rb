@@ -80,8 +80,8 @@ class WikiInformationsController < ApplicationController
 
   def visible_wiki_candidates_users
     users = User.active.visible_wiki_candidates_on(@wiki_info)
-    users = users.where("users.email LIKE ?", "%#{params[:q]}%") if params[:q].present?
-    email_list = users.map {|user| {"value" => user.email, "name" => user.name, "tokens" => user.email}}
+    users = users.where("users.email LIKE :email OR users.name LIKE :name", email: "%#{params[:q]}%", name: "%#{params[:q]}%") if params[:q].present?
+    email_list = users.map {|user| {value: "#{user.email} (#{user.name.truncate(15)})", tokens: [user.email, user.name] }}
     render json: email_list, layout: false
   end
 
