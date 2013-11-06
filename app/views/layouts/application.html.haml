@@ -38,17 +38,11 @@
                   = yield(:right_area)
                 - else
                   .well.sidebar-nav
-                    %h4
-                      = t('terms.recent_update_pages')
+                    %h5= t('terms.recent_update_pages')
                     %ul.nav.nav-list
                       - Page.accessible_by(current_user).recently.each do |page|
                         %li
-                          %small
-                            \/
-                            = link_to truncate(page.wiki_information.name, length: 8), wiki_info_path(wiki_name: page.wiki_information.name)
-                            \/
-                            = link_to truncate(page.url_name, length: 8), page_path(wiki_name: page.wiki_information.name, page_name: page.url_name)
-                            = truncate(" ( #{page.name} )", length: 13)
+                          %small= link_to truncate(page.name, length: 13), page_path(wiki_name: page.wiki_name, page_name: page.name), rel: 'tooltip', :"data-placement" => "right", title: "Updated: #{l page.updated_at}"
 
 :coffeescript
   $('#search-word-form').on 'submit', ->
