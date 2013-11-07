@@ -1,69 +1,81 @@
-%h1= t('terms.index_user')
+%h2.text-center
+  = fa_icon('users')
+  = t('terms.admin_user_index')
 
 = render 'shared/flash_messages'
 
-%table
-  %thead
-    %tr
-      %th name
-      %th email
-      %th admin
-      %th limited
-  %tbody
-    - @active_users.each do |user|
-      %tr
-        %td= link_to user.name, admin_user_path(user)
-        %td= user.email
-        %td= user.admin
-        %td= user.limited
-        %td= link_to t('actions.editing'), edit_admin_user_path(user)
-        %td= link_to t('actions.deleting'), admin_user_path(user), :method => :delete, :confirm => t('actions.confirm_delete')
+%table.table.table-hover
+  - @active_users.each do |user|
+    %tr.users
+      %td
+        .row
+          .col-md-1.col-xs-offset-1
+            %h5= user.formatted_kind
+          .col-md-1
+            = image_tag avatar_url(user, size: 30)
+          .col-md-6
+            = link_to admin_user_path(user) do
+              %h4
+                %strong= user.name
+                %small= " ( #{user.email} )"
+          .col-md-3.actions.hide
+            .pull-right
+              = link_to fa_icon('edit 2x'), edit_admin_user_path(user)
+              = link_to fa_icon('lock 2x') # TODO: ユーザ凍結
+              = link_to fa_icon('times-circle 2x'), admin_user_path(user), method: :delete, confirm: t('actions.confirm_delete')
 
+%hr
 - unless @invalidity_users.empty?
-  %h2= t('terms.index_pending_user')
 
-  %table
-    %thead
-      %tr
-        %th email
-        %th admin
-        %th limited
-    %tbody
-      - @invalidity_users.each do |user|
-        %tr
-          %td= user.email
-          %td= user.admin
-          %td= user.limited
-          %td= link_to t('actions.editing'), edit_admin_user_path(user)
-          %td= link_to t('actions.deleting'), admin_user_path(user), :method => :delete, :confirm => t('actions.confirm_delete')
+  .text-center
+    %h3
+      = fa_icon('rocket')
+      = t('terms.index_inviting_user')
+  = render 'shared/flash_messages'
 
-= link_to t('actions.add_user'), '#invite-user-form', class: 'btn btn-primary', data: {toggle: "modal"}
 
-#invite-user-form.modal.hide.fade{"tab-index" => "-1", "role" => "dialog", "aria-labelledby" => "invite-user-label", "aria-hidden" => "true"}
-  .modal-header
-    %button.close{"data-dismiss" => "modal", "aria-hidden" => "true"} &times;
-    %h3#invite-user-label Invite user
-  .modal-body
-    %p
-      = form_for User.new, url: invite_user_path, html: {class: 'form-horizontal'} do |f|
-        .control-group
-          = f.label :email, class: "control-label"
-          .controls
-            = f.email_field :email, placeholder: User.human_attribute_name(:email)
+  %table.table.table-hover
+    - @invalidity_users.each do |user|
+      %tr.users
+        %td
+          .col-md-1.col-md-offset-3= user.formatted_kind
+          .col-md-4
+            = user.email
+            = link_to admin_user_path(user), method: :delete, style: 'color: red;', confirm: t('actions.confirm_delete') do
+              = fa_icon('times-circle')
+          .col-md-3.actions.hide
+            = link_to '#' do
+              = fa_icon('mail-forward')
+              = fa_icon('envelope-o')
 
-        .control-group#admin_user_flag_area
-          = f.label :admin, :class => "control-label"
-          .controls
-            = f.check_box :admin, :id => 'admin_user_flag'
 
-        .control-group#limited_user_flag_area
-          = f.label :limited, :class => "control-label"
-          .controls
-            = f.check_box :limited, :id => 'limited_user_flag'
+.text-center= link_to t('actions.invite_user'), '#invite-user-form', class: 'btn btn-primary', data: {toggle: "modal"}
 
-        .control-group.actions
-          .controls
-            = f.submit t('actions.add_user'), class: 'btn btn-primary', id: 'invite_user_button'
+#invite-user-form.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"data-dismiss" => "modal", "aria-hidden" => "true"} &times;
+        %h3#invite-user-label.text-center= t('actions.invite_user')
+      .modal-body
+        %p
+          = form_for User.new, url: invite_user_path, html: {class: 'form-horizontal', role: 'form'} do |f|
+            .form-group
+              .col-sm-4.control-label= f.label :email
+              .col-sm-6= f.email_field :email, placeholder: User.human_attribute_name(:email), class: 'form-control'
+
+            .form-group#admin_user_flag_area
+              .col-sm-4.control-label= f.label :admin, :class => "control-label"
+              .col-sm-6= f.check_box :admin, :id => 'admin_user_flag', class: 'form-control'
+
+            .form-group#limited_user_flag_area
+              .col-sm-4.control-label= f.label :limited, :class => "control-label"
+              .col-sm-6= f.check_box :limited, :id => 'limited_user_flag', class: 'form-control'
+            .form-group.actions
+              .col-sm-offset-4.col-sm-6
+                = f.submit t('actions.invite'), class: 'btn btn-primary', id: 'invite_user_button'
+                %button{"data-dismiss" => "modal", "aria-hidden" => "true", class: 'btn'}= t('actions.cancel')
+      .modal-footer
 
 
 :coffeescript
@@ -74,10 +86,17 @@
       "#admin_user_flag_area"
 
   $ ->
+    $('.users').hover (e) ->
+      $('.actions', $(e.target).parent()).removeClass('hide')
+    , (e) ->
+      $('.actions', $(e.target).parent()).addClass('hide')
+
     checkedType = $("input:checked").attr "id"
     $(targetId(checkedType)).toggle() if checkedType
     $(":checkbox").on "click", ->
       $(targetId(this.id)).animate {opacity: "toggle"}, "slow"
 
-  $('#invite_user_button').on 'click', (ev) ->
-    location.reload
+    $('#invite_user_button').on 'click', (ev) ->
+      location.reload
+
+

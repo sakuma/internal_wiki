@@ -4,7 +4,11 @@
     = render 'shared/layout/head'
   %body
     %nav.navbar.navbar-default{role: 'navigation'}
-      .navbar-brand= link_to "InternalWiki", root_path
+      .navbar-brand
+        = link_to root_path do
+          = fa_icon('leaf')
+          InternalWiki
+
       - if content_for?(:menu_link)
         = yield(:menu_link)
 
