@@ -231,7 +231,7 @@ Rails.application.config.sorcery.configure do |config|
     # how many seconds before the activation code expires. nil for never expires.
     # Default: `nil`
     #
-    # user.activation_token_expiration_period =
+    user.activation_token_expiration_period = 3.days
 
 
     # your mailer class. Required.
