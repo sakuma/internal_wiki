@@ -10,7 +10,7 @@ module ApplicationHelper
 
   def avatar_url(user, options = {})
     gravatar_id = Digest::MD5::hexdigest(user.email).downcase
-    url = "http://gravatar.com/avatar/#{gravatar_id}.png"
+    url = "https://gravatar.com/avatar/#{gravatar_id}.png"
     url = url + "?s=#{options[:size]}" if options[:size].present?
     url
   end
