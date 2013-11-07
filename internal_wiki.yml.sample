@@ -1,0 +1,18 @@
+# ~/.tmuxinator/internal_wiki.yml
+
+name: internal_wiki
+root: ~/work/internal_wiki
+
+socket_name: wiki
+
+# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
+# pre_window: rbenv shell 2.0.0-p247
+
+# Pass command line options to tmux. Useful for specifying a different tmux.conf.
+# tmux_options: -f ~/.tmux.mac.conf
+
+windows:
+  - elasticsearch: elasticsearch -f -D es.config=/usr/local/opt/elasticsearch/config/elasticsearch.yml
+  - guard: bundle exec guard
+  - server: foreman start -p 3000
+  - main: mvim Gemfile
