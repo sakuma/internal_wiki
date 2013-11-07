@@ -64,6 +64,8 @@ group :development, :test do
   # gem 'thin' # Replace WEBrick on development.
   gem 'rails-erd'
   gem 'letter_opener'
+  # gem 'guard', github: 'guard/guard'
+  # gem 'guard-livereload'
 
   #test
   gem 'rspec-rails'
