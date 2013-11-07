@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
-ruby "2.0.0"
+ruby '2.0.0'
 
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-gem 'rails', '4.0.0'
+gem 'rails', '4.0.1'
 gem 'rails-observers'
 
 # gem 'sqlite3'
@@ -10,7 +10,7 @@ gem 'rails-observers'
 gem 'pg'
 
 gem 'jquery-rails'
-gem 'gitlab-grit'
+gem 'gitlab-grit', '2.6.0'
 gem 'gollum-lib'
 gem 'RedCloth' # for Textile
 gem 'redcarpet' # for Markdown
@@ -19,7 +19,7 @@ gem 'active_decorator'
 gem 'settingslogic'
 
 # WebSocket
-gem "private_pub"
+gem 'private_pub'
 gem 'thin'
 # gem 'redis'
 gem 'tire' # for ElasticSearch
