@@ -36,6 +36,11 @@ class User < ActiveRecord::Base
     activation_state == "pending"
   end
 
+  def activation_expired?
+    return false if activated?
+    pending? and activation_token_expires_at.try(:past?)
+  end
+
   def unvisible_wikis
     WikiInformation.all - visible_wikis
   end
