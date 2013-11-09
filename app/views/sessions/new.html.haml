@@ -1,24 +1,26 @@
-= form_tag(login_path, :class => 'form-signin') do |f|
+= form_tag(login_path, class: 'form-signin') do |f|
 
-  %h3.form-signin-heading= t('terms.login')
+  %h3.form-signin-heading.text-center= t('terms.login')
   = render 'shared/flash_messages'
 
   #google-login-area
-    %p
-      = link_to image_tag('google-icon.png', size: '50x50', alt: ''), auth_at_provider_path(provider: :google)
-      %abbr{ :title => "左の画像をクリックするとGmailアカウントでログインできます。"} &laquo; クリック
-    %p.pull-right= link_to "通常ログインに切り替える", "#", :class => 'login-type-button'
+    %p.text-center
+      = link_to image_tag('google-icon.png', size: '50x50', alt: 'Google'), auth_at_provider_path(provider: :google)
+      %abbr{ title: t('terms.guidance_google_login') }= fa_icon('hand-o-left 2x')
+    %hr/
+    %p.pull-right= link_to t('actions.switch_password_login'), "#", :class => 'login-type-button'
 
 
-  #original-login-area{:style => 'display:none;'}
-    %p.pull-right= link_to "Googleログインに切り替える", "#", :class => 'login-type-button'
-    = text_field_tag :email_or_name, nil, :placeholder => 'Email or Username', :class => 'input-block-level'
-    = password_field_tag :password, nil, :placeholder => 'Password', :class => 'input-block-level'
+  #original-login-area{style: 'display:none;'}
+    = text_field_tag :email_or_name, nil, placeholder: 'Email or Username', class: 'input-block-level'
+    = password_field_tag :password, nil, placeholder: 'Password', class: 'input-block-level'
     %label.checkbox
-      = check_box_tag :remember_me,  1,  params[:remember_me]
+      = check_box_tag :remember_me, 1, params[:remember_me]
       Remember me
 
-    = submit_tag t('terms.login'), :class => 'btn btn-primary'
+    = submit_tag t('terms.login'), class: 'btn btn-primary'
+    %hr/
+    %p.pull-right= link_to t('actions.switch_google_login'), "#", :class => 'login-type-button'
 
 :coffeescript
   $ ->
@@ -26,4 +28,3 @@
       $('#original-login-area').animate {opacity: "toggle"}, "slow"
       $('#google-login-area').animate {opacity: "toggle"}, "slow"
       $('div.alert').hide()
-

@@ -19,6 +19,8 @@ ja:
     return_back: "戻る"
     cancel: "キャンセル"
     invite: "招待"
+    switch_google_login: "Googleログインに切り替える"
+    switch_password_login: "通常ログインに切り替える"
 
   terms:
     index_page: "ページ一覧"
@@ -42,6 +44,8 @@ ja:
     page_name_format_placeholder: "ページ名 (日本語も使えます)"
     logged_out: "ログアウトしました。"
     successfully_login: "ログインに成功しました。"
+    failed_google_login: "Google認証に失敗しました。"
+    guidance_google_login: "左の画像をクリックするとGmailアカウントでログインできます。"
     search: "検索"
     page_history: "履歴"
     page_url_name_pattern: "(使用可能文字: A-Z, a-z, -)"
@@ -69,6 +73,7 @@ ja:
     sent_invite_mail_of: '"%{email}" へ招待メールを送信しました。'
     vailed_invite_mail_of: '"%{email}" はすでに登録済み。もしくは招待中です。'
     resent_invite_mail_of: '"%{email}" へ招待メールを再送信しました。'
+    not_found_user_of: '"%{email}" で登録されたユーザが見つかりませんでした。'
 
   date:
     abbr_day_names:
