@@ -1,33 +1,21 @@
+%h4
+  .pull-left
+    = link_to t('terms.index_user'), admin_users_path
+    = fa_icon('hand-o-left')
+  .pull-right
+    = link_to fa_icon('edit 2x'), edit_admin_user_path(@user)
+    = link_to fa_icon('times 2x'), admin_user_path(@user), :method => :delete, :confirm => t('actions.confirm_delete')
+
+
 %h2.text-center
-  = image_tag avatar_url(@user, size: 30)
-  = @user.name
+  %small= @user.formatted_kind
+  = image_tag avatar_url(@user, size: 50)
+  = @user.name.truncate(15)
+  %br/
+  %small= @user.email
 
 = render 'shared/flash_messages'
 
-.text-center
-  .row
-    .col-md-1.col-md-offset-2
-      = @user.formatted_kind
-    .col-md-5
-      %h3= @user.email
-
-  = link_to fa_icon('edit 2x'), edit_admin_user_path(@user)
-  = link_to t('actions.deleting'), admin_user_path(@user), :method => :delete, :confirm => t('actions.confirm_delete')
-
-%h4
-  = link_to t('terms.index_user'), admin_users_path
-  = fa_icon('hand-o-left')
-
 %hr
 
-- if @user.limited
-  %h2= t('terms.visible_wikis')
-  - @user.visible_wikis.each do |wiki|
-    = wiki.name
-    = link_to t('actions.disable'), delete_visibility_wiki_admin_user_path(@user, :wiki_id => wiki.id), :method => :delete, :class => 'btn'
-
-  %h3 registration
-  - @user.unvisible_wikis.each do |wiki|
-    = form_tag add_visibility_wiki_admin_user_path(@user, :wiki_id => wiki.id) do
-      = wiki.name
-      = submit_tag t('actions.enable'), :class => 'btn'
+= render 'visible_wiki'
