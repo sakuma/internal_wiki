@@ -52,6 +52,8 @@ ja:
     reverted_to: "%{target} の状態に復元しました。"
     deleted_page: "ページを削除しました。"
     deleted_user_info: "ユーザー情報を削除しました。"
+    updated_user_info: "ユーザー情報を更新しました。"
+    registered_user_info: "ユーザー登録が成功しました。"
     updated_page: "ページを更新しました。"
     created_page: "ページを追加しました。"
     updated_wiki: "Wiki情報を更新しました。"
