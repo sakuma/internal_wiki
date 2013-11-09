@@ -1,18 +1,25 @@
 module UserDecorator
 
   def formatted_kind
-    if admin?
-      content_tag :span, class: 'label label-info' do
-        I18n.t('terms.admin_user')
-      end
+    label = {
+      admin: 'info',
+      guest: 'warning',
+      expired: 'danger',
+      general: 'default',
+    }
+
+    user_type = if activation_expired?
+      :expired
+    elsif admin?
+      :admin
     elsif limited?
-      content_tag :span, class: 'label label-warning' do
-        I18n.t('terms.guest_user')
-      end
+      :guest
     else
-      content_tag :span, class: 'label label-default' do
-        I18n.t('terms.general_user')
-      end
+      :general
+    end
+
+    content_tag :span, class: "label label-#{label[user_type]}" do
+      I18n.t("terms.#{user_type}_user")
     end
   end
 

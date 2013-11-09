@@ -31,20 +31,23 @@
     %h3
       = fa_icon('rocket')
       = t('terms.index_inviting_user')
+      %small= link_to fa_icon('question'), "#", rel: 'tooltip', :"data-placement" => "top", title: t('terms.activation_token_expiration_period')
 
   %table.table.table-hover
     - @invalidity_users.each do |user|
-      %tr.users
+      %tr{class: "#{user.activation_expired? ? 'danger' : 'users'}"}
         %td
-          .col-md-1.col-md-offset-3= user.formatted_kind
-          .col-md-4
+          .col-md-2.col-md-offset-2.text-right= user.formatted_kind
+          .col-md-5
             = user.email
             = link_to admin_user_path(user), method: :delete, style: 'color: red;', confirm: t('actions.confirm_delete') do
               = fa_icon('times-circle')
-          .col-md-3.actions.hide
+          .col-md-3.actions{class: "#{user.activation_expired? ? '' : 'hide'}"}
             = link_to resend_invite_mail_admin_user_path(user) do
               = fa_icon('mail-forward')
               = fa_icon('envelope-o')
+            - if user.activation_expired?
+              .pull-right= link_to fa_icon('question'), "#", rel: 'tooltip', :"data-placement" => "top", title: t('terms.hint_token_expired_user')
 
 
 .text-center= link_to t('actions.invite_user'), '#invite-user-form', class: 'btn btn-primary', data: {toggle: "modal"}

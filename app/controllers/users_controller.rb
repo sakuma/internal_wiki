@@ -19,7 +19,8 @@ class UsersController < ApplicationController
 
   def activate
     unless @user = User.load_from_activation_token(params[:token])
-      redirect_to login_path, error: 'Error'
+      flash[:error] = t('terms.invalid_activation_token')
+      redirect_to login_path
     end
   end
 
