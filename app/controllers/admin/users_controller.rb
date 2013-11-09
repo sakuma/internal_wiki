@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
   before_filter :require_admin_user
-  before_filter :find_user, :only => [:show, :edit, :update, :destroy, :add_visibility_wiki, :delete_visibility_wiki, :candidates_wiki]
+  before_filter :find_user, :only => [:show, :edit, :update, :destroy, :add_visibility_wiki, :delete_visibility_wiki, :candidates_wiki, :resend_invite_mail]
 
   def index
     @active_users = User.active.all
@@ -36,7 +36,7 @@ class Admin::UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    redirect_to admin_users_path, :notice => 'successfully delete user.'
+    redirect_to admin_users_path, notice: t('terms.deleted_user_info')
   end
 
   def add_visibility_wiki
@@ -61,8 +61,13 @@ class Admin::UsersController < ApplicationController
 
   def invite_user
     user = User.create(params[:user].merge(name: '', password: 'sample', password_confirmation: 'sample'))
-    flash_msg = user.valid? ? {notice: "'#{user.email}' is invited"} : {error: "failed inviting"}
+    flash_msg = user.valid? ? {notice: t('terms.sent_invite_mail_of', email: user.email)} : {error: "failed inviting #{user.email}"}
     redirect_to admin_users_path, flash_msg
+  end
+
+  def resend_invite_mail
+    UserMailer.activation_needed_email(@user).deliver
+    redirect_to admin_users_path, notice: t('terms.resent_invite_mail_of', email: @user.email)
   end
 
 
