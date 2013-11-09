@@ -4,7 +4,7 @@ class WikiInformationsController < ApplicationController
   before_filter :find_wiki_info, only: %i[show edit update destroy add_authority_user remove_authority_user visible_wiki_candidates_users]
 
   def index
-    @wiki_informations = WikiInformation.accessible_by(current_user)
+    @wiki_informations = WikiInformation.order('updated_at DESC').accessible_by(current_user)
   end
 
   def show
@@ -81,7 +81,7 @@ class WikiInformationsController < ApplicationController
   def visible_wiki_candidates_users
     users = User.active.visible_wiki_candidates_on(@wiki_info)
     users = users.where("users.email LIKE :email OR users.name LIKE :name", email: "%#{params[:q]}%", name: "%#{params[:q]}%") if params[:q].present?
-    email_list = users.map {|user| {value: "#{user.email} (#{user.name.truncate(15)})", tokens: [user.email, user.name] }}
+    email_list = users.map {|user| {value: user.email, tokens: [user.email, user.name] }}
     render json: email_list, layout: false
   end
 
@@ -99,3 +99,4 @@ class WikiInformationsController < ApplicationController
     true
   end
 end
+

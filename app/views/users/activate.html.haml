@@ -1,16 +1,13 @@
-.offset2
+.center-block
 
   = render 'shared/flash_messages'
 
   = form_for(@user, url: regist_user_path(@user.activation_token), html: {method: :put, class: "form-horizontal"}) do |f|
 
-    .control-group
-      .controls
-        %h2= t('terms.user_regist')
+    %h2.text-center= t('terms.user_regist')
 
     = render 'profile_form', f: f
 
-    .control-group.actions
-      .controls
+    .form-group
+      .col-sm-offset-3.col-sm-10
         = f.submit t('actions.regist'), class: 'btn btn-primary'
-
