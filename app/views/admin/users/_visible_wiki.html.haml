@@ -1,0 +1,23 @@
+- if @user.limited
+  %h2.text-center
+    = fa_icon('book')
+    Wiki
+
+  - @user.visible_wikis.each do |wiki|
+    .col-xs-offset-3.col-xs-10
+      %h3
+        = wiki.name
+        = link_to delete_visibility_wiki_admin_user_path(@user, wiki_id: wiki.id), method: :delete do
+          = fa_icon('trash-o')
+
+  .text-center
+    = form_tag add_visibility_wiki_admin_user_path(@user), class: 'form-inline'  do
+      = text_field_tag :wiki_name, nil, placeholder: 'Wiki name...', id: "add-wiki-input-field", class: 'typeahead tt-query'
+      = submit_tag '+', class: 'btn btn-primary'
+
+:coffee
+  $ ->
+    $('#add-wiki-input-field').typeahead
+      name: 'Wiki name'
+      remote: "#{candidates_wiki_admin_user_path(@user)}"
+      limit: 10

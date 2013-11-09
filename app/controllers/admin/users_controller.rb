@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
   before_filter :require_admin_user
-  before_filter :find_user, :only => [:show, :edit, :update, :destroy, :add_visibility_wiki, :delete_visibility_wiki]
+  before_filter :find_user, :only => [:show, :edit, :update, :destroy, :add_visibility_wiki, :delete_visibility_wiki, :candidates_wiki]
 
   def index
     @active_users = User.active.all
@@ -40,17 +40,23 @@ class Admin::UsersController < ApplicationController
   end
 
   def add_visibility_wiki
-    wiki = WikiInformation.where(:id => params[:wiki_id]).first
+    wiki = WikiInformation.find_by(name: params[:wiki_name])
     @user.visible_wikis << wiki
     @user.reload
-    redirect_to admin_user_path(@user), :notice => 'Add wiki'
+    redirect_to admin_user_path(@user), notice: t('terms.candidates_wiki_of', wiki: wiki.name)
   end
 
   def delete_visibility_wiki
-    wiki = WikiInformation.where(:id => params[:wiki_id]).first
+    wiki = WikiInformation.find_by(id: params[:wiki_id])
     @user.visible_wikis.delete(wiki)
     @user.reload
-    redirect_to admin_user_path(@user), :notice => 'Add wiki'
+    redirect_to admin_user_path(@user), notice: t('terms.unvisible_wiki_of', wiki: wiki.name)
+  end
+
+  def candidates_wiki
+    unvisible_wiki_list = @user.unvisible_wikis
+    wikiname_list = unvisible_wiki_list.map {|wiki| {value: wiki.name, tokens: [wiki.name] }}
+    render json: wikiname_list, layout: false
   end
 
   def invite_user
