@@ -1,19 +1,22 @@
 %h2.text-center
   = image_tag avatar_url(@user, size: 30)
-  = t('terms.user_information_of', :user => @user.name)
+  = @user.name
 
 = render 'shared/flash_messages'
 
-.row
-  .col-md-3.col-md-offset-2
-    = @user.formatted_kind
-  .col-md-3
-    = User.human_attribute_name(:email)
-    = @user.email
+.text-center
+  .row
+    .col-md-1.col-md-offset-2
+      = @user.formatted_kind
+    .col-md-5
+      %h3= @user.email
 
-= link_to fa_icon('edit 2x'), edit_admin_user_path(@user)
-= link_to t('actions.deleting'), admin_user_path(@user), :method => :delete, :confirm => t('actions.confirm_delete')
-%h4= link_to t('terms.index_user'), admin_users_path
+  = link_to fa_icon('edit 2x'), edit_admin_user_path(@user)
+  = link_to t('actions.deleting'), admin_user_path(@user), :method => :delete, :confirm => t('actions.confirm_delete')
+
+%h4
+  = link_to t('terms.index_user'), admin_users_path
+  = fa_icon('hand-o-left')
 
 %hr
 
