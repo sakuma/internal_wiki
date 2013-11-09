@@ -9,9 +9,9 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.where(id: params[:id]).first
+    @user = User.find_by(id: params[:id])
     if @user.update_attributes(params[:user])
-      redirect_to user_setting_path, notice: 'successfully update'
+      redirect_to user_setting_path, notice: t('terms.updated_user_info')
     else
       render :setting
     end
@@ -19,18 +19,19 @@ class UsersController < ApplicationController
 
   def activate
     unless @user = User.load_from_activation_token(params[:token])
-      redirect_to login_path, error: 'Error'
+      flash[:error] = t('terms.invalid_activation_token')
+      redirect_to login_path
     end
   end
 
   def register
-    user = User.load_from_activation_token(params[:token])
-    if user.update_attributes(params[:user])
-      user.activate!
-      auto_login(user)
-      redirect_to root_path, notice: 'User was successfully activated.'
+    @user = User.load_from_activation_token(params[:token])
+    if @user.update_attributes(params[:user])
+      @user.activate!
+      auto_login(@user)
+      redirect_to root_path, notice: t('terms.registered_user_info')
     else
-      redirect_to login_path, error: 'Failed regist'
+      render :activate
     end
   end
 

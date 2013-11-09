@@ -19,6 +19,8 @@ ja:
     return_back: "戻る"
     cancel: "キャンセル"
     invite: "招待"
+    switch_google_login: "Googleログインに切り替える"
+    switch_password_login: "通常ログインに切り替える"
 
   terms:
     index_page: "ページ一覧"
@@ -42,6 +44,8 @@ ja:
     page_name_format_placeholder: "ページ名 (日本語も使えます)"
     logged_out: "ログアウトしました。"
     successfully_login: "ログインに成功しました。"
+    failed_google_login: "Google認証に失敗しました。"
+    guidance_google_login: "左の画像をクリックするとGmailアカウントでログインできます。"
     search: "検索"
     page_history: "履歴"
     page_url_name_pattern: "(使用可能文字: A-Z, a-z, -)"
@@ -51,6 +55,9 @@ ja:
     recent_update_pages: "最近更新されたページ"
     reverted_to: "%{target} の状態に復元しました。"
     deleted_page: "ページを削除しました。"
+    deleted_user_info: "ユーザー情報を削除しました。"
+    updated_user_info: "ユーザー情報を更新しました。"
+    registered_user_info: "ユーザー登録が成功しました。"
     updated_page: "ページを更新しました。"
     created_page: "ページを追加しました。"
     updated_wiki: "Wiki情報を更新しました。"
@@ -61,8 +68,16 @@ ja:
     admin_user: "管理者"
     guest_user: "ゲスト"
     general_user: "一般"
+    expired_user: "有効期限切れ"
     candidates_wiki_of: '"%{wiki}" の編集ができるようになりました。'
     unvisible_wiki_of: '"%{wiki}" の編集権限がなくなりました。'
+    sent_invite_mail_of: '"%{email}" へ招待メールを送信しました。'
+    vailed_invite_mail_of: '"%{email}" はすでに登録済み。もしくは招待中です。'
+    resent_invite_mail_of: '"%{email}" へ招待メールを再送信しました。'
+    not_found_user_of: '"%{email}" で登録されたユーザが見つかりませんでした。'
+    invalid_activation_token: "招待メールの有効期限が切れています。管理者へお問い合わせください。"
+    activation_token_expiration_period: "招待メールに記載されているURLの有効期限は３日間です。"
+    hint_token_expired_user: "招待メールを再送するか、削除してから招待しなおしてください。"
 
   date:
     abbr_day_names:
@@ -165,6 +180,7 @@ ja:
     messages:
       accepted: を受諾してください。
       blank: を入力してください。
+      blank_password: パスワードを入力してください。
       confirmation: と確認の入力が一致しません。
       empty: を入力してください。
       equal_to: は%{count}にしてください。
@@ -187,6 +203,7 @@ ja:
       too_short: は%{count}文字以上で入力してください。
       wrong_length: は%{count}文字で入力してください。
       wrong_format_name: " には、半角英字（a-z A-Z）、ダッシュ（-）を使用できます。"
+      unmatched_password: "パスワードと確認パスワードが一致しません。"
     template:
       body: 次の項目を確認してください。
       header:

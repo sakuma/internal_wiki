@@ -22,14 +22,23 @@ class User < ActiveRecord::Base
   scope :active, ->{ where(activation_state: 'active') }
   scope :pending, ->{ where(activation_state: 'pending') }
 
-  validates_presence_of :name, if: Proc.new {|user| user.activated?}
+  validates_presence_of :name, on: :update
   validates :email, presence: true, uniqueness: true
-
   validates_inclusion_of :admin, in: lambda{|u| u.admin_validetes_include_values}, message: :invalid_admin_select
   validates_inclusion_of :limited, in: lambda{|u| u.limited__validetes_include_values}, message: :invalid_limited_select
+  validate :password_check
 
   def activated?
-   activation_state == "active"
+    activation_state == "active"
+  end
+
+  def pending?
+    activation_state == "pending"
+  end
+
+  def activation_expired?
+    return false if activated?
+    pending? and activation_token_expires_at.try(:past?)
   end
 
   def unvisible_wikis
@@ -42,6 +51,26 @@ class User < ActiveRecord::Base
 
   def limited__validetes_include_values
     admin? ? [false] : [true, false]
+  end
+
+  def reset_activation!
+    self.setup_activation
+    self.save!(validate: false)
+  end
+
+
+  private
+
+  def password_check
+    if activated?
+      return true if password.blank? && password_confirmation.blank?
+    else # for activation
+      unless password.present? && password_confirmation.present?
+        errors.add :base, :blank_password
+        return false
+      end
+    end
+    errors.add :base, :unmatched_password unless password == password_confirmation
   end
 
 end

@@ -24,7 +24,7 @@ class SessionsController < ApplicationController
   def callback
     provider = params[:provider]
     if @user = login_from(provider)
-      redirect_to root_path, notice: "Logged in from #{provider.titleize}!"
+      redirect_to root_path, notice: t('terms.successfully_login')
     else
       begin
         user_hash = sorcery_fetch_user_hash(provider)
@@ -32,13 +32,15 @@ class SessionsController < ApplicationController
           @user.authentications.create!(uid: user_hash[:uid], provider: provider)
           reset_session # protect from session fixation attack
           auto_login(@user)
-          redirect_to root_path, notice: "Logged in from #{provider.titleize}!"
+          redirect_to root_path, notice: t('terms.successfully_login')
         else
+          flash[:error] = t('terms.not_found_user_of', email: user_hash[:user_info]['email'])
           raise 'oauth failed'
         end
       rescue => e
         logger.warn "=== #{e.message}"
-        redirect_to login_path, error: "Failed to login from #{provider.titleize}!"
+        flash[:error] ||= t('terms.failed_google_login')
+        redirect_to login_path
       end
     end
   end
