@@ -61,6 +61,8 @@ ja:
     admin_user: "管理者"
     guest_user: "ゲスト"
     general_user: "一般"
+    candidates_wiki_of: '"%{wiki}" の編集ができるようになりました。'
+    unvisible_wiki_of: '"%{wiki}" の編集権限がなくなりました。'
 
   date:
     abbr_day_names:

@@ -4,13 +4,27 @@
 = render 'shared/flash_messages'
 
 .row
-  .col-md-2
-    .label{class: ("label-#{@wiki_info.private_policy_label}")}= @wiki_info.private_policy + 'wiki'
-    =truncate(@wiki_info.name, length: 20)
+  .col-md-3
+    %h4
+      .label{class: ("label-#{@wiki_info.private_policy_label}")}
+        - if @wiki_info.private?
+          = fa_icon('lock')
+        - else
+          = fa_icon('unlock')
+
+      = truncate(@wiki_info.name, length: 14)
+    = link_to wiki_info_path(wiki_name: @wiki_info.name) do
+      = fa_icon('files-o')
+      = t('terms.index_page')
+    = fa_icon('reply')
+
   .col-md-7
     %h2
-      .text-center= truncate(@page.name, length: 20)
-  .col-md-3
+      .text-center
+        - if @wiki_info.private?
+          %small= fa_icon('lock')
+        = truncate(@page.name, length: 20)
+  .col-md-2
     .pull-right
       = link_to fa_icon('edit 2x'), edit_page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), class: 'action-icons'
       = link_to fa_icon('trash-o 2x'), page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), confirm: t('actions.confirm_delete'), method: :delete, class: 'action-icons'

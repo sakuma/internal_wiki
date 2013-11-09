@@ -18,6 +18,7 @@
         = submit_tag t('terms.search'), class: 'btn btn-primary'
       - if current_user
         %ul.nav.navbar-nav.navbar-right
+          %li.navbar-text= current_user.name
           %li
             %a{class: 'dropdown-toggle', :"data-toggle" => "dropdown", href: "#"}
               = image_tag avatar_url(current_user, size: 25)

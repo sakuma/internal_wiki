@@ -5,12 +5,17 @@
 
 = render 'shared/flash_messages'
 
-%table.table.table-hover{style: 'margin: 0 auto 0 auto;'}
+%table.table.table-hover
   - @wiki_informations.each do |wiki|
     %tr.wiki-items
-      %td
+      %td{class: "#{wiki.private? ? 'warning' : ''}"}
         .col-md-2
-          .label{class: "label-#{wiki.private_policy_label}"}= wiki.private_policy
+          %h4
+            .label{class: "label label-#{wiki.private_policy_label}"}
+              - if wiki.private?
+                = fa_icon('lock')
+              = wiki.private_policy
+
         .col-md-8
           %h3
             = link_to wiki.name, wiki_info_path(wiki_name: wiki.name)

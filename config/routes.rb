@@ -19,6 +19,7 @@ InternalWiki::Application.routes.draw do
   namespace :admin do
     resources :users do
       member do
+        get :candidates_wiki
         post :add_visibility_wiki
         delete :delete_visibility_wiki
       end
