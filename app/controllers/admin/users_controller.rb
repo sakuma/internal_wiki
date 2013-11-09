@@ -70,6 +70,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def resend_invite_mail
+    @user.reset_activation!
     UserMailer.activation_needed_email(@user).deliver
     redirect_to admin_users_path, notice: t('terms.resent_invite_mail_of', email: @user.email)
   end
