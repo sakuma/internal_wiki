@@ -5,19 +5,20 @@
 
 = error_messages_for(@page)
 
-.span6
-  = form_for(@page, url: form_url, html: {method: http_method, id: 'wiki-page-form'}) do |f|
+.col-md-6
+  = form_for(@page, url: form_url, html: {method: http_method, id: 'wiki-page-form', role: 'form'}) do |f|
     #page-content
       .field
         - if @page.new_record?
           = f.hidden_field :url_name
         = f.hidden_field :name
-      = f.text_area :body, class: 'span6', rows: 10, id: 'markdown-text'
-      .form-actions
+      .form-group
+        = f.text_area :body, class: 'form-control', id: 'markdown-text', rows: 10
+      .col-md-offset-4
         = f.submit (newly ? t('actions.regist') : t('actions.update')), class: 'btn btn-primary', id: 'page-submit-btn'
         = link_to t('actions.cancel'), canceled_to_url, class: 'btn'
 
-.span6
+.col-md-6
   .well.well-small#preview-result
 
 :coffeescript

@@ -8,6 +8,7 @@
       = text_field_tag :page, @page.url_name, placeholder: Page.human_attribute_name('url_name'), id: 'new-page-url-name', required: true
       %small= t('terms.page_url_name_pattern')
     %h3.text-center
+      %small Page name
       = text_field_tag :page, @page.name, placeholder: t('terms.page_name_format_placeholder'), id: 'new-page-name', required: true
     = render 'form'
 
