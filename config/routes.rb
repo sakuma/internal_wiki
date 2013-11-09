@@ -22,6 +22,7 @@ InternalWiki::Application.routes.draw do
         get :candidates_wiki
         post :add_visibility_wiki
         delete :delete_visibility_wiki
+        get :resend_invite_mail
       end
     end
   end

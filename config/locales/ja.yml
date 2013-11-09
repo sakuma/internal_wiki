@@ -51,6 +51,7 @@ ja:
     recent_update_pages: "最近更新されたページ"
     reverted_to: "%{target} の状態に復元しました。"
     deleted_page: "ページを削除しました。"
+    deleted_user_info: "ユーザー情報を削除しました。"
     updated_page: "ページを更新しました。"
     created_page: "ページを追加しました。"
     updated_wiki: "Wiki情報を更新しました。"
@@ -63,6 +64,8 @@ ja:
     general_user: "一般"
     candidates_wiki_of: '"%{wiki}" の編集ができるようになりました。'
     unvisible_wiki_of: '"%{wiki}" の編集権限がなくなりました。'
+    sent_invite_mail_of: '"%{email}" へ招待メールを送信しました。'
+    resent_invite_mail_of: '"%{email}" へ招待メールを再送信しました。'
 
   date:
     abbr_day_names:
