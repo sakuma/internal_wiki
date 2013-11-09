@@ -53,6 +53,11 @@ class User < ActiveRecord::Base
     admin? ? [false] : [true, false]
   end
 
+  def reset_activation!
+    self.setup_activation
+    self.save!(validate: false)
+  end
+
 
   private
 
