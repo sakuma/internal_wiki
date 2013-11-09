@@ -14,8 +14,8 @@
 
 .form-group
   .col-sm-3.control-label= f.label :password, class: "control-label"
-  .col-sm-5= f.password_field :password, placeholder: User.human_attribute_name(:password), required: true, class: 'form-control'
+  .col-sm-5= f.password_field :password, placeholder: User.human_attribute_name(:password), required: (@user.pending?), class: 'form-control'
 
 .form-group
   .col-sm-3.control-label= f.label :password_confirmation, class: "control-label"
-  .col-sm-5= f.password_field :password_confirmation, placeholder: User.human_attribute_name(:password_confirmation), required: true, class: 'form-control'
+  .col-sm-5= f.password_field :password_confirmation, placeholder: User.human_attribute_name(:password_confirmation), required: (@user.pending?), class: 'form-control'

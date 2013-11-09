@@ -60,9 +60,13 @@ class Admin::UsersController < ApplicationController
   end
 
   def invite_user
-    user = User.create(params[:user].merge(name: '', password: 'sample', password_confirmation: 'sample'))
-    flash_msg = user.valid? ? {notice: t('terms.sent_invite_mail_of', email: user.email)} : {error: "failed inviting #{user.email}"}
-    redirect_to admin_users_path, flash_msg
+    user = build_invite_user
+    if user.valid? and user.save(validate: false)
+      redirect_to admin_users_path, notice: t('terms.sent_invite_mail_of', email: user.email)
+    else
+      flash[:error] = t('terms.vailed_invite_mail_of', email: user.email)
+      redirect_to admin_users_path
+    end
   end
 
   def resend_invite_mail
@@ -79,6 +83,10 @@ class Admin::UsersController < ApplicationController
 
   def require_admin_user
     redirect_to root_path unless current_user.admin?
+  end
+
+  def build_invite_user
+    User.new(params[:user].merge(name: '', password: 'sample', password_confirmation: 'sample'))
   end
 
 end

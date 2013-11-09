@@ -67,6 +67,7 @@ ja:
     candidates_wiki_of: '"%{wiki}" の編集ができるようになりました。'
     unvisible_wiki_of: '"%{wiki}" の編集権限がなくなりました。'
     sent_invite_mail_of: '"%{email}" へ招待メールを送信しました。'
+    vailed_invite_mail_of: '"%{email}" はすでに登録済み。もしくは招待中です。'
     resent_invite_mail_of: '"%{email}" へ招待メールを再送信しました。'
 
   date:
@@ -170,6 +171,7 @@ ja:
     messages:
       accepted: を受諾してください。
       blank: を入力してください。
+      blank_password: パスワードを入力してください。
       confirmation: と確認の入力が一致しません。
       empty: を入力してください。
       equal_to: は%{count}にしてください。
@@ -192,6 +194,7 @@ ja:
       too_short: は%{count}文字以上で入力してください。
       wrong_length: は%{count}文字で入力してください。
       wrong_format_name: " には、半角英字（a-z A-Z）、ダッシュ（-）を使用できます。"
+      unmatched_password: "パスワードと確認パスワードが一致しません。"
     template:
       body: 次の項目を確認してください。
       header:

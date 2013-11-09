@@ -24,13 +24,13 @@ class UsersController < ApplicationController
   end
 
   def register
-    user = User.load_from_activation_token(params[:token])
-    if user.update_attributes(params[:user])
-      user.activate!
-      auto_login(user)
+    @user = User.load_from_activation_token(params[:token])
+    if @user.update_attributes(params[:user])
+      @user.activate!
+      auto_login(@user)
       redirect_to root_path, notice: t('terms.registered_user_info')
     else
-      redirect_to login_path, error: 'Failed regist'
+      render :activate
     end
   end
 
