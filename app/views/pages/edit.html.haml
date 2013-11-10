@@ -21,6 +21,12 @@
 
   :coffeescript
     $ ->
+      edited_text = false
+      $(window).on 'beforeunload', (event) ->
+        return "#{t('terms.confirm_unload_page')}" if edited_form
+      $('#page-submit-btn').click ->
+        $(window).off 'beforeunload'
+
       $('#edit-page-name').keyup ->
         $('#page_name').val( $('#edit-page-name').val())
       $('#edit-page-url-name').keyup ->
@@ -50,6 +56,7 @@
         unless prev == markdown_text
           prev = markdown_text
           sending_page_body "#{preview_page_path(wiki_name: @wiki_info.name, page_name: @page.url_name)}", markdown_text
+          edited_text = true
 
       PrivatePub.subscribe "/pages/#{@page.id}", (data, channel) ->
         unless data.edited_user_id == "#{current_user.id}"

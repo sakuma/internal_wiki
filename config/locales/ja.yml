@@ -78,6 +78,7 @@ ja:
     invalid_activation_token: "招待メールの有効期限が切れています。管理者へお問い合わせください。"
     activation_token_expiration_period: "招待メールに記載されているURLの有効期限は３日間です。"
     hint_token_expired_user: "招待メールを再送するか、削除してから招待しなおしてください。"
+    confirm_unload_page: "ページを移動すると、編集内容が消えてしまう可能性がありますがよろしいですか？"
 
   date:
     abbr_day_names:
