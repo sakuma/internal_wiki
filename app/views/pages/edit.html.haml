@@ -12,7 +12,9 @@
       %small Page name:
       = text_field_tag :page, @page.name, placeholder: t('terms.page_name_format_placeholder'), id: 'edit-page-name', required: true
 
-    #editing-user.label.label-warning.offset2{style: 'display: none;'}
+    .rows
+      .col-md-offset-2
+        #editing-user.label.label-warning.hide
     = render 'form'
 
     = subscribe_to "/pages/#{@page.id}"
@@ -43,7 +45,7 @@
       prev = initial = get_markdown_text()
       $('#markdown-text').keyup ->
         $('#page-submit-btn').removeAttr("disabled").addClass("btn-primary")
-        $('#editing-user').hide()
+        $('#editing-user').addClass('hide')
         markdown_text = get_markdown_text()
         unless prev == markdown_text
           prev = markdown_text
@@ -56,7 +58,7 @@
           result = Markdown $('#markdown-text').val()
           $('#preview-result').html result
           $('#editing-user').html(data.editing_word)
-          $('#editing-user').show()
+          $('#editing-user').removeClass('hide')
           $('#page-submit-btn').attr("disabled", "true").removeClass("btn-primary")
           $('#markdown-text').animate({borderColor: '#fff' }, 'slow')
 
