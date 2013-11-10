@@ -35,6 +35,7 @@ gem 'font-awesome-rails'
 gem 'coffee-rails'
 gem 'turbolinks'
 gem 'foreman'
+gem 'capistrano'
 
 group :assets do
 
