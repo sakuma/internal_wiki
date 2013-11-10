@@ -13,6 +13,9 @@ development:
       key: ""
       secret: ""
       callback_url: "http://localhost:3000/oauth/callback?provider=google"
+  aws:
+    access_key:
+    secret_key:
 
 test:
   # <<: *defaults
@@ -23,6 +26,9 @@ test:
       key: ""
       secret: ""
       callback_url: "http://localhost:3000/oauth/callback?provider=google"
+  aws:
+    access_key:
+    secret_key:
 
 production:
   # <<: *defaults
@@ -33,3 +39,6 @@ production:
       key: ""
       secret: ""
       callback_url: "http://localhost:3000/oauth/callback?provider=google"
+  aws:
+    access_key:
+    secret_key:

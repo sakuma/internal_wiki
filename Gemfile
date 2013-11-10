@@ -47,6 +47,10 @@ group :assets do
 end
 
 
+group :production do
+  gem 'aws-ses', require: 'aws/ses'
+end
+
 group :development, :test do
   # gem 'debugger'
   gem 'pry-rails'
