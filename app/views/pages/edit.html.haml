@@ -3,6 +3,11 @@
 
 = content_for :page_editable do
   .row
+    %h4.text-center
+      %small URL:
+      = "/#{@wiki_info.name}/"
+      = text_field_tag :page, @page.url_name, placeholder: t('terms.page_name_format_placeholder'), id: 'edit-page-url-name', required: true
+
     %h3.text-center
       %small Page name:
       = text_field_tag :page, @page.name, placeholder: t('terms.page_name_format_placeholder'), id: 'edit-page-name', required: true
@@ -16,6 +21,8 @@
     $ ->
       $('#edit-page-name').keyup ->
         $('#page_name').val( $('#edit-page-name').val())
+      $('#edit-page-url-name').keyup ->
+        $('#page_url_name').val( $('#edit-page-url-name').val())
 
       parse_md = ->
         result = Markdown get_markdown_text()
