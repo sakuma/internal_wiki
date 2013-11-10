@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: Settings.aws.ses.verify_email
 
   #   en.user_mailer.activation_needed_email.subject
   def activation_needed_email(user)
