@@ -36,7 +36,9 @@
     $(e.target).removeClass('fa-3x')
 
 %hr
-#page-content= raw(@page.content)
+#page-content
+  .markdown-body= raw(@page.render_page)
+
 %hr
 
 %small.pull-right
@@ -44,7 +46,6 @@
   = image_tag(avatar_url(@wiki_info.creator, size: 20))
   = @page.last_editor_name
   = time_ago_in_words(@page.updated_at)
-
 
 - if @page.histories.size > 1
   %h4= t('terms.page_history')

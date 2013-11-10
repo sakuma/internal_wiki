@@ -14,6 +14,7 @@ gem 'gitlab-grit', '2.6.0'
 gem 'gollum-lib'
 gem 'RedCloth' # for Textile
 gem 'redcarpet' # for Markdown
+gem 'github-markup'
 gem 'sorcery'
 gem 'active_decorator'
 gem 'settingslogic'

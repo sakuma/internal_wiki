@@ -360,6 +360,7 @@ DEPENDENCIES
   coffee-rails
   font-awesome-rails
   foreman
+  github-markup
   gitlab-grit (= 2.6.0)
   gollum-lib
   guard!

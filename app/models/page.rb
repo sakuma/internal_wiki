@@ -12,8 +12,8 @@ class Page < ActiveRecord::Base
   # FORMAT = :textile
   FORMAT = :markdown
 
-  before_create  :create_page
-  before_update  :update_page
+  after_create  :create_page
+  after_update  :update_page
 
   scope :accessible_by, ->(user) do
     ids = WikiInformation.accessible_by(user).map(&:id)
@@ -109,6 +109,15 @@ class Page < ActiveRecord::Base
 
   def author_name(version = nil)
     force_encoding_of(page(version).version.author.name)
+  end
+
+  def render_page
+    page_content = Gollum::Wiki.new('.', {}).preview_page("no-file", body, :markdown)
+    page_content.formatted_data
+    # page_content = wiki.preview_page("no-file", body, :markdown)
+    # page_content.formatted_data
+    # file = Rails.root.join(git_directory, "#{url_name}.md").to_s
+    # GitHub::Markup.render(file, File.read(file))
   end
 
   private
