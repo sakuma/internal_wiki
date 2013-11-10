@@ -20,3 +20,4 @@ data
 .rvmrc
 vendor/bundle
 internal_wiki_yml
+public/assets
