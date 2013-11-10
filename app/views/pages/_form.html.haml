@@ -9,8 +9,7 @@
   = form_for(@page, url: form_url, html: {method: http_method, id: 'wiki-page-form', role: 'form'}) do |f|
     #page-content
       .field
-        - if @page.new_record?
-          = f.hidden_field :url_name
+        = f.hidden_field :url_name
         = f.hidden_field :name
       .form-group
         = f.text_area :body, class: 'form-control', id: 'markdown-text', rows: 10
