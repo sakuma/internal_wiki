@@ -20,7 +20,9 @@ gem 'settingslogic'
 
 # WebSocket
 gem 'private_pub'
-gem 'thin'
+gem 'thin' # websocket
+gem 'puma' # web
+
 # gem 'redis'
 gem 'tire' # for ElasticSearch
 
