@@ -17,7 +17,10 @@ config/database.yml
 config/application.yml
 db/schema.rb
 data
-.rvmrc
 vendor/bundle
 internal_wiki_yml
 public/assets
+
+# Ruby verson controler
+.rvmrc
+.ruby-version
