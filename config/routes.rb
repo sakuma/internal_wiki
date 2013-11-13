@@ -39,6 +39,8 @@ InternalWiki::Application.routes.draw do
 
   scope ':wiki_name' do
     resources :pages, only: [:index, :create, :new]
+    get '/list_view_index' => 'pages#list_view_index', :as => 'list_view_pages'
+    get '/globe_view_index' => 'pages#globe_view_index', :as => 'globe_view_pages'
     post '/preview' => 'pages#preview', :as => 'preview_page'
     get '/:page_name/histories' => 'pages#histories', :as => 'histories_page'
     put '/:page_name/histories/revert_page' => 'pages#revert', :as => 'revert_page'

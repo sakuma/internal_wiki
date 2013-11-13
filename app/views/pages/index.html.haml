@@ -60,20 +60,11 @@
 
 %hr/
 
-%div{"style" => "text-align:center"}
-  %h3= t('terms.index_page')
-  #tag-cloud.hide
-    - @wiki_info.pages.each do |page|
-      = link_to page.url_name, page_path(wiki_name: @wiki_info.name, page_name: page.url_name)
-  #simple-list
-    - @wiki_info.pages.each do |page|
-      = link_to page.url_name, page_path(wiki_name: @wiki_info.name, page_name: page.url_name)
-
-  .pull-right= link_to fa_icon('globe 2x'), '#', id: 'switch-view'
+.text-center
+  #page-items
+    = render 'list_view_index'
 
 :coffee
   $ ->
-    $('#switch-view').click ->
-      $('#tag-cloud').removeClass('hide')
-      $('#simple-list').addClass('hide')
-
+    $('#page-items').on 'ajax:success', '.reload-page-list,.switch-view', (data, res, xhr) ->
+      $('#page-items').html(res)

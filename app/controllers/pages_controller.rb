@@ -1,11 +1,19 @@
 class PagesController < ApplicationController
   layout :get_layout
 
-  before_action :find_wiki_information, only: [:index, :show, :new, :create, :edit, :update, :destroy, :histories, :revert, :preview]
+  before_action :find_wiki_information, only: [:index, :list_view_index, :globe_view_index, :show, :new, :create, :edit, :update, :destroy, :histories, :revert, :preview]
   before_action :find_page, only: [:show, :edit, :update, :destroy, :histories, :revert]
+  before_action :find_sample_page, only: [:index, :list_view_index, :globe_view_index]
 
   def index
-    @pages = @wiki_info.pages
+  end
+
+  def list_view_index
+    render partial: 'list_view_index', layout: false
+  end
+
+  def globe_view_index
+    render partial: 'globe_view_index', layout: false
   end
 
   def new
@@ -96,6 +104,10 @@ class PagesController < ApplicationController
 
   def find_page
     @page = @wiki_info.pages.where(url_name: params[:page_name]).first
+  end
+
+  def find_sample_page
+    @pages = @wiki_info.pages.sample(70)
   end
 
 end

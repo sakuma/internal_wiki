@@ -1,0 +1,7 @@
+%h3
+  = link_to fa_icon('globe'), globe_view_pages_path(wiki_name: @wiki_info.name), remote: true, class: 'switch-view'
+  = t('terms.index_page')
+  = link_to fa_icon('repeat'), list_view_pages_path(wiki_name: @wiki_info.name), remote: true, class: 'reload-page-list'
+
+- @pages.each do |page|
+  = link_to page.name, page_path(wiki_name: @wiki_info.name, page_name: page.url_name), class: 'btn btn-default btn-md'
