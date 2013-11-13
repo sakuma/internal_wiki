@@ -1,27 +1,28 @@
-* {
-  margin: 0;
-  padding: 0;
-}
+// * {
+//   margin: 0;
+//   padding: 0;
+// }
 
-html, body {
-  color: #333;
-}
 
-body {
-  font: 13.34px helvetica,arial,freesans,clean,sans-serif;
-  line-height: 1.4;
-}
+// html, body {
+//   color: #333;
+// }
+//
+// body {
+//   font: 13.34px helvetica,arial,freesans,clean,sans-serif;
+//   line-height: 1.4;
+// }
+//
+// img {
+//   border: 0;
+// }
 
-img {
-  border: 0;
-}
-
-a {
+.markdown-body a {
   color: #4183C4;
   text-decoration: none;
 }
 
-a.absent {
+.markdown-body a.absent {
   color: #c00;
 }
 .markdown-body a[id].wiki-toc-anchor  {

@@ -32,21 +32,26 @@
       $('#edit-page-url-name').keyup ->
         $('#page_url_name').val( $('#edit-page-url-name').val())
 
-      parse_md = ->
-        result = Markdown get_markdown_text()
-        $('#preview-result').html result
+      render_preview = ->
+        url = "#{preview_page_url(wiki_name: @wiki_info.name, page_name: @page.url_name)}"
+        sending_page_body(url, get_markdown_text)
+
       get_markdown_text = ->
         $('#markdown-text').val()
+
       sending_page_body = (request_url, body) ->
         $.ajax
-          type: "POST"
+          type: 'POST'
           url: request_url
           data:
+            previewed: true
             edited_user_id: "#{current_user.id}"
             body: body
-          dataType: 'json'
-        .error ->
-          parse_md()
+          success: (data, textStatus, jqXHR) ->
+            console.log data
+            $('#preview-result').html data
+          error: (data, textStatus, jqXHR) ->
+            console.log textStatus
 
       prev = initial = get_markdown_text()
       $('#markdown-text').keyup ->
@@ -55,19 +60,18 @@
         markdown_text = get_markdown_text()
         unless prev == markdown_text
           prev = markdown_text
-          sending_page_body "#{preview_page_path(wiki_name: @wiki_info.name, page_name: @page.url_name)}", markdown_text
+          render_preview()
           edited_text = true
 
       PrivatePub.subscribe "/pages/#{@page.id}", (data, channel) ->
         unless data.edited_user_id == "#{current_user.id}"
           $('#markdown-text').animate({borderColor: '#fbf300' }, 'slow')
           $('#markdown-text').val data.body
-          result = Markdown $('#markdown-text').val()
-          $('#preview-result').html result
+          $('#preview-result').html data.parsed_body
           $('#editing-user').html(data.editing_word)
           $('#editing-user').removeClass('hide')
           $('#page-submit-btn').attr("disabled", "true").removeClass("btn-primary")
           $('#markdown-text').animate({borderColor: '#fff' }, 'slow')
 
       # parse on firstview
-      parse_md()
+      render_preview()

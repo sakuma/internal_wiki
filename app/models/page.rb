@@ -80,8 +80,8 @@ class Page < ActiveRecord::Base
     force_encoding_of(page(version).version.diffs.first.diff)
   end
 
-  def preview(data)
-    wiki.preview_page('Preview', data, FORMAT).formatted_data
+  def formatted_preview(data = nil)
+    wiki.preview_page('Preview', (data || self.body), FORMAT).formatted_data
   end
 
   def revert(author, sha1, sha2 = nil)
@@ -109,15 +109,6 @@ class Page < ActiveRecord::Base
 
   def author_name(version = nil)
     force_encoding_of(page(version).version.author.name)
-  end
-
-  def render_page
-    page_content = Gollum::Wiki.new('.', {}).preview_page("no-file", body, :markdown)
-    page_content.formatted_data
-    # page_content = wiki.preview_page("no-file", body, :markdown)
-    # page_content.formatted_data
-    # file = Rails.root.join(git_directory, "#{url_name}.md").to_s
-    # GitHub::Markup.render(file, File.read(file))
   end
 
   private

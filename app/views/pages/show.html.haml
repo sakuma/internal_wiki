@@ -29,17 +29,30 @@
       = link_to fa_icon('edit 2x'), edit_page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), class: 'action-icons'
       = link_to fa_icon('trash-o 2x'), page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), confirm: t('actions.confirm_delete'), method: :delete, class: 'action-icons'
 
-:coffee
-  $('.action-icons').hover (e) ->
-    $(e.target).addClass('fa-3x')
-  , (e) ->
-    $(e.target).removeClass('fa-3x')
+:coffeescript
+  $ ->
+    $('.action-icons').hover (e) ->
+      $(e.target).addClass('fa-3x')
+    , (e) ->
+      $(e.target).removeClass('fa-3x')
 
 %hr
 #page-content
-  .markdown-body= raw(@page.render_page)
+
+:coffeescript
+  $ ->
+    request_url = "#{preview_page_url(wiki_name: @wiki_info.name, page_name: @page.url_name)}"
+    $.ajax
+      type: 'POST'
+      url: request_url
+      success: (data, textStatus, jqXHR) ->
+        # console.log data
+        $('#page-content').html data
+      error: (data, textStatus, jqXHR) ->
+        console.log textStatus
 
 %hr
+
 
 %small.pull-right
   = "Last edited by "

@@ -1,9 +1,8 @@
 class PagesController < ApplicationController
   layout :get_layout
 
-  before_filter :find_wiki_information, :only => [:index, :show, :new, :create, :edit, :update, :destroy, :histories, :revert, :preview]
-  before_filter :find_page, :only => [:show, :edit, :update, :destroy, :histories, :revert, :preview]
-  before_filter :find_body, :only => [:edit]
+  before_filter :find_wiki_information, only: [:index, :show, :new, :create, :edit, :update, :destroy, :histories, :revert, :preview]
+  before_filter :find_page, only: [:show, :edit, :update, :destroy, :histories, :revert, :preview]
 
   def index
     @pages = @wiki_info.pages
@@ -24,9 +23,9 @@ class PagesController < ApplicationController
   end
 
   def create
-    @page = @wiki_info.pages.build(page_params.merge(:updated_by => current_user.id))
+    @page = @wiki_info.pages.build(page_params.merge(updated_by: current_user.id))
     if @page.save
-      redirect_to page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), :notice => t('terms.created_page')
+      redirect_to page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), notice: t('terms.created_page')
     else
       render :new
     end
@@ -34,13 +33,15 @@ class PagesController < ApplicationController
 
   def update
     if params[:page].blank?
-      render :nothing => true
+      render nothing: true
       return
     end
     respond_to do |format|
-      if @page.update_attributes(page_params.merge(:updated_by => current_user.id))
-        PrivatePub.publish_to "/pages/#{@page.id}", :body => params[:page][:body], :editing_word => '' rescue nil
-        format.html { redirect_to page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), :notice => t('terms.updated_page') }
+      if @page.update_attributes(page_params.merge(updated_by: current_user.id))
+        body = @page.body
+        parsed_body = @page.formatted_preview
+        PrivatePub.publish_to "/pages/#{@page.id}", body: body, parsed_body: parsed_body, editing_word: '' rescue nil
+        format.html { redirect_to page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), notice: t('terms.updated_page') }
         format.json { head :no_content }
       else
         format.html { render :edit }
@@ -50,21 +51,27 @@ class PagesController < ApplicationController
   end
 
   def preview
-    @body = params[:body]
-    @editor = User.where(id: params[:edited_user_id].to_i).first
-    PrivatePub.publish_to "/pages/#{@page.id}", :body => @body, :edited_user_id => current_user.id.to_s,
-      :editing_word => @editor ? I18n.t('terms.editing_by', :target => @editor.name) : ''
-    render :nothing => true
+    if params[:previewed]
+      body = params[:body]
+      parsed_body = @page.formatted_preview(body)
+      editor = User.find_by(id: params[:edited_user_id].to_i)
+      PrivatePub.publish_to "/pages/#{@page.id}", body: body, parsed_body: parsed_body,
+      edited_user_id: current_user.id.to_s,
+        editing_word: editor ? I18n.t('terms.editing_by', target: editor.name) : ''
+    else
+      parsed_body = @page.formatted_preview
+    end
+    render text: parsed_body, layout: false
   end
 
   def destroy
     @page.destroy_by(current_user)
-    redirect_to wiki_info_path(wiki_name: @wiki_info.name), :notice => t('terms.deleted_page')
+    redirect_to wiki_info_path(wiki_name: @wiki_info.name), notice: t('terms.deleted_page')
   end
 
   def revert
     if @page.revert(current_user, params[:sha])
-      redirect_to page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), :notice => t('terms.reverted_to', :target => @page.date(params[:sha]).to_s(:db))
+      redirect_to page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), notice: t('terms.reverted_to', target: @page.date(params[:sha]).to_s(:db))
     else
       render :histories
     end
@@ -83,10 +90,6 @@ class PagesController < ApplicationController
 
   def find_page
     @page = @wiki_info.pages.where(url_name: params[:page_name]).first
-  end
-
-  def find_body
-    @page.body = params[:page][:body] rescue @page.raw_content
   end
 
 end
