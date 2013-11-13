@@ -15,14 +15,33 @@
 
   :coffeescript
     $ ->
-      parse_md = ->
-        result = Markdown $('#markdown-text').val()
-        $('#preview-result').html result
+      get_markdown_text = ->
+        $('#markdown-text').val()
+
+      sending_page_body = (request_url, body) ->
+        $.ajax
+          type: 'POST'
+          url: request_url
+          data:
+            previewed: true
+            edited_user_id: "#{current_user.id}"
+            body: body
+          success: (data, textStatus, jqXHR) ->
+            console.log data
+            $('#preview-result').html data
+          error: (data, textStatus, jqXHR) ->
+            console.log textStatus
+
+      render_preview = ->
+        url = "#{preview_page_url(wiki_name: @wiki_info.name)}"
+        sending_page_body(url, get_markdown_text)
+
       $('#markdown-text').keyup ->
-        markdown_text = $('#markdown-text').val()
+        markdown_text = get_markdown_text()
         if (prev != markdown_text)
           prev = markdown_text
-          parse_md()
+          render_preview()
+
       $('#new-page-name').keyup ->
         $('#page_name').val( $('#new-page-name').val())
       $('#new-page-url-name').keyup ->

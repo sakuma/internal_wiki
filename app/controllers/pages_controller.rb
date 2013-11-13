@@ -1,8 +1,8 @@
 class PagesController < ApplicationController
   layout :get_layout
 
-  before_filter :find_wiki_information, only: [:index, :show, :new, :create, :edit, :update, :destroy, :histories, :revert, :preview]
-  before_filter :find_page, only: [:show, :edit, :update, :destroy, :histories, :revert, :preview]
+  before_action :find_wiki_information, only: [:index, :show, :new, :create, :edit, :update, :destroy, :histories, :revert, :preview]
+  before_action :find_page, only: [:show, :edit, :update, :destroy, :histories, :revert]
 
   def index
     @pages = @wiki_info.pages
@@ -51,15 +51,21 @@ class PagesController < ApplicationController
   end
 
   def preview
-    if params[:previewed]
-      body = params[:body]
-      parsed_body = @page.formatted_preview(body)
-      editor = User.find_by(id: params[:edited_user_id].to_i)
-      PrivatePub.publish_to "/pages/#{@page.id}", body: body, parsed_body: parsed_body,
-      edited_user_id: current_user.id.to_s,
-        editing_word: editor ? I18n.t('terms.editing_by', target: editor.name) : ''
-    else
-      parsed_body = @page.formatted_preview
+    # TODO: リファクタリング
+    if params[:page_name]
+      @page = @wiki_info.pages.where(url_name: params[:page_name]).first
+      if params[:previewed]
+        body = params[:body]
+        parsed_body = @page.formatted_preview(body)
+        editor = User.find_by(id: params[:edited_user_id].to_i)
+        PrivatePub.publish_to "/pages/#{@page.id}", body: body, parsed_body: parsed_body,
+        edited_user_id: current_user.id.to_s,
+          editing_word: editor ? I18n.t('terms.editing_by', target: editor.name) : ''
+      else
+        parsed_body = @page.formatted_preview
+      end
+    else # new page
+      parsed_body = @wiki_info.pages.build.formatted_preview(params[:body])
     end
     render text: parsed_body, layout: false
   end
