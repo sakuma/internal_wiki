@@ -73,6 +73,7 @@ group :development, :test do
   gem 'letter_opener'
   gem 'guard', github: 'guard/guard'
   gem 'guard-livereload'  # Chrome Extention: https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei
+  gem 'faker'
 
   #test
   gem 'rspec-rails'
