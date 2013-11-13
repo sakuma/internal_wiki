@@ -5,8 +5,8 @@ class Page < ActiveRecord::Base
   belongs_to :recent_editor, class_name: 'User', foreign_key: :updated_by
 
   validates_uniqueness_of :name, scope: :wiki_information_id
-  validates :name, presence: true, uniqueness: true
-  validates :url_name, presence: true, uniqueness: true, format: { with: /\A[-a-z]+\Z/i, message: :wrong_format_name, if: Proc.new{|page| page.url_name.present?}}
+  validates :name, presence: true, uniqueness: {scope: :wiki_information_id}
+  validates :url_name, presence: true, uniqueness: {scope: :wiki_information_id}, format: { with: /\A[-a-z]+\Z/i, message: :wrong_format_name, if: Proc.new{|page| page.url_name.present?}}
 
   # Temporarily hard coded
   # FORMAT = :textile
