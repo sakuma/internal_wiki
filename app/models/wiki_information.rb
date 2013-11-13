@@ -50,6 +50,10 @@ class WikiInformation < ActiveRecord::Base
     end
   end
 
+  def welcome_page
+    pages.where(url_name: 'welcome').first
+  end
+
   private
 
   def rename_repository_directory

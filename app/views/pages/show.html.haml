@@ -13,7 +13,7 @@
           = fa_icon('unlock')
 
       = truncate(@wiki_info.name, length: 14)
-    = link_to wiki_info_path(wiki_name: @wiki_info.name) do
+    = link_to pages_path(wiki_name: @wiki_info.name) do
       = fa_icon('files-o')
       = t('terms.index_page')
     = fa_icon('reply')
@@ -27,7 +27,8 @@
   .col-md-2
     .pull-right
       = link_to fa_icon('edit 2x'), edit_page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), class: 'action-icons'
-      = link_to fa_icon('trash-o 2x'), page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), confirm: t('actions.confirm_delete'), method: :delete, class: 'action-icons'
+      - if @page.deletable?
+        = link_to fa_icon('trash-o 2x'), page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), confirm: t('actions.confirm_delete'), method: :delete, class: 'action-icons'
 
 :coffeescript
   $ ->

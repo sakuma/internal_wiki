@@ -97,6 +97,10 @@ class Page < ActiveRecord::Base
     destroy
   end
 
+  def deletable?
+    not undeletable_list.include?(self.url_name)
+  end
+
   def histories(everything = false)
     ary = page.versions
     ary = ary.take(3) unless everything
@@ -112,6 +116,10 @@ class Page < ActiveRecord::Base
   end
 
   private
+
+  def undeletable_list
+    %w(welcome)
+  end
 
   def wiki
     @wiki ||= ::Gollum::Wiki.new(self.git_directory)

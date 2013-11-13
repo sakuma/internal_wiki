@@ -8,6 +8,7 @@ class WikiInformationsController < ApplicationController
   end
 
   def show
+    @page = @wiki_info.welcome_page
   end
 
   def new

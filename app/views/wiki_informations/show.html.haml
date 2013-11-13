@@ -1,68 +1,65 @@
 = content_for :menu_link do
-  = render 'pages/menu_link'
+  = render 'welcome_menu_link'
 
 = render 'shared/flash_messages'
 
 .row
-  .col-md-2
+  .col-md-3
     %h4
-      .label{class: ("label-#{@wiki_info.private_policy_label}")}= @wiki_info.private_policy
-    - if @wiki_info.is_private? && @wiki_info.controllable_by?(current_user)
-      = link_to "#private_members", id: 'private_members_modal', data: {toggle: "modal"} do
-        %h5
-          = fa_icon('users')
-          member
-  .col-md-8
-    %h1.text-center
-      - if @wiki_info.private?
-        %small= fa_icon('lock')
-      = truncate(@wiki_info.name, length: 20)
+      .label{class: ("label-#{@wiki_info.private_policy_label}")}
+        - if @wiki_info.private?
+          = fa_icon('lock')
+        - else
+          = fa_icon('unlock')
+
+      = truncate(@wiki_info.name, length: 14)
+    = link_to pages_path(wiki_name: @wiki_info.name) do
+      = fa_icon('files-o')
+      = t('terms.index_page')
+    = fa_icon('reply')
+
+  .col-md-7
+    %h2
+      .text-center
+        - if @wiki_info.private?
+          %small= fa_icon('lock')
+        = truncate(@page.name, length: 20)
   .col-md-2
-    - unless current_user.limited?
-      .pull-right
-        = link_to fa_icon('edit 2x'), edit_wiki_info_path(wiki_name: @wiki_info.name), class: 'action-icons'
-        = link_to fa_icon('trash-o 2x'), wiki_info_path(wiki_name: @wiki_info.name), class: 'action-icons', method: :delete, confirm: t('actions.confirm_delete')
+    .pull-right
+      = link_to fa_icon('edit 2x'), edit_page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), class: 'action-icons'
 
-:coffee
-  $('.action-icons').hover (e) ->
-    $(e.target).addClass('fa-3x')
-  , (e) ->
-    $(e.target).removeClass('fa-3x')
+:coffeescript
+  $ ->
+    $('.action-icons').hover (e) ->
+      $(e.target).addClass('fa-3x')
+    , (e) ->
+      $(e.target).removeClass('fa-3x')
 
+%hr
+#page-content
 
-- if @wiki_info.is_private && @wiki_info.controllable_by?(current_user)
-  #private_members.modal.fade
-    .modal-dialog
-      .modal-content
-        .modal-header
-          %button.close{"data-dismiss" => "modal", "aria-hidden" => "true"} &times;
-          %h3#private-members-label.text-center= PrivateMembership.model_name.human
-        .modal-body
-          %p
-            - @wiki_info.visible_authority_users.each do |user|
-              - next if user == current_user
-              %ul.list-unstyled.text-center
-                %li
-                  = "#{user.name} (#{user.email})"
-                  = link_to raw('&times;'), remove_authority_user_path(wiki_name: @wiki_info.name, email: user.email), method: :delete, confirm: t('actions.confirm_delete'), style: 'color: #F00; font-weight: bold;'
-        .modal-footer
-          .text-center
-            = form_tag add_authority_user_path(wiki_name: @wiki_info.name) do |f|
-              = text_field_tag :email, nil, placeholder: 'Email', id: "add-user-input-field", class: 'typeahead tt-query'
-              = submit_tag '+', class: 'btn btn-primary btn-xs'
+:coffeescript
+  $ ->
+    request_url = "#{preview_page_url(wiki_name: @wiki_info.name, page_name: @page.url_name)}"
+    $.ajax
+      type: 'POST'
+      url: request_url
+      success: (data, textStatus, jqXHR) ->
+        # console.log data
+        $('#page-content').html data
+      error: (data, textStatus, jqXHR) ->
+        console.log textStatus
 
-    :coffeescript
-      $ ->
-        $('#add-user-input-field').typeahead
-          name: 'Email'
-          remote: "#{candidates_users_path(wiki_name: @wiki_info.name)}?q=%QUERY"
-          limit: 10
+%hr
 
-%hr/
+%small.pull-right
+  = "Last edited by "
+  = image_tag(avatar_url(@wiki_info.creator, size: 20))
+  = @page.last_editor_name
+  = time_ago_in_words(@page.updated_at)
 
-%div{"style" => "text-align:center"}
-  %h3= t('terms.index_page')
-
-  #tag-cloud
-    - @wiki_info.pages.each do |page|
-      = link_to page.url_name, page_path(wiki_name: @wiki_info.name, page_name: page.url_name)
+- if @page.histories.size > 1
+  %h4= t('terms.page_history')
+  - @page.histories.each do |h|
+    %p= link_to "#{h[:date].to_s(:db)} (by #{h[:author]})", histories_page_path(wiki_name: @wiki_info.name, page_name: @page.url_name, sha: h[:sha])
+  = link_to t('terms.histories_more'), histories_page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), id: 'histories_more', class: 'btn btn-small btn-inverse'
