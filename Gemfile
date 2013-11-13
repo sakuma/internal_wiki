@@ -11,10 +11,10 @@ gem 'pg'
 
 gem 'jquery-rails'
 gem 'gitlab-grit', '2.6.0'
-gem 'gollum-lib'
-gem 'RedCloth' # for Textile
-gem 'redcarpet' # for Markdown
 gem 'github-markup'
+gem 'github-markdown'
+gem 'gollum-lib'
+
 gem 'sorcery'
 gem 'active_decorator'
 gem 'settingslogic'
@@ -29,8 +29,8 @@ gem 'tire' # for ElasticSearch
 
 gem 'protected_attributes'
 gem 'haml-rails'
-gem 'sass-rails'#, '~> 4.0.0.rc2' #:github => 'rails/sass-rails'
-# gem 'sprockets-rails' #, :github => 'rails/sprockets-rails'
+gem 'sass-rails'
+# gem 'sprockets-rails', :github => 'rails/sprockets-rails'
 gem 'sprockets-rails', :require => 'sprockets/railtie'
 gem 'font-awesome-rails'
 gem 'coffee-rails'
