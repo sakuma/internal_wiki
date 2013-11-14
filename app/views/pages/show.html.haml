@@ -63,6 +63,7 @@
 
 - if @page.histories.size > 1
   %h4= t('terms.page_history')
-  - @page.histories.each do |h|
-    %p= link_to "#{h[:date].to_s(:db)} (by #{h[:author]})", histories_page_path(wiki_name: @wiki_info.name, page_name: @page.url_name, sha: h[:sha])
-  = link_to t('terms.histories_more'), histories_page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), id: 'histories_more', class: 'btn btn-small btn-inverse'
+  工事中...
+  -# - @page.histories.each do |h|
+  -#   %p= link_to "#{h[:date].to_s(:db)} (by #{h[:author]})", histories_page_path(wiki_name: @wiki_info.name, page_name: @page.url_name, sha: h[:sha])
+  -# = link_to t('terms.histories_more'), histories_page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), id: 'histories_more', class: 'btn btn-small btn-inverse'
