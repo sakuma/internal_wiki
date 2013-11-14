@@ -21,8 +21,10 @@
     = "(by #{@page.author_name(params[:sha])})"
 
   %hr
-    = form_for @page, as: :page, url: revert_page_path(wiki_name: @wiki_info.name, page_name: @page.url_name, sha: params[:sha]), method: :put do |f|
-      = f.submit t('actions.revert_page'), class: 'btn btn-warning', confirm: t('actions.confirm_revert')
+
+  -# 一旦 revert 機能を閉じる(gollum-libのrevert がうまく動かない)
+  -#   = form_for @page, as: :page, url: revert_page_path(wiki_name: @wiki_info.name, page_name: @page.url_name, sha: params[:sha]), method: :put do |f|
+  -#     = f.submit t('actions.revert_page'), class: 'btn btn-warning', confirm: t('actions.confirm_revert')
 
   #page-raw-content.hide
     = @former_page
