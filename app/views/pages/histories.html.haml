@@ -14,7 +14,7 @@
   = link_to @page.url_name, page_path(wiki_name: @wiki_info.name, page_name: @page.url_name)
   = t('terms.history_of')
 
-- if @history_content
+- if @former_page.present?
 
   %h4
     = @page.date(params[:sha]).to_s(:db)
@@ -24,15 +24,19 @@
     = form_for @page, as: :page, url: revert_page_path(wiki_name: @wiki_info.name, page_name: @page.url_name, sha: params[:sha]), method: :put do |f|
       = f.submit t('actions.revert_page'), class: 'btn btn-warning', confirm: t('actions.confirm_revert')
 
-    = raw @history_content
+  #page-raw-content.hide
+    = @former_page
+  #page-content
+    .markdown-body
 
   %hr
-    %h4 Diff
-    = simple_format h(@page.diff(params[:sha]))
+  %h4 Diff
+  = simple_format h(@page.diff(params[:sha]))
   %hr
 
-:coffeescript
-  $ ->
-    $('tbody tr[data-href]').delegate '*', 'click', ->
-      window.location = $(this).parents('tr').data('href')
-
+  :coffee
+    $ ->
+      $('tbody tr[data-href]').delegate '*', 'click', ->
+        window.location = $(this).parents('tr').data('href')
+      request_url = "#{preview_page_url(wiki_name: @wiki_info.name, page_name: @page.url_name, sha: params[:sha])}"
+      PageContent.replace(request_url, $('#page-raw-content').html(), '#page-content')

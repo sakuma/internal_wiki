@@ -27,7 +27,15 @@ class PagesController < ApplicationController
   end
 
   def histories
-    @history_content = @page.content(params[:sha].blank? ? nil : params[:sha])
+    @former_page = @page.raw_content(params[:sha].present? ? params[:sha] : nil)
+  end
+
+  def revert
+    if @page.revert(current_user, params[:sha])
+      redirect_to page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), notice: t('terms.reverted_to', target: @page.date(params[:sha]).to_s(:db))
+    else
+      render :histories
+    end
   end
 
   def create
@@ -41,8 +49,7 @@ class PagesController < ApplicationController
 
   def update
     if params[:page].blank?
-      render nothing: true
-      return
+      render nothing: true and return
     end
     respond_to do |format|
       if @page.update_attributes(page_params.merge(updated_by: current_user.id))
@@ -70,7 +77,8 @@ class PagesController < ApplicationController
         edited_user_id: current_user.id.to_s,
           editing_word: editor ? I18n.t('terms.editing_by', target: editor.name) : ''
       else
-        parsed_body = @page.formatted_preview
+        data =  params[:sha].present? ? @page.raw_content(params[:sha]) : nil
+        parsed_body = @page.formatted_preview(data)
       end
     else # new page
       parsed_body = @wiki_info.pages.build.formatted_preview(params[:body])
@@ -81,14 +89,6 @@ class PagesController < ApplicationController
   def destroy
     @page.destroy_by(current_user)
     redirect_to wiki_info_path(wiki_name: @wiki_info.name), notice: t('terms.deleted_page')
-  end
-
-  def revert
-    if @page.revert(current_user, params[:sha])
-      redirect_to page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), notice: t('terms.reverted_to', target: @page.date(params[:sha]).to_s(:db))
-    else
-      render :histories
-    end
   end
 
 
