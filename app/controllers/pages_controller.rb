@@ -23,6 +23,9 @@ class PagesController < ApplicationController
   def edit
   end
 
+  def help
+  end
+
   def show
   end
 
