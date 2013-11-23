@@ -16,11 +16,11 @@ module ApplicationHelper
   end
 
   def alert_css_class(name)
-    name = {
+    css_name = {
       notice: 'success',
-      error: 'danger',
+      alert: 'danger',
       warning: 'warning',
-    }[name.to_sym]
-    "alert-#{name}"
+    }[name]
+    "alert-#{css_name}"
   end
 end

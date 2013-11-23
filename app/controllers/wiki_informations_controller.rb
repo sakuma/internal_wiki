@@ -9,6 +9,9 @@ class WikiInformationsController < ApplicationController
 
   def show
     @page = @wiki_info.welcome_page
+  rescue => e
+    logger.warn "Not found wiki: #{e.message}"
+    redirect_to root_path, alert: "Not found wiki: '#{params[:wiki_name]}'"
   end
 
   def new
