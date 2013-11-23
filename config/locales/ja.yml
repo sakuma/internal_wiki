@@ -206,6 +206,7 @@ ja:
       too_short: は%{count}文字以上で入力してください。
       wrong_length: は%{count}文字で入力してください。
       wrong_format_name: " には、半角英字（a-z A-Z）、ダッシュ（-）を使用できます。"
+      wrong_format_wiki_name: " には、半角英数字（a-z A-Z, 0-9）、ダッシュ（-）を使用できます。 ※  (-) は先頭には使えません"
       unmatched_password: "パスワードと確認パスワードが一致しません。"
     template:
       body: 次の項目を確認してください。
