@@ -16,7 +16,8 @@
 config/database.yml
 config/application.yml
 db/schema.rb
-data
+data/*
+spec/data/*
 vendor/bundle
 internal_wiki_yml
 public/assets
