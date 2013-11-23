@@ -9,9 +9,6 @@ class WikiInformationsController < ApplicationController
 
   def show
     @page = @wiki_info.welcome_page
-  rescue => e
-    logger.warn "Not found wiki: #{e.message}"
-    redirect_to root_path, alert: "Not found wiki: '#{params[:wiki_name]}'"
   end
 
   def new
@@ -93,7 +90,12 @@ class WikiInformationsController < ApplicationController
   private
 
   def find_wiki_info
-    @wiki_info = WikiInformation.where(name: params[:wiki_name]).first
+    @wiki_info = WikiInformation.where(name: params[:wiki_name]).first!
+  rescue => e
+    logger.warn "Not found wiki: #{e.message}"
+    unless request.xhr?
+      redirect_to root_path, alert: t('terms.not_found_wiki_of', wiki: params[:wiki_name])
+    end
   end
 
   def reject_limited_user

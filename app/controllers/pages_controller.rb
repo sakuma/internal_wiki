@@ -106,7 +106,10 @@ class PagesController < ApplicationController
   end
 
   def find_page
-    @page = @wiki_info.pages.where(url_name: params[:page_name]).first
+    @page = @wiki_info.pages.where(url_name: params[:page_name]).first!
+  rescue => e
+    logger.warn "Error find page: #{e.message}"
+    redirect_to wiki_path(wiki_name: @wiki_info.name), alert: t('terms.not_found_page_of', page: params[:page_name])
   end
 
   def find_sample_page

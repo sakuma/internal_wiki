@@ -75,6 +75,8 @@ ja:
     vailed_invite_mail_of: '"%{email}" はすでに登録済み。もしくは招待中です。'
     resent_invite_mail_of: '"%{email}" へ招待メールを再送信しました。'
     not_found_user_of: '"%{email}" で登録されたユーザが見つかりませんでした。'
+    not_found_page_of: '"%{page}" のページが見つかりませんでした。'
+    not_found_wiki_of: '"%{wiki}" のWikiが見つかりませんでした。'
     invalid_activation_token: "招待メールの有効期限が切れています。管理者へお問い合わせください。"
     activation_token_expiration_period: "招待メールに記載されているURLの有効期限は３日間です。"
     hint_token_expired_user: "招待メールを再送するか、削除してから招待しなおしてください。"
