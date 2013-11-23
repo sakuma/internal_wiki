@@ -24,6 +24,7 @@ describe WikiInformation do
         end
 
         # Valid Words
+        it_should_behave_like 'wiki name is', 'a', 'be valid'
         it_should_behave_like 'wiki name is', 'develop', 'be valid'
         it_should_behave_like 'wiki name is', 'tech-blog', 'be valid'
         it_should_behave_like 'wiki name is', 'heroku', 'be valid'
@@ -59,10 +60,38 @@ describe WikiInformation do
   end
 
   context 'callbacks' do
-    describe 'after_create' do
-      it 'true' do
-        wiki = build(:wiki)
-        wiki.name.should_not be_nil
+
+    describe 'before_create :prepare_git_repository' do
+      subject {build(:wiki)}
+      it 'exist git repogitory' do
+        expect(File.exists?(subject.git_directory)).to be_true
+      end
+    end
+
+    describe 'before_update :rename_repository_directory' do
+      it 'rename git directory when wiki_informations.name was rename' do
+        @wiki = create(:wiki, name: 'old')
+        @wiki.update_attribute(:name, 'new-name')
+        @wiki.name.should == 'new-name'
+        File.exists?(@wiki.git_directory).should be_true
+      end
+    end
+
+    describe 'after_create :setup_home_page' do
+      subject {create(:wiki)}
+      it 'created welcome page' do
+        subject.pages.size == 1
+        subject.pages.first.url_name.should == 'welcome'
+      end
+    end
+
+    describe 'after_destory :cleanup_git_repository' do
+      it 'destory record with git directory' do
+        wiki = create(:wiki)
+        dirname = wiki.git_directory
+        File.exists?(dirname).should be_true
+        wiki.destroy!
+        File.exists?(dirname).should be_false
       end
     end
   end
