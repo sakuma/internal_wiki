@@ -82,4 +82,6 @@ end
 
 group :test do
   gem 'coveralls', :require => false
+  gem 'simplecov', :require => false
+  gem 'simplecov-rcov', :require => false
 end

@@ -307,6 +307,8 @@ GEM
       multi_json
       simplecov-html (~> 0.8.0)
     simplecov-html (0.8.0)
+    simplecov-rcov (0.2.3)
+      simplecov (>= 0.4.1)
     slop (3.4.6)
     sorcery (0.8.2)
       bcrypt-ruby (~> 3.0.0)
@@ -407,6 +409,8 @@ DEPENDENCIES
   rspec-rails
   sass-rails
   settingslogic
+  simplecov
+  simplecov-rcov
   sorcery
   sprockets-rails
   thin
