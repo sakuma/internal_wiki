@@ -322,6 +322,8 @@ GEM
       oauth (~> 0.4.4)
       oauth2 (~> 0.8.0)
     spring (1.0.0)
+    spring-commands-rspec (1.0.1)
+      spring (>= 0.9.1)
     sprockets (2.10.1)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -423,6 +425,7 @@ DEPENDENCIES
   simplecov-rcov
   sorcery
   spring
+  spring-commands-rspec
   sprockets-rails
   thin
   tire

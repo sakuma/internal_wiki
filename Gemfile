@@ -78,9 +78,10 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
-  gem 'guard-rspec'
   gem 'factory_girl_rails'
+  gem 'guard-rspec'
   gem 'spring'
+  gem "spring-commands-rspec"
 end
 
 group :test do
