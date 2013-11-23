@@ -2,10 +2,14 @@ language: 'ruby'
 rvm:
   - '2.0.0'
 
+services:
+  - elasticsearch
+
 install:
   - "sudo apt-get install -y libicu-dev"
 
 before_script:
+  - psql -c 'create database myapp_test;' -U postgres
   - bundle install --without development
   - "cp config/database.yml.postgresql config/database.yml"
   - "cp config/application.yml.sample config/application.yml"
