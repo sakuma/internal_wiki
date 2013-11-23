@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/n-sakuma/internal_wiki.png)](https://travis-ci.org/n-sakuma/internal_wiki)
-[![Coverage Status](https://coveralls.io/repos/n-sakuma/internal_wiki/badge.png)](https://coveralls.io/r/n-sakuma/internal_wiki)
+[![Coverage Status](https://coveralls.io/repos/n-sakuma/internal_wiki/badge.png?branch=develop)](https://coveralls.io/r/n-sakuma/internal_wiki?branch=develop)
 [![Dependency Status](https://gemnasium.com/n-sakuma/internal_wiki.png)](https://gemnasium.com/n-sakuma/internal_wiki)
 
 # Internal Wiki
