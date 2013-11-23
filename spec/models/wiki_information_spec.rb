@@ -94,6 +94,25 @@ describe WikiInformation do
         File.exists?(dirname).should be_false
       end
     end
+
+    describe 'after_update :clear_private_memberships' do
+      before :all do
+        @user = create(:user)
+        @private_wiki = create(:wiki, is_private: true, created_by: @user.id)
+      end
+
+      it 'unnvisible private wiki' do
+        blind_user = create(:user)
+        WikiInformation.accessible_by(blind_user).should_not be_include(@private_wiki)
+      end
+
+      it 'change public' do
+        user = create(:user)
+        WikiInformation.accessible_by(user).should_not be_include(@private_wiki)
+        @private_wiki.update_attribute(:is_private, false)
+        WikiInformation.accessible_by(user).should be_include(@private_wiki)
+      end
+    end
   end
 
 end
