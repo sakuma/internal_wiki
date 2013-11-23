@@ -80,7 +80,6 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'guard-rspec'
-  gem 'spring'
   gem "spring-commands-rspec"
 end
 
