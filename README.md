@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/n-sakuma/internal_wiki.png)](https://travis-ci.org/n-sakuma/internal_wiki)
+[![Coverage Status](https://coveralls.io/repos/n-sakuma/internal_wiki/badge.png)](https://coveralls.io/r/n-sakuma/internal_wiki)
+
+
 # Internal Wiki
 
 It is a Wiki for use in a limited environment.
