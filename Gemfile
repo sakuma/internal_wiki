@@ -71,7 +71,7 @@ group :development do
   gem 'meta_request' # development log viewer for Chrome. via --- https://chrome.google.com/webstore/detail/railspanel/gjpfobpafnhjhbajcjgccbbdofdckggg
   gem 'rails-erd'
   gem 'letter_opener'
-  gem 'guard', github: 'guard/guard'
+  gem 'guard'
   gem 'guard-livereload'  # Chrome Extention: https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei
   gem 'faker'
 end
