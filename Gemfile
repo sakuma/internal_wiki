@@ -52,7 +52,7 @@ group :production do
   gem 'aws-ses', require: 'aws/ses'
 end
 
-group :development, :test do
+group :development do
   # gem 'debugger'
   gem 'pry-rails'
   gem 'pry-doc'
@@ -74,7 +74,8 @@ group :development, :test do
   gem 'guard', github: 'guard/guard'
   gem 'guard-livereload'  # Chrome Extention: https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei
   gem 'faker'
+end
 
-  #test
+group :test do
   gem 'rspec-rails'
 end
