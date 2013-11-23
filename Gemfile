@@ -73,12 +73,12 @@ group :development do
   gem 'letter_opener'
   gem 'guard'
   gem 'guard-livereload'  # Chrome Extention: https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei
-  gem 'faker'
 end
 
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+  gem 'faker'
   gem 'guard-rspec'
   gem 'spring'
   gem "spring-commands-rspec"
