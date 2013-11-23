@@ -17,17 +17,20 @@ git clone git://github.com/n-sakuma/internal_wiki.git
 
 ## cp sample files
 
-### DB
+### DB (PostgreSQL)
+
+#### For postgresql
+
+```bash
+$ cp config/database.yml{.postgresql,}
+```
+
+#### For some
 
 ```
-cp config/database.yml{.sample,}
+$ cp config/database.yml{.sample,}
 
-```
-
-### groonga
-
-```
-cp config/groonga.yml{.sample,}
+#... and edit database.yml
 ```
 
 ### application settings
@@ -47,25 +50,11 @@ Using OAuth 2.0 to Access Google APIs
 
 ### DB
 
-```
-rake db:migrate
-```
-
-### groonga
-
-```
-rake groonga:migrate
+```bash
+$ rake db:craete db:migrate db:seed
 ```
 
 
-
-# For Developer
-
-## view routes on browser
-
-```
-http://localhost:3000/rails/routes
-```
 
 ## Smart development log view (Chrome only)
 
