@@ -11,8 +11,8 @@ class WikiInformation < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true, format: { with: /\A[a-z0-9]([-a-z0-9]+)?\Z/i, message: :wrong_format_wiki_name}, length: { maximum: 50 }
 
-  before_update :rename_repository_directory
   before_create :prepare_git_repository
+  before_update :rename_repository_directory
   after_create :setup_home_page
   after_destroy :cleanup_git_repository
   after_update :clear_private_memberships, if: Proc.new{|w| w.public? }
@@ -57,13 +57,14 @@ class WikiInformation < ActiveRecord::Base
   private
 
   def rename_repository_directory
-    return unless self.name_changed?
-    before, after = self.name_change
-    File.rename(self.git_directory(before), self.git_directory(after))
+    return unless name_changed?
+    FileUtils.rm_rf(git_directory) if File.exists? git_directory
+    File.rename(git_directory(name_was), git_directory(name))
   end
 
   def prepare_git_repository
-    Grit::Repo.init(self.git_directory)
+    FileUtils.rm_rf(git_directory) if File.exists? git_directory
+    Grit::Repo.init(git_directory)
   end
 
   def setup_home_page
