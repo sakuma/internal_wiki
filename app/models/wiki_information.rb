@@ -17,7 +17,7 @@ class WikiInformation < ActiveRecord::Base
   after_destroy :cleanup_git_repository
   after_update :clear_private_memberships, if: Proc.new{|w| w.public? }
 
-  BASE_GIT_DIRECTORY = Rails.root.join('data')
+  BASE_GIT_DIRECTORY = Rails.root.join(Settings.wiki_data_dir)
 
   scope :accessible_by, ->(user) do
     if user.admin?
