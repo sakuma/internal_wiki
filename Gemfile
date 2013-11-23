@@ -77,15 +77,15 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
-  gem 'factory_girl_rails'
-  gem 'faker'
+  gem 'factory_girl_rails', require: false
+  gem 'faker', require: false
   gem 'guard-rspec'
   gem "spring-commands-rspec"
 end
 
 group :test do
-  gem 'coveralls', :require => false
-  gem 'simplecov', :require => false
-  gem 'simplecov-rcov', :require => false
-  gem 'database_cleaner'
+  gem 'coveralls', require: false
+  gem 'simplecov', require: false
+  gem 'simplecov-rcov', require: false
+  gem 'database_cleaner', require: false
 end
