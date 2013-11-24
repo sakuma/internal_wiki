@@ -48,7 +48,7 @@ ja:
     guidance_google_login: "左の画像をクリックするとGmailアカウントでログインできます。"
     search: "検索"
     page_history: "履歴"
-    page_url_name_pattern: "(使用可能文字: A-Z, a-z, -)"
+    page_url_name_pattern: "(使用可能文字: A-Z, a-z, 0-9, -)"
     histories_more: "さらに履歴を見る"
     history_of: "の履歴"
     user_control: "ユーザ管理"
@@ -206,7 +206,8 @@ ja:
       too_short: は%{count}文字以上で入力してください。
       wrong_length: は%{count}文字で入力してください。
       wrong_format_name: " には、半角英字（a-z A-Z）、ダッシュ（-）を使用できます。"
-      wrong_format_wiki_name: " には、半角英数字（a-z A-Z, 0-9）、ダッシュ（-）を使用できます。 ※  (-) は先頭には使えません"
+      wrong_format_page_url_name: " には、半角英数字（a-z A-Z, 0-9）、ダッシュ（-）を使用できます。 ※  (-) は先頭文字には使えません"
+      wrong_format_wiki_name: " には、半角英数字（a-z A-Z, 0-9）、ダッシュ（-）を使用できます。 ※  (-) は先頭文字には使えません"
       unmatched_password: "パスワードと確認パスワードが一致しません。"
     template:
       body: 次の項目を確認してください。

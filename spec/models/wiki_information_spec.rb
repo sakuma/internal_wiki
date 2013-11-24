@@ -17,9 +17,9 @@ describe WikiInformation do
 
         shared_examples_for 'wiki name is' do |name, validate|
           if validate == 'be valid'
-            it { expect(build(:wiki, name: name)).to_not have(1).errors_on(:name) }
+            it { expect(build(:wiki, name: name, creator: nil)).to_not have(1).errors_on(:name) }
           else
-            it { expect(build(:wiki, name: name)).to have(1).errors_on(:name) }
+            it { expect(build(:wiki, name: name, creator: nil)).to have(1).errors_on(:name) }
           end
         end
 
