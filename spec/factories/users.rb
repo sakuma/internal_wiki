@@ -7,7 +7,7 @@ FactoryGirl.define do
     u.sequence(:email) {|n| "some#{n}@sample.com"}
     u.password "password"
     u.password_confirmation {|user| user.password }
-    u.activation_state 'active'
+    after(:create) { |user| user.activate! }
 
     trait(:admin) { admin true }
     trait(:limited) { limited true }

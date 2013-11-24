@@ -62,9 +62,8 @@ describe WikiInformation do
   context 'callbacks' do
 
     describe 'before_create :prepare_git_repository' do
-      subject {build(:wiki)}
       it 'exist git repogitory' do
-        expect(File.exists?(subject.git_directory)).to be_true
+        expect(File.exists?(create(:wiki).git_directory)).to be_true
       end
     end
 
@@ -96,9 +95,8 @@ describe WikiInformation do
     end
 
     describe 'after_update :clear_private_memberships' do
-      before :all do
-        @user = create(:user)
-        @private_wiki = create(:wiki, is_private: true, created_by: @user.id)
+      before do
+        @private_wiki = create(:wiki, is_private: true, created_by: create(:user).id)
       end
 
       it 'unnvisible private wiki' do
@@ -109,7 +107,7 @@ describe WikiInformation do
       it 'change public' do
         user = create(:user)
         WikiInformation.accessible_by(user).should_not be_include(@private_wiki)
-        @private_wiki.update_attribute(:is_private, false)
+        @private_wiki.update_attributes!(is_private: false)
         WikiInformation.accessible_by(user).should be_include(@private_wiki)
       end
     end
