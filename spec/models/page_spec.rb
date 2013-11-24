@@ -2,6 +2,11 @@ require "spec_helper"
 
 describe Page do
 
+  before do
+    UserMailer.stub_chain(:activation_needed_email, :deliver).and_return(true)
+    UserMailer.stub_chain(:activation_success_email, :deliver).and_return(true)
+  end
+
   describe '#valid?' do
 
     describe '#name' do

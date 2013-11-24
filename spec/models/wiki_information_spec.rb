@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe WikiInformation do
+  before do
+    UserMailer.stub_chain(:activation_needed_email, :deliver).and_return(true)
+    UserMailer.stub_chain(:activation_success_email, :deliver).and_return(true)
+  end
+
   describe 'valid?' do
     context "about 'name'" do
       it 'name presented is valid' do
