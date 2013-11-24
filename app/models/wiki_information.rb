@@ -12,6 +12,7 @@ class WikiInformation < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true, format: { with: /\A[a-z0-9]([-a-z0-9]+)?\Z/i, message: :wrong_format_wiki_name}, length: { maximum: 50 }
 
   before_create :prepare_git_repository
+  before_update :set_visivilities
   before_update :rename_repository_directory
   after_create :setup_home_page
   after_destroy :cleanup_git_repository
@@ -66,11 +67,13 @@ class WikiInformation < ActiveRecord::Base
     Grit::Repo.init(git_directory)
   end
 
+  def set_visivilities
+    return unless private?
+    self.visibilities.create(user_id: self.created_by)
+  end
+
   def setup_home_page
     self.pages.create(url_name: 'welcome', name: 'Welcome', body: 'Getting started guide', updated_by: self.created_by)
-    if is_private?
-      self.private_memberships.create(user_id: self.created_by)
-    end
   end
 
   def cleanup_git_repository
