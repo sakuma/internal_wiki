@@ -48,6 +48,7 @@ class Page < ActiveRecord::Base
   def self.search(params)
     tire.search(load: true) do |s|
       s.query do
+        # string Page.sanitize_query(params[:q])
         string "body:#{Page.sanitize_query(params[:q])} OR name:#{Page.sanitize_query(params[:q])}", default_operator: 'AND'
       end
       s.filter :terms, wiki_information_id: params[:ids]
@@ -62,6 +63,8 @@ class Page < ActiveRecord::Base
     # http://lucene.apache.org/core/old_versioned_docs/versions/2_9_1/queryparsersyntax.html#Escaping Special Characters
     escaped_characters = Regexp.escape('\\+-&|!(){}[]^~*?:<>')
     str = str.gsub(/([#{escaped_characters}])/, '\\\\\1')
+
+    # string "body:#{Page.sanitize_query(params[:q])} OR name:#{Page.sanitize_query(params[:q])}", default_operator: 'AND'
 
     # AND, OR and NOT are used by lucene as logical operators. We need
     # to escape them
