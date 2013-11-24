@@ -42,12 +42,11 @@ class WikiInformation < ActiveRecord::Base
   end
 
   def collaborator_for_private_wiki?(user)
-    return true if user.admin?
-    if private_memberships.find_by(user_id: user.id).present?
-      true
-    else
-      false
+    if user.guest?
+      return visibilities.find_by(user_id: user.id).present?
     end
+    return true if public?
+    private_memberships.find_by(user_id: user.id).present?
   end
 
   def welcome_page

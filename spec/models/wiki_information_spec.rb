@@ -115,4 +115,57 @@ describe WikiInformation do
     end
   end
 
+  describe '#collaborator_for_private_wiki?' do
+
+    context 'public wiki' do
+      let(:public_wiki) {create(:wiki, is_private: false)}
+      let(:admin_user) {create(:user, admin: true)}
+      let(:user) {create(:user)}
+      let(:guest) {create(:user, limited: true)}
+
+      it 'admin user is visible' do
+        public_wiki.collaborator_for_private_wiki?(admin_user).should be_true
+      end
+      it 'general user is visible' do
+        public_wiki.collaborator_for_private_wiki?(user).should be_true
+      end
+      it 'not member user is unvisible' do
+        public_wiki.collaborator_for_private_wiki?(guest).should be_false
+      end
+      it 'joined guest user is visible' do
+        guest.visible_wikis << public_wiki
+        public_wiki.collaborator_for_private_wiki?(guest).should be_true
+      end
+    end
+
+    context 'private wiki' do
+      let(:private_wiki) {create(:wiki, is_private: true)}
+      let(:admin_user) {create(:user, admin: true)}
+      let(:user) {create(:user, admin: false, limited: false)}
+      let(:guest) {create(:user, limited: true)}
+
+      it 'Not member the admin is unvisible' do
+        private_wiki.collaborator_for_private_wiki?(admin_user).should be_false
+      end
+      it 'Joined member admin is visible' do
+        private_wiki.visible_authority_users << admin_user
+        private_wiki.collaborator_for_private_wiki?(admin_user).should be_true
+      end
+      it 'Not member general user is visible' do
+        private_wiki.collaborator_for_private_wiki?(user).should be_false
+      end
+      it 'Joined general user is visible' do
+        private_wiki.visible_authority_users << user
+        private_wiki.collaborator_for_private_wiki?(user).should be_true
+      end
+      it 'Not member guest is unvisible' do
+        private_wiki.collaborator_for_private_wiki?(guest).should be_false
+      end
+      it 'Joined guest user is visible' do
+        guest.visible_wikis << private_wiki
+        private_wiki.collaborator_for_private_wiki?(guest).should be_true
+      end
+    end
+  end
+
 end
