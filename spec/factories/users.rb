@@ -9,8 +9,14 @@ FactoryGirl.define do
     u.password_confirmation {|user| user.password }
     after(:create) { |user| user.activate! }
 
-    trait(:admin) { admin true }
-    trait(:limited) { limited true }
+    factory :admin_user do
+      admin true
+      limited false
+    end
+    factory :guest do
+      admin false
+      limited true
+    end
     trait(:activation_state) { activation_state 'active'}
   end
 end
