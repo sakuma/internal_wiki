@@ -8,8 +8,8 @@ class User < ActiveRecord::Base
     config.authentications_class = Authentication
   end
 
-  has_many :private_memberships, dependent: :destroy
-  has_many :private_wiki_informations, through: :private_memberships, source: :wiki_information
+  # has_many :private_memberships, dependent: :destroy
+  # has_many :private_wiki_informations, through: :private_memberships, source: :wiki_information
   has_many :visibilities, dependent: :destroy
   has_many :visible_wikis, through: :visibilities, source: :wiki_information
   has_many :authentications, dependent: :destroy

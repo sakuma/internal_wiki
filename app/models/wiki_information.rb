@@ -3,10 +3,13 @@ class WikiInformation < ActiveRecord::Base
   attr_accessible :created_by, :is_private, :name
 
   has_many :pages, :dependent => :destroy
-  has_many :private_memberships, :dependent => :destroy
-  has_many :visible_authority_users, :through => :private_memberships, :source => :user
+
+  # TODO: 削除 (visibilities に統合)
+  # has_many :private_memberships, :dependent => :destroy
+  # has_many :visible_authority_users, :through => :private_memberships, :source => :user
+
   has_many :visibilities, :dependent => :destroy
-  has_many :visible_wikis, :through => :visibilities, :source => :user
+  has_many :visible_users, :through => :visibilities, :source => :user
   belongs_to :creator, :class_name => 'User', :foreign_key => 'created_by'
 
   validates :name, presence: true, uniqueness: true, format: { with: /\A[a-z0-9]([-a-z0-9]+)?\Z/i, message: :wrong_format_wiki_name}, length: { maximum: 50 }
@@ -21,12 +24,12 @@ class WikiInformation < ActiveRecord::Base
   BASE_GIT_DIRECTORY = Rails.root.join(Settings.wiki_data_dir)
 
   scope :accessible_by, ->(user) do
-    if user.admin?
-      all
-    elsif user.limited
+    if user.guest?
       user.visible_wikis
     else
-      WikiInformation.where(:is_private => false) + user.private_wiki_informations
+      # WikiInformation.includes(:visibilities).where(visibilities: {user_id: u.id})
+
+      joins(:visibilities).where("visibilities.user_id = ? OR wiki_informations.is_private = ?", user.id, false)
     end
   end
 
@@ -47,7 +50,7 @@ class WikiInformation < ActiveRecord::Base
       return visibilities.find_by(user_id: user.id).present?
     end
     return true if public?
-    private_memberships.find_by(user_id: user.id).present?
+    visibilities.find_by(user_id: user.id).present?
   end
 
   def welcome_page
@@ -83,7 +86,6 @@ class WikiInformation < ActiveRecord::Base
   end
 
   def clear_private_memberships
-    private_memberships.delete_all
     visibilities.delete_all
   end
 

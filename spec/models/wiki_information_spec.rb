@@ -19,9 +19,9 @@ describe WikiInformation do
 
         shared_examples_for 'wiki name is' do |name, validate|
           if validate == 'be valid'
-            it { expect(build(:wiki, name: name, creator: nil)).to_not have(1).errors_on(:name) }
+            it { expect(build(:wiki, name: name)).to_not have(1).errors_on(:name) }
           else
-            it { expect(build(:wiki, name: name, creator: nil)).to have(1).errors_on(:name) }
+            it { expect(build(:wiki, name: name)).to have(1).errors_on(:name) }
           end
         end
 
@@ -97,20 +97,80 @@ describe WikiInformation do
     end
 
     describe 'after_update :clear_private_memberships' do
-      before do
-        @private_wiki = create(:wiki, is_private: true, created_by: create(:user).id)
-      end
 
       it 'unnvisible private wiki' do
+        private_wiki = create(:private_wiki)
         blind_user = create(:user)
-        WikiInformation.accessible_by(blind_user).should_not be_include(@private_wiki)
+        WikiInformation.accessible_by(blind_user).should_not be_include(private_wiki)
       end
 
       it 'change public' do
         user = create(:user)
-        WikiInformation.accessible_by(user).should_not be_include(@private_wiki)
-        @private_wiki.update_attributes!(is_private: false)
-        WikiInformation.accessible_by(user).should be_include(@private_wiki)
+        private_wiki = create(:private_wiki)
+        WikiInformation.accessible_by(user).should_not be_include(private_wiki)
+        private_wiki.update_attributes!(is_private: false)
+        WikiInformation.accessible_by(user).should be_include(private_wiki)
+      end
+    end
+  end
+
+  describe 'visivilities' do
+
+    context 'guest user' do
+
+      let(:guest_user){create(:user, admin: false, limited: true)}
+
+      context 'public wiki' do
+        let(:public_wiki) {create(:wiki, is_private: false)}
+        it 'unvisible wiki' do
+          public_wiki.visible_users.should_not be_include(guest_user)
+        end
+        it 'visible wiki' do
+          public_wiki.visible_users << guest_user
+          public_wiki.visible_users.should be_include(guest_user)
+        end
+      end
+
+      context 'private wiki' do
+        let(:private_wiki) {create(:wiki, is_private: true)}
+        it 'unvisible wiki' do
+          private_wiki.visible_users.should_not be_include(guest_user)
+        end
+        it 'visible wiki' do
+          private_wiki.visible_users << guest_user
+          private_wiki.visible_users.should be_include(guest_user)
+        end
+      end
+    end
+
+    context 'admin, general user' do
+      let(:admin_user){create(:user, admin: true, limited: false)}
+      let(:user){create(:user, admin: false, limited: false)}
+
+      context 'public wiki' do
+        let(:public_wiki) {create(:wiki, is_private: false)}
+        it 'unvisible wiki' do
+          public_wiki.visible_users.should_not be_include(admin_user)
+          public_wiki.visible_users.should_not be_include(user)
+        end
+        it 'visible wiki' do
+          public_wiki.visible_users << [admin_user, user]
+          public_wiki.visible_users.should be_include(admin_user)
+          public_wiki.visible_users.should be_include(user)
+        end
+      end
+
+      context 'private wiki' do
+        let(:private_wiki) {create(:wiki, is_private: true)}
+        it 'unvisible wiki' do
+          private_wiki.visible_users.should_not be_include(admin_user)
+          private_wiki.visible_users.should_not be_include(user)
+        end
+        it 'visible wiki' do
+          private_wiki.visible_users << [admin_user, user]
+          private_wiki.visible_users.should be_include(admin_user)
+          private_wiki.visible_users.should be_include(user)
+        end
       end
     end
   end
@@ -133,7 +193,7 @@ describe WikiInformation do
         public_wiki.collaborator_for_private_wiki?(guest).should be_false
       end
       it 'joined guest user is visible' do
-        guest.visible_wikis << public_wiki
+        public_wiki.visible_users << guest
         public_wiki.collaborator_for_private_wiki?(guest).should be_true
       end
     end
@@ -148,22 +208,81 @@ describe WikiInformation do
         private_wiki.collaborator_for_private_wiki?(admin_user).should be_false
       end
       it 'Joined member admin is visible' do
-        private_wiki.visible_authority_users << admin_user
+        private_wiki.visible_users << admin_user
         private_wiki.collaborator_for_private_wiki?(admin_user).should be_true
       end
       it 'Not member general user is visible' do
         private_wiki.collaborator_for_private_wiki?(user).should be_false
       end
       it 'Joined general user is visible' do
-        private_wiki.visible_authority_users << user
+        private_wiki.visible_users << user
         private_wiki.collaborator_for_private_wiki?(user).should be_true
       end
       it 'Not member guest is unvisible' do
         private_wiki.collaborator_for_private_wiki?(guest).should be_false
       end
       it 'Joined guest user is visible' do
-        guest.visible_wikis << private_wiki
+        private_wiki.visible_users << guest
         private_wiki.collaborator_for_private_wiki?(guest).should be_true
+      end
+    end
+  end
+
+  describe '.accesible_by' do
+    context 'guest user' do
+      let(:guest) {create(:guest)}
+      context 'Joined wiki is visible' do
+        let(:public_wiki) {create(:public_wiki)}
+        let(:private_wiki) {create(:private_wiki)}
+        it 'public wiki is visible' do
+          public_wiki.visible_users << guest
+          WikiInformation.accessible_by(guest).should be_include(public_wiki)
+        end
+        it 'private wiki is visible' do
+          private_wiki.visible_users << guest
+          WikiInformation.accessible_by(guest).should be_include(private_wiki)
+        end
+      end
+      context "Don't Joined wiki is unvisible" do
+        let(:public_wiki) {create(:public_wiki)}
+        let(:private_wiki) {create(:private_wiki)}
+        it 'public wiki is unvisible' do
+          WikiInformation.accessible_by(guest).should_not be_include(public_wiki)
+        end
+        it 'private wiki is unvisible' do
+          WikiInformation.accessible_by(guest).should_not be_include(private_wiki)
+        end
+      end
+    end
+
+    context 'admin, general user' do
+      context 'public wiki' do
+        let!(:public_wiki) {create(:public_wiki)}
+        let(:admin_user) {create(:admin_user)}
+        let(:user) {create(:user)}
+
+        it 'public wiki is visible' do
+          # WikiInformation.accessible_by(admin_user).should be_include(public_wiki)
+          expect(WikiInformation.accessible_by(admin_user)).to include(public_wiki)
+          expect(WikiInformation.accessible_by(user).load).to include(public_wiki)
+          # WikiInformation.accessible_by(user).should be_include(public_wiki)
+        end
+      end
+      context 'private wiki' do
+        let(:private_wiki) {create(:private_wiki)}
+        let(:admin_user) {create(:admin_user)}
+        let(:user) {create(:user)}
+
+        it "Don't Joined wiki is unvisible" do
+          WikiInformation.accessible_by(admin_user).should_not be_include(private_wiki)
+          WikiInformation.accessible_by(user).should_not be_include(private_wiki)
+        end
+
+        it 'Joined wiki is visible' do
+          private_wiki.visible_users << [admin_user, user]
+          WikiInformation.accessible_by(admin_user).should be_include(private_wiki)
+          WikiInformation.accessible_by(user).should be_include(private_wiki)
+        end
       end
     end
   end
