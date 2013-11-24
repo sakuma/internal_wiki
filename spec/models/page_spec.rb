@@ -80,5 +80,24 @@ describe Page do
       end
     end
   end
+
+  describe '.search' do
+    shared_examples_for "matched for" do |attr, search_word|
+      it {
+        page = create(:page, attr)
+        sleep 1 # Wait for Elasticsearch index
+        result = Page.search(q: search_word, ids: [page.wiki_information.id])
+        expect(result).to have(1).page
+      }
+    end
+    it_should_behave_like 'matched for', {body: 'Ruby on Rails'}, 'ruby'
+    it_should_behave_like 'matched for', {body: 'ああああいいいい'}, 'ああ'
+    it_should_behave_like 'matched for', {body: 'ああああいいいい'}, 'いいい'
+    it_should_behave_like 'matched for', {body: 'ああああいいいい'}, 'あい'
+    it_should_behave_like 'matched for',
+      {body: 'Ruby is a dynamic, reflective, object-oriented, general-purpose programming language.'}, 'ruby object programming'
+    it_should_behave_like 'matched for', {name: 'Land of Lisp'}, 'Lisp'
+    it_should_behave_like 'matched for', {name: 'Factory Girl'}, 'Girl'
+
   end
 end
