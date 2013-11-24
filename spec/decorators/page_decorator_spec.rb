@@ -2,7 +2,9 @@
 require 'spec_helper'
 
 describe PageDecorator do
-  let(:page) { Page.new.extend PageDecorator }
-  subject { page }
-  it { should be_a Page }
+  let(:user) { create(:user) }
+  let(:wiki) { create(:wiki, creator: user) }
+  let(:page) { wiki.pages.first.extend PageDecorator }
+  subject { page.last_editor_name}
+  it {should eq user.name}
 end
