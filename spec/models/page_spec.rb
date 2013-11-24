@@ -82,10 +82,6 @@ describe Page do
   end
 
   describe '.search' do
-    before do
-      Page.index.delete  # Reset ElasticSearch index
-    end
-
     context 'match words' do
       shared_examples_for "matching for" do |attr, search_word, matching_mode|
         it {
@@ -112,35 +108,34 @@ describe Page do
       it_should_behave_like 'matching for', {name: 'object oriented'}, 'OBJECT', 'matched'
       it_should_behave_like 'matching for', {name: 'iPhoneゲーム'}, 'ゲーム', 'matched'
       it_should_behave_like 'matching for', {name: 'Mountain ライオン'}, 'mountain', 'matched'
-      # it_should_behave_like 'matching for', {name: 'Mountain ライオン'}, 'ライ', 'matched'
 
       # Unmached words
-      # it_should_behave_like 'matching for', {name: 'Prog'}, '-@/<>[]{}()?!$%&!~^', 'unmatched'
+      it_should_behave_like 'matching for', {name: 'Prog'}, '/<>[]{}()?!$%+&!~^', 'unmatched'
       it_should_behave_like 'matching for', {name: 'programming language'}, 'pro', 'unmatched'
       it_should_behave_like 'matching for', {name: 'programming language'}, 'gu', 'unmatched'
       it_should_behave_like 'matching for', {name: 'programming language'}, 'ing lan', 'unmatched'
     end
 
-    # context "abount 'AND' 'OR' 'NOT'" do
-    #   context 'AND' do
-    #     before do
-    #       @wiki = create(:wiki)
-    #       @wiki.pages << build(:page, body: 'Java JavaScript Ruby Lisp')
-    #       @wiki.pages << build(:page, body: 'CoffeeScript JRuby')
-    #       sleep 1
-    #     end
+    context "abount 'AND' 'OR'" do
+      context 'AND' do
+        before do
+          @wiki = create(:wiki)
+          @wiki.pages << build(:page, body: 'Java JavaScript Ruby Lisp')
+          @wiki.pages << build(:page, body: 'CoffeeScript Ruby on Rails')
+          sleep 1
+        end
 
-    #     it 'matched two words' do
-    #       result = Page.search(q: "java AND script", ids: [@wiki.id])
-    #       expect(result).to have(1).page
-    #     end
+        it 'matched two words' do
+          result = Page.search(q: "java AND script", ids: [@wiki.id])
+          expect(result).to have(1).page
+        end
 
-    #     it 'matched two words' do
-    #       result = Page.search(q: "ruby AND Script", ids: [@wiki.id])
-    #       expect(result).to have(2).page
-    #     end
-    #   end
-    # end
+        it 'matched two words' do
+          result = Page.search(q: "ruby AND Script", ids: [@wiki.id])
+          expect(result).to have(2).page
+        end
+      end
+    end
 
   end
 end

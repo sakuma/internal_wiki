@@ -48,8 +48,11 @@ class Page < ActiveRecord::Base
   def self.search(params)
     tire.search(load: true) do |s|
       s.query do
-        # string Page.sanitize_query(params[:q])
-        string "body:#{Page.sanitize_query(params[:q])} OR name:#{Page.sanitize_query(params[:q])}", default_operator: 'AND'
+        boolean do
+          should { string "name:#{Page.sanitize_query(params[:q])}" }
+          should { string "url_name:#{Page.sanitize_query(params[:q])}" }
+          should { string "body:#{Page.sanitize_query(params[:q])}" }
+        end
       end
       s.filter :terms, wiki_information_id: params[:ids]
       s.facet "wiki_group" do
@@ -61,7 +64,7 @@ class Page < ActiveRecord::Base
   def self.sanitize_query(str)
     # Escape special characters
     # http://lucene.apache.org/core/old_versioned_docs/versions/2_9_1/queryparsersyntax.html#Escaping Special Characters
-    escaped_characters = Regexp.escape('\\+-&|!(){}[]^~*?:<>')
+    escaped_characters = Regexp.escape('\\+-&@|!(){}[]^~*?:<>')
     str = str.gsub(/([#{escaped_characters}])/, '\\\\\1')
 
     # string "body:#{Page.sanitize_query(params[:q])} OR name:#{Page.sanitize_query(params[:q])}", default_operator: 'AND'

@@ -50,6 +50,7 @@ RSpec.configure do |config|
     # ユーザ作成時のactivationメールを止める
     UserMailer.stub_chain(:activation_needed_email, :deliver).and_return(true)
     UserMailer.stub_chain(:activation_success_email, :deliver).and_return(true)
+    Page.index.delete  # Reset ElasticSearch index
     DatabaseCleaner.start
   end
   config.after(:each) do
