@@ -87,22 +87,33 @@ describe Page do
   end
 
   describe '.search' do
-    shared_examples_for "matched for" do |attr, search_word|
+    shared_examples_for "matching for" do |attr, search_word, matching_mode|
       it {
+        Page.index.delete
         page = create(:page, attr)
         sleep 1 # Wait for Elasticsearch index
         result = Page.search(q: search_word, ids: [page.wiki_information.id])
-        expect(result).to have(1).page
+        if matching_mode == 'matched'
+          expect(result).to have(1).page
+        else
+          expect(result).to have(0).page
+        end
       }
     end
-    it_should_behave_like 'matched for', {body: 'Ruby on Rails'}, 'ruby'
-    it_should_behave_like 'matched for', {body: 'ああああいいいい'}, 'ああ'
-    it_should_behave_like 'matched for', {body: 'ああああいいいい'}, 'いいい'
-    it_should_behave_like 'matched for', {body: 'ああああいいいい'}, 'あい'
-    it_should_behave_like 'matched for',
-      {body: 'Ruby is a dynamic, reflective, object-oriented, general-purpose programming language.'}, 'ruby object programming'
-    it_should_behave_like 'matched for', {name: 'Land of Lisp'}, 'Lisp'
-    it_should_behave_like 'matched for', {name: 'Factory Girl'}, 'Girl'
+    it_should_behave_like 'matching for', {body: 'Ruby on Rails'}, 'ruby', 'matched'
+    it_should_behave_like 'matching for', {body: 'ああああいいいい'}, 'ああ', 'matched'
+    it_should_behave_like 'matching for', {body: 'ああああいいいい'}, 'いいい', 'matched'
+    it_should_behave_like 'matching for', {body: 'ああああいいいい'}, 'あい', 'matched'
+    it_should_behave_like 'matching for',
+      {body: 'Ruby is a dynamic,ingeflective, object-oriented, general-purpose programming language.'}, 'ruby object programming', 'matched'
+    it_should_behave_like 'matching for', {name: 'Land of Lisp'}, 'Lisp', 'matched'
+    it_should_behave_like 'matching for', {name: 'Factory Girl'}, 'Girl', 'matched'
+    it_should_behave_like 'matching for', {name: 'object-oriented'}, '-oriented', 'matched'
 
+    # Unmached words
+    it_should_behave_like 'matching for', {name: 'Prog'}, '-@/<>[]{}()?!$%&!~^', 'unmatched'
+    it_should_behave_like 'matching for', {name: 'programming language'}, 'pro', 'unmatched'
+    it_should_behave_like 'matching for', {name: 'programming language'}, 'gu', 'unmatched'
+    it_should_behave_like 'matching for', {name: 'programming language'}, 'ing lan', 'unmatched'
   end
 end
