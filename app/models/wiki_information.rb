@@ -2,15 +2,15 @@ class WikiInformation < ActiveRecord::Base
 
   attr_accessible :created_by, :is_private, :name
 
-  has_many :pages, :dependent => :destroy
+  has_many :pages, dependent: :destroy
 
   # TODO: 削除 (visibilities に統合)
   # has_many :private_memberships, :dependent => :destroy
   # has_many :visible_authority_users, :through => :private_memberships, :source => :user
 
-  has_many :visibilities, :dependent => :destroy
-  has_many :visible_users, :through => :visibilities, :source => :user
-  belongs_to :creator, :class_name => 'User', :foreign_key => 'created_by'
+  has_many :visibilities, dependent: :destroy
+  has_many :visible_users, through: :visibilities, source: :user
+  belongs_to :creator, class_name: 'User', foreign_key: 'created_by'
   belongs_to :updator, class_name: 'User', foreign_key: 'updated_by'
 
   validates :name, presence: true, uniqueness: true, format: { with: /\A[a-z0-9]([-a-z0-9]+)?\Z/i, message: :wrong_format_wiki_name}, length: { maximum: 50 }
