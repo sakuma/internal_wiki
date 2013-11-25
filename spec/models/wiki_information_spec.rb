@@ -98,18 +98,52 @@ describe WikiInformation do
 
     describe 'after_update :clear_private_memberships' do
 
-      it 'unnvisible private wiki' do
-        private_wiki = create(:private_wiki)
-        blind_user = create(:user)
-        WikiInformation.accessible_by(blind_user).should_not be_include(private_wiki)
+      let!(:joined_member) {create(:user)}
+      let!(:joined_guest_user) {create(:guest)}
+      let!(:blind_admin_user) {create(:admin_user)}
+      let!(:private_wiki) {create(:private_wiki, creator: joined_member)}
+
+      context 'guest user' do
+        it "still visible joined wiki" do
+          private_wiki.visible_users << [joined_guest_user]
+          expect(WikiInformation.accessible_by(joined_guest_user)).to include(private_wiki)
+
+          private_wiki.publish!
+
+          expect(WikiInformation.accessible_by(joined_guest_user)).to include(private_wiki)
+        end
+
+        it 'unjoinded wiki is unvisible' do
+          private_wiki.update_attributes!(is_private: true)
+          expect(WikiInformation.accessible_by(joined_guest_user)).to_not include(private_wiki)
+
+          private_wiki.publish!
+
+          expect(WikiInformation.accessible_by(joined_guest_user)).to_not include(private_wiki)
+        end
       end
 
-      it 'change public' do
-        user = create(:user)
-        private_wiki = create(:private_wiki)
-        WikiInformation.accessible_by(user).should_not be_include(private_wiki)
-        private_wiki.update_attributes!(is_private: false)
-        WikiInformation.accessible_by(user).should be_include(private_wiki)
+      context 'admin and general user' do
+        it "still visible joined wiki" do
+          private_wiki.visible_users << [joined_member]
+          expect(WikiInformation.accessible_by(joined_member)).to include(private_wiki)
+          expect(WikiInformation.accessible_by(blind_admin_user)).to_not include(private_wiki)
+
+          private_wiki.publish!
+
+          expect(WikiInformation.accessible_by(joined_member)).to include(private_wiki)
+          expect(WikiInformation.accessible_by(blind_admin_user)).to include(private_wiki)
+        end
+
+        it 'unjoinded wiki is unvisible' do
+          expect(WikiInformation.accessible_by(joined_member)).to_not include(private_wiki)
+          expect(WikiInformation.accessible_by(blind_admin_user)).to_not include(private_wiki)
+
+          private_wiki.publish!
+
+          expect(WikiInformation.accessible_by(joined_member)).to include(private_wiki)
+          expect(WikiInformation.accessible_by(blind_admin_user)).to include(private_wiki)
+        end
       end
     end
   end

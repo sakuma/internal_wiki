@@ -57,6 +57,10 @@ class WikiInformation < ActiveRecord::Base
     pages.where(url_name: 'welcome').first
   end
 
+  def publish!
+    update_attributes!(is_private: false)
+  end
+
   private
 
   def rename_repository_directory
@@ -85,8 +89,10 @@ class WikiInformation < ActiveRecord::Base
     logger.warn "Failed Cleanup Git Repository: #{e.message}"
   end
 
+  # guest ユーザは閲覧性を保持し、それ以外のユーザには開放する
   def clear_private_memberships
-    visibilities.delete_all
+    Visibility.where(wiki_information_id: self.id).includes(:user).
+      where(users: {limited: false}).references(:users).destroy_all
   end
 
 end

@@ -19,7 +19,7 @@ describe Page do
       end
       # mached words
       it_should_behave_like 'matching for', {body: 'Ruby on Rails'}, 'ruby', 'matched'
-      it_should_behave_like 'matching for', {body: 'ああああいいいい'}, 'ああ', 'matched'
+      it_should_behave_like 'matching for', {body: 'ああああいいいい'}, 'あああ', 'matched'
       it_should_behave_like 'matching for', {body: 'ああああいいいい'}, 'いいい', 'matched'
       it_should_behave_like 'matching for', {body: 'ああああいいいい'}, 'あい', 'matched'
       it_should_behave_like 'matching for',
