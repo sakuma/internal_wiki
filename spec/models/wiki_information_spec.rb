@@ -258,14 +258,12 @@ describe WikiInformation do
     context 'admin, general user' do
       context 'public wiki' do
         let!(:public_wiki) {create(:public_wiki)}
-        let(:admin_user) {create(:admin_user)}
-        let(:user) {create(:user)}
+        let!(:admin_user) {create(:admin_user)}
+        let!(:user) {create(:user)}
 
         it 'public wiki is visible' do
-          # WikiInformation.accessible_by(admin_user).should be_include(public_wiki)
           expect(WikiInformation.accessible_by(admin_user)).to include(public_wiki)
-          expect(WikiInformation.accessible_by(user).load).to include(public_wiki)
-          # WikiInformation.accessible_by(user).should be_include(public_wiki)
+          expect(WikiInformation.accessible_by(user)).to include(public_wiki)
         end
       end
       context 'private wiki' do

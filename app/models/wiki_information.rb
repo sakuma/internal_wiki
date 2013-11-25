@@ -27,9 +27,9 @@ class WikiInformation < ActiveRecord::Base
     if user.guest?
       user.visible_wikis
     else
-      # WikiInformation.includes(:visibilities).where(visibilities: {user_id: u.id})
-
-      joins(:visibilities).where("visibilities.user_id = ? OR wiki_informations.is_private = ?", user.id, false)
+      WikiInformation.includes(:visibilities).where(
+        "visibilities.user_id = ? OR wiki_informations.is_private = ?", user.id, false
+      ).references(:visibilities)
     end
   end
 
