@@ -85,7 +85,7 @@ class WikiInformation < ActiveRecord::Base
 
   def set_visivilities
     return unless private?
-    self.visibilities.create(user_id: self.created_by)
+    self.visibilities.create(user_id: self.updated_by)
   end
 
   def setup_home_page
