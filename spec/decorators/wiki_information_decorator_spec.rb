@@ -3,23 +3,18 @@ require 'spec_helper'
 
 describe WikiInformationDecorator do
 
-  let(:wiki) { create(:wiki).extend WikiInformationDecorator }
 
   describe '#private_policy' do
 
     context 'about private' do
-      subject do
-        wiki.update(is_private: true)
-        wiki.private_policy
-      end
+      let(:wiki){create(:private_wiki).extend WikiInformationDecorator}
+      subject {wiki.private_policy}
       it { should eq 'private' }
     end
 
     context 'about public' do
-      subject do
-        wiki.update(is_private: false)
-        wiki.private_policy
-      end
+      let(:wiki){create(:public_wiki).extend WikiInformationDecorator}
+      subject { wiki.private_policy}
       it { should eq 'public' }
     end
   end
@@ -27,23 +22,21 @@ describe WikiInformationDecorator do
   describe '#private_policy_label' do
 
     context 'about private' do
-      subject do
-        wiki.update(is_private: true)
-        wiki.private_policy_label
-      end
+      let(:wiki){create(:private_wiki).extend WikiInformationDecorator}
+      subject {wiki.private_policy_label}
       it { should eq 'warning' }
     end
 
     context 'about public' do
-      subject do
-        wiki.update(is_private: false)
-        wiki.private_policy_label
-      end
+      let(:wiki){create(:public_wiki).extend WikiInformationDecorator}
+      subject {wiki.private_policy_label}
       it { should eq 'success' }
     end
   end
 
   describe '#controllable_by?' do
+
+    let(:wiki){create(:public_wiki).extend WikiInformationDecorator}
 
     context 'admin user' do
 
