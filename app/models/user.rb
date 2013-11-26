@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :authentications
 
   scope :visible_wiki_candidates_on, ->(wiki) do
-    where.not(id: wiki.visible_authority_users.pluck("users.id"))
+    where.not(id: wiki.visible_users.pluck("users.id"))
   end
   scope :not_admin, ->{ where(admin: false) }
   scope :active, ->{ where(activation_state: 'active') }

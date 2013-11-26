@@ -2,7 +2,7 @@
 .text-center
   %h3= t('terms.private_members')
 
-  - @wiki_info.visible_authority_users.each do |user|
+  - @wiki_info.visible_users.each do |user|
     - next if user == current_user
     %ul.list-unstyled
       %li
