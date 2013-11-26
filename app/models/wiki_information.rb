@@ -1,6 +1,8 @@
 class WikiInformation < ActiveRecord::Base
 
-  attr_accessible :created_by, :is_private, :name
+  PermissionError = Class.new(StandardError)
+
+  attr_accessible :created_by, :updated_by, :is_private, :name
 
   has_many :pages, dependent: :destroy
 
@@ -58,8 +60,14 @@ class WikiInformation < ActiveRecord::Base
     pages.where(url_name: 'welcome').first
   end
 
-  def publish!
-    update_attributes!(is_private: false)
+  def publish_by!(user)
+    raise PermissionError if user.nil? || user.guest?
+    update_attributes!(is_private: false, updated_by: user.id)
+  end
+
+  def hide_by!(user)
+    raise PermissionError if user.nil? || user.guest?
+    update_attributes!(is_private: true, updated_by: user.id)
   end
 
   private

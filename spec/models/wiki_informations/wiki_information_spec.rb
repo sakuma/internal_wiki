@@ -61,6 +61,44 @@ describe WikiInformation do
     end
   end
 
+  describe 'publish_by!' do
+    context 'admin or general user' do
+      let!(:user) {create(:user)}
+      let!(:private_wiki) {create(:private_wiki)}
+      subject do
+        private_wiki.publish_by!(user)
+        private_wiki.reload.public?
+      end
+      it {should be_true }
+    end
+
+    context 'guest user' do
+      let!(:guest) {create(:guest)}
+      let!(:private_wiki) {create(:private_wiki)}
+      subject {lambda{private_wiki.publish_by!(guest)}}
+      it {should raise_error(WikiInformation::PermissionError) }
+    end
+  end
+
+  describe 'hide_by!' do
+    context 'admin or general user' do
+      let!(:user) {create(:user)}
+      let!(:public_wiki) {create(:public_wiki)}
+      subject do
+        public_wiki.hide_by!(user)
+        public_wiki.reload.private?
+      end
+      it {should be_true}
+    end
+
+    context 'guest user' do
+      let!(:guest) {create(:guest)}
+      let!(:private_wiki) {create(:private_wiki)}
+      subject {lambda{private_wiki.publish_by!(guest)}}
+      it {should raise_error(WikiInformation::PermissionError) }
+    end
+  end
+
   describe 'visivilities' do
 
     context 'guest user' do

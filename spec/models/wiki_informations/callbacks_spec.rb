@@ -62,10 +62,10 @@ describe WikiInformation, 'callbacks' do
 
       context 'guest user' do
         it "still visible joined wiki" do
-          private_wiki.visible_users << [joined_guest_user]
+          private_wiki.visible_users << [joined_guest_user, joined_member]
           expect(WikiInformation.accessible_by(joined_guest_user)).to include(private_wiki)
 
-          private_wiki.publish!
+          private_wiki.publish_by!(joined_member)
 
           expect(WikiInformation.accessible_by(joined_guest_user)).to include(private_wiki)
         end
@@ -74,7 +74,7 @@ describe WikiInformation, 'callbacks' do
           private_wiki.update_attributes!(is_private: true)
           expect(WikiInformation.accessible_by(joined_guest_user)).to_not include(private_wiki)
 
-          private_wiki.publish!
+          private_wiki.publish_by!(joined_member)
 
           expect(WikiInformation.accessible_by(joined_guest_user)).to_not include(private_wiki)
         end
@@ -86,7 +86,7 @@ describe WikiInformation, 'callbacks' do
           expect(WikiInformation.accessible_by(joined_member)).to include(private_wiki)
           expect(WikiInformation.accessible_by(blind_admin_user)).to_not include(private_wiki)
 
-          private_wiki.publish!
+          private_wiki.publish_by!(joined_member)
 
           expect(WikiInformation.accessible_by(joined_member)).to include(private_wiki)
           expect(WikiInformation.accessible_by(blind_admin_user)).to include(private_wiki)
@@ -96,7 +96,7 @@ describe WikiInformation, 'callbacks' do
           expect(WikiInformation.accessible_by(joined_member)).to_not include(private_wiki)
           expect(WikiInformation.accessible_by(blind_admin_user)).to_not include(private_wiki)
 
-          private_wiki.publish!
+          private_wiki.publish_by!(private_wiki.creator)
 
           expect(WikiInformation.accessible_by(joined_member)).to include(private_wiki)
           expect(WikiInformation.accessible_by(blind_admin_user)).to include(private_wiki)
