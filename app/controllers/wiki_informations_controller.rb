@@ -4,7 +4,7 @@ class WikiInformationsController < ApplicationController
   before_filter :find_wiki_info, only: %i[show edit update destroy add_authority_user remove_authority_user visible_wiki_candidates_users]
 
   def index
-    @wiki_informations = WikiInformation.order('updated_at DESC').accessible_by(current_user)
+    @wiki_informations = WikiInformation.order(updated_at: :desc).accessible_by(current_user)
   end
 
   def show
@@ -48,8 +48,7 @@ class WikiInformationsController < ApplicationController
   def add_authority_user
     result = {success: '', failed: ''}
     user = User.active.where(email: params[:email]).first!
-    user.visible_wikis << @wiki_info
-    @wiki_info.visible_authority_users << user
+    @wiki_info.visible_users << user
     result[:success] = "Added #{user.name}"
   rescue => e
     logger.warn "Failed add user: #{e.message}"
@@ -66,7 +65,6 @@ class WikiInformationsController < ApplicationController
     result = {success: '', failed: ''}
     user = User.active.where(email: params[:email]).first!
     user.visibilities.find_by(wiki_information_id: @wiki_info.id).destroy!
-    @wiki_info.private_memberships.find_by(user_id: user.id).destroy!
     result[:success] = "Removed #{user.name}"
   rescue => e
     logger.warn "Failed remove user #{user.name}: #{e.message}"
