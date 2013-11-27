@@ -48,6 +48,9 @@ InternalWiki::Application.routes.draw do
     get '/:page_name' => 'pages#show', :as => 'page'
     get '/:page_name/edit' => 'pages#edit', :as => 'edit_page'
     put '/:page_name' => 'pages#update', :as => 'update_page'
+    post '/:page_name/attachments' => 'pages#file_upload', :as => 'file_upload'
+    get '/:page_name/attachments/:id' => 'pages#attachment', :as => 'attachment'
+    delete '/:page_name/attachments/:id' => 'pages#file_destroy', :as => 'attachments'
     delete '/:page_name' => 'pages#destroy', :as => 'delete_page'
   end
 end
