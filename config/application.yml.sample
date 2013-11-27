@@ -18,7 +18,9 @@ development:
       verify_email: ""
     access_key: ""
     secret_key: ""
-  wiki_data_dir: "data"
+  data_dir:
+    wiki: "data/wiki"
+    attachments: "data/attachments"
 
 test:
   # <<: *defaults
@@ -34,7 +36,9 @@ test:
       verify_email: ""
     access_key: ""
     secret_key: ""
-  wiki_data_dir: "spec/data"
+  data_dir:
+    wiki: "spec/data/wiki"
+    attachments: "spec/data/attachments"
 
 production:
   # <<: *defaults
@@ -50,4 +54,6 @@ production:
       verify_email: ""
     access_key: ""
     secret_key: ""
-  wiki_data_dir: "data"
+  data_dir:
+    wiki: "data/wiki"
+    attachments: "data/attachments"
