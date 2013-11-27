@@ -36,6 +36,7 @@ gem 'font-awesome-rails'
 gem 'coffee-rails'
 gem 'turbolinks'
 gem 'foreman'
+gem 'paperclip'
 
 group :assets do
 
