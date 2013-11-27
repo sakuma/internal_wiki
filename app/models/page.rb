@@ -1,5 +1,6 @@
 class Page < ActiveRecord::Base
 
+  has_many :attachments
   belongs_to :wiki_information
   belongs_to :recent_editor, class_name: 'User', foreign_key: :updated_by
 
