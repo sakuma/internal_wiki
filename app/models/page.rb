@@ -1,5 +1,4 @@
 class Page < ActiveRecord::Base
-  attr_accessible :name, :url_name, :body, :updated_by
 
   belongs_to :wiki_information
   belongs_to :recent_editor, class_name: 'User', foreign_key: :updated_by

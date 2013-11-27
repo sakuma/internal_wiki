@@ -1,7 +1,5 @@
 class User < ActiveRecord::Base
 
-  attr_accessible :name, :email, :salt, :admin, :limited, :password, :password_confirmation
-
   attr_accessor :password, :password_confirmation
 
   authenticates_with_sorcery! do |config|

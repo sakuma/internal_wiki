@@ -237,8 +237,6 @@ GEM
     posix-spawn (0.3.6)
     private_pub (1.0.3)
       faye
-    protected_attributes (1.0.5)
-      activemodel (>= 4.0.1, < 5.0)
     pry (0.9.12.3)
       coderay (~> 1.0)
       method_source (~> 0.8)
@@ -419,7 +417,6 @@ DEPENDENCIES
   paperclip
   pg
   private_pub
-  protected_attributes
   pry-debugger
   pry-doc
   pry-rails

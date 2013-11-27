@@ -2,8 +2,6 @@ class WikiInformation < ActiveRecord::Base
 
   PermissionError = Class.new(StandardError)
 
-  attr_accessible :created_by, :updated_by, :is_private, :name
-
   has_many :pages, dependent: :destroy
   has_many :visibilities, dependent: :destroy
   has_many :visible_users, through: :visibilities, source: :user

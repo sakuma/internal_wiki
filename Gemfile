@@ -10,24 +10,24 @@ gem 'rails-observers'
 gem 'pg'
 
 gem 'jquery-rails'
+gem 'uglifier'
+gem 'jquery-ui-rails'
+# gem 'libv8'
+# gem 'therubyracer'
+gem 'bootstrap-sass-rails'
+# gem 'bootstrap-editable-rails'
 gem 'gitlab-grit', '2.6.0'
 gem 'github-markup'
 gem 'github-markdown'
 gem 'gollum-lib'
-
 gem 'sorcery'
 gem 'active_decorator'
 gem 'settingslogic'
-
-# WebSocket
-gem 'private_pub'
-gem 'thin' # websocket
+gem 'private_pub' # WebSocket
+gem 'thin' # for websocket server
 gem 'puma' # web
-
 # gem 'redis'
 gem 'tire' # for ElasticSearch
-
-gem 'protected_attributes'
 gem 'haml-rails'
 gem 'sass-rails'
 # gem 'sprockets-rails', :github => 'rails/sprockets-rails'
@@ -37,17 +37,6 @@ gem 'coffee-rails'
 gem 'turbolinks'
 gem 'foreman'
 gem 'paperclip'
-
-group :assets do
-
-  gem 'uglifier'
-  gem 'jquery-ui-rails'
-  # gem 'libv8'
-  # gem 'therubyracer'
-  gem 'bootstrap-sass-rails'
-  # gem 'bootstrap-editable-rails'
-end
-
 
 group :production do
   gem 'aws-ses', require: 'aws/ses'
