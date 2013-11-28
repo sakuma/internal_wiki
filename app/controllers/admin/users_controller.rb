@@ -15,7 +15,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params[:user])
+    @user = User.new(user_params)
     if @user.save
       redirect_to admin_user_path(@user)
     else
@@ -27,7 +27,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
-    if @user.update_attributes(params[:user])
+    if @user.update_attributes(user_params)
       redirect_to admin_user_path(@user)
     else
       render :edit
@@ -64,8 +64,7 @@ class Admin::UsersController < ApplicationController
     if user.valid? and user.save(validate: false)
       redirect_to admin_users_path, notice: t('terms.sent_invite_mail_of', email: user.email)
     else
-      flash[:error] = t('terms.vailed_invite_mail_of', email: user.email)
-      redirect_to admin_users_path
+      redirect_to admin_users_path error: t('terms.vailed_invite_mail_of', email: user.email)
     end
   end
 
@@ -78,6 +77,10 @@ class Admin::UsersController < ApplicationController
 
   private
 
+  def user_params
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :admin, :limited)
+  end
+
   def find_user
     @user = User.find(params[:id])
   end
@@ -87,7 +90,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def build_invite_user
-    User.new(params[:user].merge(name: '', password: 'sample', password_confirmation: 'sample'))
+    User.new(user_params.merge(name: '', password: 'sample', password_confirmation: 'sample'))
   end
 
 end

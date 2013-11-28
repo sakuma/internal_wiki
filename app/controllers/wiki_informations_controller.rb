@@ -19,7 +19,7 @@ class WikiInformationsController < ApplicationController
   end
 
   def create
-    @wiki_info = WikiInformation.new(params[:wiki_information].merge(created_by: current_user.id, updated_by: current_user.id))
+    @wiki_info = WikiInformation.new(wiki_info_params.merge(created_by: current_user.id, updated_by: current_user.id))
 
     if @wiki_info.save
       redirect_to wiki_info_path(wiki_name: @wiki_info.name), notice: t('terms.created_wiki')
@@ -30,7 +30,7 @@ class WikiInformationsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @wiki_info.update_attributes(params[:wiki_information].merge(updated_by: current_user.id))
+      if @wiki_info.update_attributes(wiki_info_params.merge(updated_by: current_user.id))
         format.html { redirect_to edit_wiki_info_path(wiki_name: @wiki_info.name), notice: t('terms.updated_wiki')}
         format.json { head :no_content }
       else
@@ -86,6 +86,10 @@ class WikiInformationsController < ApplicationController
 
 
   private
+
+  def wiki_info_params
+    params.require(:wiki_information).permit(:name, :is_private)
+  end
 
   def find_wiki_info
     @wiki_info = WikiInformation.where(name: params[:wiki_name]).first!

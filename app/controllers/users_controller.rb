@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find_by(id: params[:id])
-    if @user.update_attributes(params[:user])
+    if @user.update_attributes(user_params)
       redirect_to user_setting_path, notice: t('terms.updated_user_info')
     else
       render :setting
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
 
   def register
     @user = User.load_from_activation_token(params[:token])
-    if @user.update_attributes(params[:user])
+    if @user.update_attributes(user_params)
       @user.activate!
       auto_login(@user)
       redirect_to root_path, notice: t('terms.registered_user_info')
@@ -35,4 +35,10 @@ class UsersController < ApplicationController
     end
   end
 
+
+  private
+
+  def user_params
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :remember_me_token)
+  end
 end
