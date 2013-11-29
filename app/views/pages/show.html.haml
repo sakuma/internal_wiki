@@ -48,14 +48,21 @@
 %hr
 
 %ul
+  - unless @files.empty?
+    %h5
+      = fa_icon('files-o 2x')
+      = t('terms.attachment_file')
+
   - @files.each do |file|
     %li
       = link_to file.attachment_file_name, attachment_path(wiki_name: @wiki_info.name, page_name: @page.url_name, id: file)
       = link_to fa_icon('trash-o'), attachment_path(wiki_name: @wiki_info.name, page_name: @page.url_name, id: file), data: {method: :delete, confirm: 'Are you sure?'}
 
-= form_for @attachment, url: file_upload_path(wiki_name: @wiki_info.name, page_name: @page.url_name), html: { multipart: true } do |f|
-  = f.file_field :attachment
-  = f.submit 'upload', class: 'btn'
+= form_for @attachment, url: file_upload_path(wiki_name: @wiki_info.name, page_name: @page.url_name), html: { multipart: true, role: "form"} do |f|
+  .form-group
+    = f.file_field :attachment
+  .form-group
+    = f.submit 'File Upload', class: 'btn btn-primary btn-xs'
 
 -# = link_to fa_icon('file-o')
 

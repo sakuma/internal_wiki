@@ -40,6 +40,7 @@ ja:
     visible_wikis: "閲覧できるwiki"
     login: "ログイン"
     logout: "ログアウト"
+    attachment_file: "添付ファイル"
     invalid_email_or_name_or_password: "ログインできませんでした。<br />Email, ユーザ名, パスワードをご確認ください。"
     page_name_format_placeholder: "ページ名 (日本語も使えます)"
     logged_out: "ログアウトしました。"
