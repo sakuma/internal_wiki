@@ -1,10 +1,11 @@
 ja:
   activerecord:
     models:
-      page: page  #g
-      private_membership: "閲覧ユーザ"
+      page: 'ページ'
+      attachment: '添付ファイル'
       user: "ユーザー"
-      visibility: visibility  #g
+      authentication: '認証'
+      visibility: "閲覧ユーザ"
       wiki_information: "Wiki"
 
     attributes:
@@ -15,11 +16,6 @@ ja:
         updated_by: updated_by  #g
         wiki_information: :activerecord.models.wiki_information  #g
 
-      private_membership:
-        admin: admin  #g
-        user: :activerecord.models.user  #g
-        wiki_information: :activerecord.models.wiki_information  #g
-
       user:
         name: "ユーザー名"
         admin: "管理権限"
@@ -27,7 +23,6 @@ ja:
         limited: "限定アクセス"
         password: "パスワード"
         password_confirmation: "確認パスワード"
-        private_memberships: private_memberships  #g
         private_wiki_informations: private_wiki_informations  #g
         salt: salt  #g
         visibilities: visibilities  #g

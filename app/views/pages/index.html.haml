@@ -36,7 +36,7 @@
       .modal-content
         .modal-header
           %button.close{"data-dismiss" => "modal", "aria-hidden" => "true"} &times;
-          %h3#private-members-label.text-center= PrivateMembership.model_name.human
+          %h3#private-members-label.text-center= t('terms.private_members')
         .modal-body
           %p
             - @wiki_info.visible_users.each do |user|
