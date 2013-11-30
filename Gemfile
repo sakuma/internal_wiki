@@ -3,7 +3,6 @@ ruby '2.0.0'
 
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 gem 'rails', '4.0.1'
-gem 'rails-observers'
 
 # gem 'sqlite3'
 # gem 'mysql2'
@@ -15,7 +14,6 @@ gem 'jquery-ui-rails'
 # gem 'libv8'
 # gem 'therubyracer'
 gem 'bootstrap-sass-rails'
-# gem 'bootstrap-editable-rails'
 gem 'gitlab-grit', '2.6.0'
 gem 'github-markup'
 gem 'github-markdown'
@@ -37,6 +35,7 @@ gem 'coffee-rails'
 gem 'turbolinks'
 gem 'foreman'
 gem 'paperclip'
+gem 'angular-gem'
 
 group :production do
   gem 'aws-ses', require: 'aws/ses'
