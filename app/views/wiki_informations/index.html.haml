@@ -8,7 +8,7 @@
 %table.table.table-hover
   - @wiki_informations.each do |wiki|
     %tr.wiki-items
-      %td{class: "#{wiki.private? ? 'warning' : ''}"}
+      %td{class: "#{wiki.private? ? 'warning' : ''}", 'ng-controller' => 'WikiItemCtrl', 'ng-mouseover' => "showActionBtn()", 'ng-mouseleave' => "hideActionBtn()"}
         .col-md-2
           %h4
             .label{class: "label label-#{wiki.private_policy_label}"}
@@ -20,15 +20,9 @@
           %h3
             = link_to wiki.name, wiki_info_path(wiki_name: wiki.name)
             %small.pull-right= l wiki.updated_at
-        .col-md-2.actions{style: 'display: none;'}
-          %h4
-            = link_to fa_icon('edit 2x'), edit_wiki_info_path(wiki_name: wiki.name)
-            = link_to fa_icon('trash-o 2x'), wiki_info_path(wiki_name: wiki.name), method: :delete, confirm: t('actions.confirm_delete')
 
-- unless current_user.limited?
-  :coffee
-    $ ->
-      $('.wiki-items').hover (e) ->
-        $('.actions', $(e.target).parent()).show()
-      , (e) ->
-        $('.actions', $(e.target).parent()).hide()
+        - unless current_user.limited?
+          .col-md-2.actions{'ng-show' => "isShow"}
+            %h4
+              = link_to fa_icon('edit 2x'), edit_wiki_info_path(wiki_name: wiki.name)
+              = link_to fa_icon('trash-o 2x'), wiki_info_path(wiki_name: wiki.name), method: :delete, confirm: t('actions.confirm_delete')
