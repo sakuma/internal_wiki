@@ -1,9 +1,8 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
+  protect_from_forgery with: :reset_session
 
   before_filter :require_login
   after_filter  :store_location
-  helper_method :current_user
 
   def get_layout
     request.xhr? ? nil : 'application'
