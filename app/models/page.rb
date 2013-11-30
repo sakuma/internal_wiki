@@ -18,6 +18,7 @@ class Page < ActiveRecord::Base
     ids = WikiInformation.accessible_by(user).map(&:id)
     includes(:wiki_information).
     where(["wiki_informations.id IN (?)", ids])
+    references(:wiki_information)
   end
   scope :recently, ->{ limit(5).order('pages.updated_at DESC') }
 

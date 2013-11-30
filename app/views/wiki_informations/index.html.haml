@@ -25,4 +25,4 @@
           .col-md-2.actions{'ng-show' => "isShow"}
             %h4
               = link_to fa_icon('edit 2x'), edit_wiki_info_path(wiki_name: wiki.name)
-              = link_to fa_icon('trash-o 2x'), wiki_info_path(wiki_name: wiki.name), method: :delete, confirm: t('actions.confirm_delete')
+              = link_to fa_icon('trash-o 2x'), wiki_info_path(wiki_name: wiki.name), data: {method: :delete, confirm: t('actions.confirm_delete')}

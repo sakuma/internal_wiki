@@ -22,7 +22,7 @@
             .pull-right
               = link_to fa_icon('edit 2x'), edit_admin_user_path(user)
               = link_to fa_icon('lock 2x') # TODO: ユーザ凍結
-              = link_to fa_icon('times-circle 2x'), admin_user_path(user), method: :delete, confirm: t('actions.confirm_delete')
+              = link_to fa_icon('times-circle 2x'), admin_user_path(user), method: :delete, data: {confirm: t('actions.confirm_delete')}
 
 %hr
 - unless @invalidity_users.empty?
@@ -40,7 +40,7 @@
           .col-md-2.col-md-offset-2.text-right= user.formatted_kind
           .col-md-5
             = user.email
-            = link_to admin_user_path(user), method: :delete, style: 'color: red;', confirm: t('actions.confirm_delete') do
+            = link_to admin_user_path(user), method: :delete, style: 'color: red;', data: {confirm: t('actions.confirm_delete')} do
               = fa_icon('times-circle')
           .col-md-3.actions{class: "#{user.activation_expired? ? '' : 'hide'}"}
             = link_to resend_invite_mail_admin_user_path(user) do

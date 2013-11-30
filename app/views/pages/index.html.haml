@@ -21,7 +21,7 @@
     - unless current_user.limited?
       .pull-right
         = link_to fa_icon('edit 2x'), edit_wiki_info_path(wiki_name: @wiki_info.name), class: 'action-icons'
-        = link_to fa_icon('trash-o 2x'), wiki_info_path(wiki_name: @wiki_info.name), class: 'action-icons', method: :delete, confirm: t('actions.confirm_delete')
+        = link_to fa_icon('trash-o 2x'), wiki_info_path(wiki_name: @wiki_info.name), class: 'action-icons', data: {method: :delete, confirm: t('actions.confirm_delete')}
 
 :coffee
   $('.action-icons').hover (e) ->
@@ -44,7 +44,7 @@
               %ul.list-unstyled.text-center
                 %li
                   = "#{user.name} (#{user.email})"
-                  = link_to raw('&times;'), remove_authority_user_path(wiki_name: @wiki_info.name, email: user.email), method: :delete, confirm: t('actions.confirm_delete'), style: 'color: #F00; font-weight: bold;'
+                  = link_to raw('&times;'), remove_authority_user_path(wiki_name: @wiki_info.name, email: user.email), data: {method: :delete, confirm: t('actions.confirm_delete')}, style: 'color: #F00; font-weight: bold;'
         .modal-footer
           .text-center
             = form_tag add_authority_user_path(wiki_name: @wiki_info.name) do |f|
