@@ -3,7 +3,7 @@
 
 = render 'shared/flash_messages'
 
-.col-md-offset-2
+.col-md-offset-2{'ng-controller' => 'WikiItemCtrl'}
   = form_for @wiki_info, url: wiki_info_path(wiki_name: @wiki_info.name) , html: {method: :put, class: 'form-horizontal', role: 'form'} do |f|
 
     = render 'form', f: f
@@ -13,16 +13,5 @@
         = f.submit t('actions.update'), :class => 'btn btn-primary'
         = link_to t('actions.return_back'), root_path, :class => 'btn'
 
-  #private-members.hide
+  #private-members{'ng-show' => "isShow"}
     = render 'private_members'
-
-:coffee
-  $ ->
-    if "#{@wiki_info.private?}" == "true"
-      $('#private-members').removeClass('hide')
-    $('#wiki_information_is_private').change ->
-      is_private = $('#wiki_information_is_private option:selected').val()
-      if is_private == "true"
-        $('#private-members').removeClass('hide')
-      else
-        $('#private-members').addClass('hide')

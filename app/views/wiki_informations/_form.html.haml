@@ -5,4 +5,4 @@
   .col-sm-5= f.text_field :name, :required => true, :placeholder => 'wiki name...', class: 'form-control'
 .form-group
   .col-sm-3.control-label= f.label :is_private
-  .col-sm-5= f.select :is_private, [[t('terms.publicity'), false], [t('terms.limited_publicity'), true]], {}, {class: 'form-control'}
+  .col-sm-5= f.select :is_private, [[t('terms.publicity'), false], [t('terms.limited_publicity'), true]], {}, {class: 'form-control', 'ng-model'=>'privatePolicy', 'ng-init'=>"privatePolicy='#{@wiki_info.is_private?}'"}
