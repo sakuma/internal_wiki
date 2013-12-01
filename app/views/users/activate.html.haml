@@ -4,7 +4,9 @@
 
   = form_for(@user, url: regist_user_path(@user.activation_token), html: {method: :put, class: "form-horizontal"}) do |f|
 
-    %h2.text-center= t('terms.user_regist')
+    %h2.col-sm-offset-4
+      = fa_icon('leaf 2x')
+      = t('terms.user_regist')
 
     = render 'profile_form', f: f
 

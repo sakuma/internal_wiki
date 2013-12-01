@@ -1,5 +1,7 @@
 = form_for @user, url: password_reset_path(@token), :html => {:method => :put, class: 'form-signin'} do |f|
-  %h3= t('terms.please_input_newpassword')
+  %h2.text-center
+    = fa_icon('wrench')
+    = t('terms.password_reset_title')
   .field
     %h4.text-center
       = f.label :email

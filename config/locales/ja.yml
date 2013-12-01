@@ -34,7 +34,8 @@ ja:
     admin_user_index: "ユーザ一管理"
     index_pending_user: "未登録ユーザ"
     index_inviting_user: "招待中"
-    index_locked_user: "ロック"
+    index_locked_user: "ロック中"
+    password_reset_title: "パスワードリセット"
     index_search: "検索結果"
     not_found_seach_word_of: "'%{word}' を含むページは見つかりませんでした。"
     publicity: "公開"
@@ -48,7 +49,7 @@ ja:
     invalid_email_or_name_or_password: "ログインできませんでした。<br />Email, ユーザ名, パスワードをご確認ください。"
     password_reset: "パスワードを忘れた場合はこちら"
     please_input_newpassword: "新しいパスワードを入力してください"
-    please_input_email_for_newpassword: "Emailを入力してください"
+    please_input_email_for_newpassword: "Emailアドレスを入力してください"
     please_confirm_sent_email_for_newpassword: "'%{email}'へメールを送信しました。本文にあるURLからパスワードを設定してください。"
     successfully_update_password: "新しいパスワードに更新しました。"
     remember_me: "保存する"
@@ -95,6 +96,7 @@ ja:
     activation_token_expiration_period: "招待メールに記載されているURLの有効期限は３日間です。"
     hint_token_expired_user: "招待メールを再送するか、削除してから招待しなおしてください。"
     confirm_unload_page: "ページを移動すると、編集内容が消えてしまう可能性がありますがよろしいですか？"
+    not_found_registerd_email: "登録されたEmailアドレスが見つかりません。"
 
   date:
     abbr_day_names:

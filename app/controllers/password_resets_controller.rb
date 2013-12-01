@@ -8,9 +8,13 @@ class PasswordResetsController < ApplicationController
   end
 
   def create
-    @user = User.find_by(email: params[:email])
-    @user.deliver_reset_password_instructions! if @user
-    redirect_to root_path, notice: t('terms.please_confirm_sent_email_for_newpassword', email: @user.email)
+    if @user = User.find_by(email: params[:email])
+      @user.deliver_reset_password_instructions! if @user
+      redirect_to root_path, notice: t('terms.please_confirm_sent_email_for_newpassword', email: @user.email)
+    else
+      flash.now[:alert] = t('terms.not_found_registerd_email')
+      render :new
+    end
   end
 
   def edit

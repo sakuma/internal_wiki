@@ -1,6 +1,8 @@
 = form_tag(login_path, class: 'form-signin') do |f|
 
-  %h3.form-signin-heading.text-center= t('terms.login')
+  %h3.form-signin-heading.text-center
+    = fa_icon('leaf')
+    = t('terms.login')
   = render 'shared/flash_messages'
 
   #google-login-area
