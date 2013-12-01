@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
 
+  never_wastes
+
   attr_accessor :password, :password_confirmation, :on_reset_password
 
   authenticates_with_sorcery! do |config|

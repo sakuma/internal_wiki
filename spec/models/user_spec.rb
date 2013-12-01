@@ -48,4 +48,13 @@ describe User do
       it {subject.limited.should be_true}
     end
   end
+
+  context 'soft delete (never_wastes)' do
+    describe '#destroy' do
+      let!(:user) {create(:user)}
+      let!(:deleted_user) {create(:user).destroy}
+      subject {User.all}
+      it {should_not be_include(deleted_user)}
+    end
+  end
 end
