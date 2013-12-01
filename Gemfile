@@ -36,6 +36,7 @@ gem 'turbolinks'
 gem 'foreman'
 gem 'paperclip'
 gem 'angular-gem'
+gem 'never_wastes'
 
 group :production do
   gem 'aws-ses', require: 'aws/ses'
