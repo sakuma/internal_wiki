@@ -7,7 +7,7 @@
 %table.table.table-hover
   - @active_users.each do |user|
     %tr.users
-      %td
+      %td{'ng-controller' => 'UserCtrl', 'ng-mouseover' => "showActionBtn()", 'ng-mouseleave' => "hideActionBtn()" }
         .row
           .col-md-1.col-xs-offset-1
             %h5= user.formatted_kind
@@ -18,10 +18,10 @@
               %h4
                 %strong= user.name
                 %small= " ( #{user.email} )"
-          .col-md-3.actions.hide
+          .col-md-3.actions{'ng-show' => "isShow"}
             .pull-right
               = link_to fa_icon('edit 2x'), edit_admin_user_path(user)
-              = link_to fa_icon('lock 2x') # TODO: ユーザ凍結
+              = link_to fa_icon('lock 2x'), admin_user_path(user), data: {method: :delete, confirm: t('actions.confirm_delete')}
               = link_to fa_icon('times-circle 2x'), admin_user_path(user), method: :delete, data: {confirm: t('actions.confirm_delete')}
 
 %hr
@@ -77,10 +77,5 @@
 
 :coffeescript
   $ ->
-    $('.users').hover (e) ->
-      $('.actions', $(e.target).parent()).removeClass('hide')
-    , (e) ->
-      $('.actions', $(e.target).parent()).addClass('hide')
-
     $('#invite_user_button').on 'click', (ev) ->
       location.reload

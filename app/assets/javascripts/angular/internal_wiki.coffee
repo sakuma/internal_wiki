@@ -13,3 +13,10 @@ $ ->
 
     $scope.$watch 'privatePolicy', (newValue, oldValue) ->
       $scope.isShow = (newValue == 'true')
+
+  app.controller 'UserCtrl', ($scope) ->
+    $scope.isShow = false
+    $scope.showActionBtn = ->
+      $scope.isShow = true
+    $scope.hideActionBtn = ->
+      $scope.isShow = false
