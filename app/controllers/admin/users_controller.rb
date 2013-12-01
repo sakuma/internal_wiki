@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
   before_filter :require_admin_user
-  before_filter :find_user, :only => [:show, :edit, :update, :destroy, :add_visibility_wiki, :delete_visibility_wiki, :candidates_wiki, :resend_invite_mail]
+  before_filter :find_user, only: %i(show edit update destroy add_visibility_wiki delete_visibility_wiki candidates_wiki resend_invite_mail)
 
   def index
     @active_users = User.active
@@ -64,7 +64,7 @@ class Admin::UsersController < ApplicationController
     if user.valid? and user.save(validate: false)
       redirect_to admin_users_path, notice: t('terms.sent_invite_mail_of', email: user.email)
     else
-      redirect_to admin_users_path error: t('terms.vailed_invite_mail_of', email: user.email)
+      redirect_to admin_users_path, alert: t('terms.vailed_invite_mail_of', email: user.email)
     end
   end
 

@@ -7,12 +7,11 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = login(params[:email_or_name], params[:password], params[:remember_me])
-    if user
+    if @user = login(params[:email_or_name], params[:password], params[:remember_me])
       flash[:notice] = t('terms.successfully_login')
       redirect_back_or_to(root_path)
     else
-      flash.now[:warning] = t('terms.invalid_email_or_name_or_password')
+      flash.now[:alert] = t('terms.invalid_email_or_name_or_password')
       render :new
     end
   end
@@ -34,12 +33,12 @@ class SessionsController < ApplicationController
           auto_login(@user)
           redirect_to root_path, notice: t('terms.successfully_login')
         else
-          flash[:error] = t('terms.not_found_user_of', email: user_hash[:user_info]['email'])
+          flash[:alert] = t('terms.not_found_user_of', email: user_hash[:user_info]['email'])
           raise 'oauth failed'
         end
       rescue => e
         logger.warn "=== #{e.message}"
-        flash[:error] ||= t('terms.failed_google_login')
+        flash[:alert] ||= t('terms.failed_google_login')
         redirect_to login_path
       end
     end
@@ -47,7 +46,7 @@ class SessionsController < ApplicationController
 
   def destroy
     logout
-    redirect_to login_path, :notice => t('terms.logged_out')
+    redirect_to login_path, notice: t('terms.logged_out')
   end
 
 end
