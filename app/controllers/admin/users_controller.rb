@@ -3,8 +3,8 @@ class Admin::UsersController < ApplicationController
   before_filter :find_user, :only => [:show, :edit, :update, :destroy, :add_visibility_wiki, :delete_visibility_wiki, :candidates_wiki, :resend_invite_mail]
 
   def index
-    @active_users = User.active.all
-    @invalidity_users = User.pending.all
+    @active_users = User.active
+    @invalidity_users = User.pending
   end
 
   def show
@@ -78,7 +78,7 @@ class Admin::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :admin, :limited)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :role)
   end
 
   def find_user

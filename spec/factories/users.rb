@@ -17,6 +17,9 @@ FactoryGirl.define do
       admin false
       limited true
     end
-    trait(:activation_state) { activation_state 'active'}
+    factory :pending_user do
+      activation_state 'pending'
+    end
+    trait(:active) { activation_state 'active'}
   end
 end

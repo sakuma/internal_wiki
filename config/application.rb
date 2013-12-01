@@ -42,5 +42,10 @@ module InternalWiki
     # Enable escaping HTML in JSON.
     config.active_support.escape_html_entities_in_json = true
 
+    config.generators do |g|
+      g.view_specs false
+      g.helper_specs false
+    end
+
   end
 end

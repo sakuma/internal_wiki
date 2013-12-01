@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
 
   validates_presence_of :name, on: :update
   validates :email, presence: true, uniqueness: true
+  validates_inclusion_of :role, in: %w(admin member guest), message: :invalid_user_role
   validates_inclusion_of :admin, in: lambda{|u| u.admin_validetes_include_values}, message: :invalid_admin_select
   validates_inclusion_of :limited, in: lambda{|u| u.limited__validetes_include_values}, message: :invalid_limited_select
   validate :password_check
@@ -34,6 +35,34 @@ class User < ActiveRecord::Base
 
   def guest?
     limited?
+  end
+
+  def self.role_list
+    [%w(管理者 admin), %w(メンバー member), %w(ゲスト guest)]
+  end
+
+  def role
+    if admin?
+      'admin'
+    elsif guest?
+      'guest'
+    else
+      'member'
+    end
+  end
+
+  def role=(role)
+    case role
+    when 'admin'
+      self.admin = true
+      self.limited = false
+    when 'guest'
+      self.limited = true
+      self.admin = false
+    else
+      self.admin = false
+      self.limited = false
+    end
   end
 
   def activation_expired?

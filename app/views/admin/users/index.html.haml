@@ -65,39 +65,22 @@
               .col-sm-4.control-label= f.label :email
               .col-sm-6= f.email_field :email, placeholder: User.human_attribute_name(:email), class: 'form-control'
 
-            .form-group#admin_user_flag_area
-              .col-sm-4.control-label= f.label :admin, :class => "control-label"
-              .col-sm-6= f.check_box :admin, :id => 'admin_user_flag', class: 'form-control'
+            .form-group
+              .col-sm-4.control-label= f.label :role, :class => "control-label"
+              .col-sm-6= f.select :role, options_for_select(User.role_list), {}, class: 'form-control'
 
-            .form-group#limited_user_flag_area
-              .col-sm-4.control-label= f.label :limited, :class => "control-label"
-              .col-sm-6= f.check_box :limited, :id => 'limited_user_flag', class: 'form-control'
             .form-group.actions
               .col-sm-offset-4.col-sm-6
                 = f.submit t('actions.invite'), class: 'btn btn-primary', id: 'invite_user_button'
                 %button{"data-dismiss" => "modal", "aria-hidden" => "true", class: 'btn'}= t('actions.cancel')
       .modal-footer
 
-
 :coffeescript
-  targetId = (domId) ->
-    if domId is "admin_user_flag"
-      "#limited_user_flag_area"
-    else
-      "#admin_user_flag_area"
-
   $ ->
     $('.users').hover (e) ->
       $('.actions', $(e.target).parent()).removeClass('hide')
     , (e) ->
       $('.actions', $(e.target).parent()).addClass('hide')
 
-    checkedType = $("input:checked").attr "id"
-    $(targetId(checkedType)).toggle() if checkedType
-    $(":checkbox").on "click", ->
-      $(targetId(this.id)).animate {opacity: "toggle"}, "slow"
-
     $('#invite_user_button').on 'click', (ev) ->
       location.reload
-
-
