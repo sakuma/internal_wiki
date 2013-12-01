@@ -93,8 +93,11 @@ class PagesController < ApplicationController
   end
 
   def destroy
-    @page.destroy_by(current_user)
-    redirect_to wiki_info_path(wiki_name: @wiki_info.name), notice: t('terms.deleted_page')
+    if @page.destroy_by(current_user)
+      redirect_to wiki_info_path(wiki_name: @wiki_info.name), notice: t('terms.deleted_page')
+    else
+      redirect_to wiki_info_path(wiki_name: @wiki_info.name), alert: t('terms.do_not_delete_page')
+    end
   end
 
   def attachment

@@ -119,6 +119,7 @@ class Page < ActiveRecord::Base
   end
 
   def destroy_by(user)
+    return false unless deletable?
     delete_page(user.name) # delete commit
     destroy
   end

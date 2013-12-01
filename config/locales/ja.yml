@@ -67,6 +67,7 @@ ja:
     recent_update_pages: "最近更新されたページ"
     reverted_to: "%{target} の状態に復元しました。"
     deleted_page: "ページを削除しました。"
+    do_not_delete_page: "ページを削除出来ませんでした。"
     locked_user_info: "ユーザー情報をロックしました。"
     unlocked_user_info: "ユーザー情報のロックを解除しました。"
     deleted_inviting_user_info: "招待中ユーザーの情報を削除しました。"
