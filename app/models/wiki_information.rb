@@ -1,6 +1,8 @@
 class WikiInformation < ActiveRecord::Base
 
   PermissionError = Class.new(StandardError)
+  BASE_GIT_DIRECTORY = Rails.root.join(Settings.data_dir.wiki).freeze
+  RESERVED_NAMES = %w(admin setting search).freeze
 
   has_many :pages, dependent: :destroy
   has_many :visibilities, dependent: :destroy
@@ -8,7 +10,9 @@ class WikiInformation < ActiveRecord::Base
   belongs_to :creator, class_name: 'User', foreign_key: 'created_by'
   belongs_to :updator, class_name: 'User', foreign_key: 'updated_by'
 
-  validates :name, presence: true, uniqueness: true, format: { with: /\A[a-z0-9]([-a-z0-9]+)?\Z/i, message: :wrong_format_wiki_name}, length: { maximum: 50 }
+  validates :name, presence: true, uniqueness: true,
+    format: { with: /\A[a-z0-9]([-a-z0-9]+)?\Z/i, message: :wrong_format_wiki_name},
+    length: { maximum: 50 }, exclusion: { in: RESERVED_NAMES }
 
   before_create :prepare_git_repository
   before_update :set_visivilities
@@ -16,8 +20,6 @@ class WikiInformation < ActiveRecord::Base
   after_create :setup_home_page
   after_destroy :cleanup_git_repository
   after_update :clear_private_memberships, if: Proc.new{|w| w.public? }
-
-  BASE_GIT_DIRECTORY = Rails.root.join(Settings.data_dir.wiki)
 
   scope :accessible_by, ->(user) do
     if user.guest?

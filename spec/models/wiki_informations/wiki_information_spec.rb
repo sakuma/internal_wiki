@@ -15,6 +15,12 @@ describe WikiInformation do
         expect(wiki2).to be_invalid
       end
 
+      context 'Do not use reserved names' do
+        it { expect(build(:wiki, name: 'admin')).to have(1).errors_on(:name) }
+        it { expect(build(:wiki, name: 'setting')).to have(1).errors_on(:name) }
+        it { expect(build(:wiki, name: 'search')).to have(1).errors_on(:name) }
+      end
+
       context 'about format' do
 
         shared_examples_for 'wiki name is' do |name, validate|
