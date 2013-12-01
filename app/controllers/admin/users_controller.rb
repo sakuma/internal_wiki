@@ -35,8 +35,14 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy
-    redirect_to admin_users_path, notice: t('terms.deleted_user_info')
+    if @user.pending?
+      @user.destroy!
+      message = t('terms.deleted_invite_user_info')
+    else
+      @user.destroy
+      message = t('terms.locked_user_info')
+    end
+    redirect_to admin_users_path, notice: message
   end
 
   def add_visibility_wiki
