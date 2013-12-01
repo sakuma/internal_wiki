@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-  attr_accessor :password, :password_confirmation
+  attr_accessor :password, :password_confirmation, :on_reset_password
 
   authenticates_with_sorcery! do |config|
     config.authentications_class = Authentication
@@ -62,7 +62,7 @@ class User < ActiveRecord::Base
   private
 
   def password_check
-    if activated?
+    if activated? && (not on_reset_password)
       return true if password.blank? && password_confirmation.blank?
     else # for activation
       unless password.present? && password_confirmation.present?

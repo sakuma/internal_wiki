@@ -20,4 +20,12 @@ class UserMailer < ActionMailer::Base
          subject: "Your account is now activated",
          from: Settings.aws.ses.verify_email)
   end
+
+  def reset_password_email(user)
+    @user = user
+    @url  = edit_password_reset_url(user.reset_password_token, host: Settings.site_domain, protocol: Settings.site_protocol)
+    mail(:to => user.email,
+         :subject => "Your password has been reset",
+         from: Settings.aws.ses.verify_email)
+  end
 end

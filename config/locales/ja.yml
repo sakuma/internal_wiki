@@ -19,8 +19,9 @@ ja:
     return_back: "戻る"
     cancel: "キャンセル"
     invite: "招待"
-    switch_google_login: "Googleログインに切り替える"
+    switch_google_login: "Googleアカウントでログイン"
     switch_password_login: "通常ログインに切り替える"
+    reset_password: "パスワードリセット"
 
   terms:
     index_page: "ページ一覧"
@@ -42,6 +43,12 @@ ja:
     logout: "ログアウト"
     attachment_file: "添付ファイル"
     invalid_email_or_name_or_password: "ログインできませんでした。<br />Email, ユーザ名, パスワードをご確認ください。"
+    password_reset: "パスワードを忘れた場合はこちら"
+    please_input_newpassword: "新しいパスワードを入力してください"
+    please_input_email_for_newpassword: "Emailを入力してください"
+    please_confirm_sent_email_for_newpassword: "'%{email}'へメールを送信しました。本文にあるURLからパスワードを設定してください。"
+    successfully_update_password: "新しいパスワードに更新しました。"
+    remember_me: "保存する"
     page_name_format_placeholder: "ページ名 (日本語も使えます)"
     logged_out: "ログアウトしました。"
     successfully_login: "ログインに成功しました。"

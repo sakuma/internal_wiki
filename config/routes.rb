@@ -10,6 +10,7 @@ InternalWiki::Application.routes.draw do
   get "logout" => "sessions#destroy" # ログインできなくなる対策で
   get "oauth/callback" => "sessions#callback"
   get "oauth/:provider" => "sessions#oauth", :as => :auth_at_provider
+  resources :password_resets, only: %i[new create edit update]
 
   get "/setting" => "users#setting", :as => 'user_setting'
   put "/setting/:id" => "users#update", :as => 'update_setting'
