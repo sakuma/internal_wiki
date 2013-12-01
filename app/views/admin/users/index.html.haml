@@ -48,6 +48,23 @@
             - if user.activation_expired?
               .pull-right= link_to fa_icon('question'), "#", rel: 'tooltip', :"data-placement" => "top", title: t('terms.hint_token_expired_user')
 
+- unless @locked_users.empty?
+  .text-center
+    %h4
+      = fa_icon('lock')
+      = t('terms.index_locked_user')
+
+  %table.table.table-hover
+    - @locked_users.each do |user|
+      %tr
+        %td
+          .col-md-2.col-md-offset-2.text-right= user.formatted_kind
+          .col-md-5
+            = "#{user.name} (#{user.email})"
+            = link_to unlock_admin_user_path(user), data: {method: :patch, confirm: t('actions.confirm_unlock')} do
+              = fa_icon('unlock')
+            = link_to admin_user_path(user), style: 'color: red;', data: {method: :delete, confirm: t('actions.confirm_delete')} do
+              = fa_icon('times-circle')
 
 .text-center= link_to t('actions.invite_user'), '#invite-user-form', class: 'btn btn-primary', data: {toggle: "modal"}
 

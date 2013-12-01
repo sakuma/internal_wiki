@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   scope :not_admin, ->{ where(admin: false) }
   scope :active, ->{ where(activation_state: 'active') }
   scope :pending, ->{ where(activation_state: 'pending') }
+  scope :locked, ->{ where(deleted: true) }
 
   validates_presence_of :name, on: :update
   validates :email, presence: true, uniqueness: true
@@ -37,6 +38,12 @@ class User < ActiveRecord::Base
 
   def guest?
     limited?
+  end
+
+  def unlock!
+    self.deleted = false
+    self.deleted_at = nil
+    self.save!
   end
 
   def self.role_list

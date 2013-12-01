@@ -24,6 +24,7 @@ InternalWiki::Application.routes.draw do
         post :add_visibility_wiki
         delete :delete_visibility_wiki
         get :resend_invite_mail
+        patch :unlock
       end
     end
   end

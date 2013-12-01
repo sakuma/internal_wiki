@@ -1,10 +1,11 @@
 class Admin::UsersController < ApplicationController
   before_filter :require_admin_user
-  before_filter :find_user, only: %i(show edit update destroy add_visibility_wiki delete_visibility_wiki candidates_wiki resend_invite_mail)
+  before_filter :find_user, only: %i(show edit update destroy add_visibility_wiki delete_visibility_wiki candidates_wiki resend_invite_mail unlock)
 
   def index
     @active_users = User.active
     @invalidity_users = User.pending
+    @locked_users = User.locked
   end
 
   def show
@@ -35,14 +36,19 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
-    if @user.pending?
+    if @user.pending? or @user.deleted?
       @user.destroy!
-      message = t('terms.deleted_invite_user_info')
+      message = t('terms.deleted_user_info')
     else
       @user.destroy
       message = t('terms.locked_user_info')
     end
     redirect_to admin_users_path, notice: message
+  end
+
+  def unlock
+    @user.unlock!
+    redirect_to admin_users_path, notice: t('terms.unlocked_user_info')
   end
 
   def add_visibility_wiki
@@ -88,7 +94,9 @@ class Admin::UsersController < ApplicationController
   end
 
   def find_user
-    @user = User.find(params[:id])
+    user_scope = User.all
+    user_scope = user_scope.with_deleted if %w(unlock destroy).include?(params[:action])
+    @user = user_scope.find_by!(id: params[:id])
   end
 
   def require_admin_user
