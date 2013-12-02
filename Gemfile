@@ -4,13 +4,14 @@ ruby '2.0.0'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 gem 'rails', '4.0.1'
 
+gem 'pg'
 # gem 'sqlite3'
 # gem 'mysql2'
-gem 'pg'
 
 gem 'jquery-rails'
 gem 'uglifier'
 gem 'jquery-ui-rails'
+# Using Node.js on server
 # gem 'libv8'
 # gem 'therubyracer'
 gem 'bootstrap-sass-rails'
@@ -23,12 +24,10 @@ gem 'settingslogic'
 gem 'private_pub' # WebSocket
 gem 'thin' # for websocket server
 gem 'puma' # web
-# gem 'redis'
 gem 'tire' # for ElasticSearch
 gem 'haml-rails'
 gem 'sass-rails'
-# gem 'sprockets-rails', :github => 'rails/sprockets-rails'
-gem 'sprockets-rails', :require => 'sprockets/railtie'
+gem 'sprockets-rails', require: 'sprockets/railtie'
 gem 'font-awesome-rails'
 gem 'coffee-rails'
 gem 'turbolinks'
@@ -47,8 +46,8 @@ group :development do
   gem 'pry-rails'
   gem 'pry-doc'
   gem 'pry-debugger'
-  # gem 'pry-nav'
-  # gem 'pry-coolline'
+  # gem 'pry-nav' # pry-debugger があれば不要
+  # gem 'pry-coolline' # 日本語入力語に文字化けしてしまうからコメントアウト
   gem 'pry-stack_explorer'
   gem 'pry-remote'
   gem 'better_errors'
