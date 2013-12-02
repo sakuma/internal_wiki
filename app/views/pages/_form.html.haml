@@ -13,10 +13,13 @@
         = f.hidden_field :name
       .form-group
         = f.text_area :body, class: 'form-control', id: 'markdown-text', rows: 10
-      .col-md-offset-3
+      .col-md-offset-2
         = f.submit (newly ? t('actions.regist') : t('actions.update')), class: 'btn btn-primary', id: 'page-submit-btn'
         = link_to t('actions.cancel'), canceled_to_url, class: 'btn'
-        = link_to fa_icon('question-circle 2x'), help_path, class: 'btn', target: 'blank'
+        = link_to fa_icon('question-circle 2x'), help_path, class: 'btn', target: 'blank', rel: 'tooltip', :"data-placement" => 'top', title: t('terms.markdown_help')
+        = link_to 'http://www.emoji-cheat-sheet.com/', target: 'blank', rel: 'tooltip', :"data-placement" => 'top', title: t('terms.can_use_emoji') do
+          = emoji_tag 'question'
+          = emoji_tag Emoji.names.sample
 
 .col-md-6
   .well.well-small#preview-result

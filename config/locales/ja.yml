@@ -37,9 +37,11 @@ ja:
     index_locked_user: "ロック中"
     password_reset_title: "パスワードリセット"
     index_search: "検索結果"
+    markdown_help: "Wiki記法(Markdown)"
+    can_use_emoji: '他にもいろいろな絵文字が使えます'
     not_found_seach_word_of: "'%{word}' を含むページは見つかりませんでした。"
     publicity: "公開"
-    limited_publicity: "限定公開"
+    limited_publicity: "非公開"
     private_members: "閲覧ユーザー"
     user_information_of: "%{user}さんの情報"
     visible_wikis: "閲覧できるwiki"
