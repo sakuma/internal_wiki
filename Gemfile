@@ -37,6 +37,7 @@ gem 'foreman'
 gem 'paperclip'
 gem 'angular-gem'
 gem 'never_wastes'
+gem 'gemoji'
 
 group :production do
   gem 'aws-ses', require: 'aws/ses'
