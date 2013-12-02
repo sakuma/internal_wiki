@@ -3,7 +3,7 @@
 
 = render 'shared/flash_messages'
 
-.col-md-offset-2{'ng-controller' => 'WikiItemCtrl'}
+.col-md-offset-2{'ng-controller' => 'wikiItemsController'}
   = form_for @wiki_info, url: wiki_info_path(wiki_name: @wiki_info.name) , html: {method: :put, class: 'form-horizontal', role: 'form'} do |f|
 
     = render 'form', f: f

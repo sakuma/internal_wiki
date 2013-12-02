@@ -8,7 +8,7 @@
 %table.table.table-hover
   - @wiki_informations.each do |wiki|
     %tr.wiki-items
-      %td{class: "#{wiki.private? ? 'warning' : ''}", 'ng-controller' => 'WikiItemCtrl', 'ng-mouseover' => "showActionBtn()", 'ng-mouseleave' => "hideActionBtn()"}
+      %td{class: "#{wiki.private? ? 'warning' : ''}", 'ng-controller' => 'wikiItemsController', 'ng-mouseover' => "showActionBtn()", 'ng-mouseleave' => "hideActionBtn()"}
         .col-md-2
           %h4
             .label{class: "label label-#{wiki.private_policy_label}"}

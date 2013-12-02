@@ -22,3 +22,12 @@
 jQuery(function($){
  $('a[rel=tooltip]').tooltip();
 });
+
+
+ /* Angularjs App setting */
+'use strict'
+var internalWiki = angular.module('internalWiki', [
+ 'internalWikiControllers',
+]);
+
+var wikiItemControllers = angular.module('internalWikiControllers', []);
