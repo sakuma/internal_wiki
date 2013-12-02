@@ -107,7 +107,18 @@ class Page < ActiveRecord::Base
   end
 
   def formatted_preview(data = nil)
-    wiki.preview_page('Preview', (data || self.body), FORMAT).formatted_data
+    preview_body = wiki.preview_page('Preview', (data || self.body), FORMAT).formatted_data
+    emojify(preview_body)
+  end
+
+  def emojify(content)
+    content.to_str.gsub(/:([a-z0-9\+\-_]+):/) do |match|
+      if Emoji.names.include?($1)
+        '<img alt="' + $1 + '" height="20" src="' + ActionController::Base.helpers.asset_path("emoji/#{$1}.png") + '" style="vertical-align:middle" width="20" />'
+      else
+        match
+      end
+    end.html_safe if content.present?
   end
 
   def revert(author, sha1, sha2 = nil)
