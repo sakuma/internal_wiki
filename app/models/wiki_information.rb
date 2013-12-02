@@ -14,8 +14,8 @@ class WikiInformation < ActiveRecord::Base
     format: { with: /\A[a-z0-9]([-a-z0-9]+)?\Z/i, message: :wrong_format_wiki_name},
     length: { maximum: 50 }, exclusion: { in: RESERVED_NAMES }
 
+  before_save :set_visivilities
   before_create :prepare_git_repository
-  before_update :set_visivilities
   before_update :rename_repository_directory
   after_create :setup_home_page
   after_destroy :cleanup_git_repository
@@ -80,7 +80,11 @@ class WikiInformation < ActiveRecord::Base
 
   def set_visivilities
     return unless private?
-    self.visibilities.create(user_id: self.updated_by)
+    if new_record?
+      visibilities.build(user_id: created_by)
+    else
+      visibilities.find_or_initialize_by(user_id: updated_by)
+    end
   end
 
   def setup_home_page
