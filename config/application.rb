@@ -47,5 +47,7 @@ module InternalWiki
       g.helper_specs false
     end
 
+    config.assets.paths << Emoji.images_path
+    config.assets.precompile << "emoji/*.png"
   end
 end
