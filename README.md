@@ -7,15 +7,24 @@
 It is a Wiki for use in a limited environment.
 
 
-# How To Use
+## How To Use
 
-## clone sourcecode
+### Requirements
+
+* Linux (Ubuntu/Debian/CentOS )
+* ruby 1.9.3+
+* git 1.7.10+
+* PostgreSQL
+* Elastic Search
+
+
+### clone sourcecode
 
 ```
 git clone git://github.com/n-sakuma/internal_wiki.git
 ```
 
-## cp sample files
+### cp sample files
 
 ### DB (PostgreSQL)
 
@@ -46,15 +55,23 @@ Using OAuth 2.0 to Access Google APIs
 [Document](https://developers.google.com/accounts/docs/OAuth2)
 
 
-## migration
+#### Amazon SES key (if you need)
 
-### DB
+### migration
+
+#### DB
 
 ```bash
 $ rake db:craete db:migrate db:seed
 ```
 
+## Tips
 
+### Elastic Search Reindex
+
+```bash
+$ RAILS_ENV=production rake tire:import CLASS='Page' FORCE=true
+```
 
 ## Smart development log view (Chrome only)
 
