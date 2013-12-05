@@ -5,6 +5,9 @@ Coveralls.wear!
 
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+require 'capybara/rspec'
+require 'capybara-webkit'
+require 'headless'
 # require 'rspec/autorun'
 require 'factory_girl'
 require 'database_cleaner'
@@ -30,6 +33,8 @@ RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   #config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
+  Capybara.javascript_driver = :webkit
+
   config.use_transactional_fixtures = false
   config.infer_base_class_for_anonymous_controllers = false
 
@@ -44,6 +49,7 @@ RSpec.configure do |config|
   end
 
   config.before(:suite) do
+    Headless.new(:destroy_on_exit => false).start
     DatabaseCleaner.strategy = :truncation
   end
   config.before(:each) do
