@@ -26,9 +26,9 @@
         = truncate(@page.name, length: 20)
   .col-md-2
     .pull-right
-      = link_to fa_icon('edit 2x'), edit_page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), class: 'action-icons'
-      - if @page.deletable?
-        = link_to fa_icon('trash-o 2x'), page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), data: {confirm: t('actions.confirm_delete'), method: :delete}, class: 'action-icons'
+      = link_to fa_icon('edit 2x'), edit_page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), class: 'action-icons', id: 'edit-page-icon'
+      - if @page.deletable_by?(current_user)
+        = link_to fa_icon('trash-o 2x'), page_path(wiki_name: @wiki_info.name, page_name: @page.url_name), data: {confirm: t('actions.confirm_delete'), method: :delete}, class: 'action-icons', id: 'destory-page-icon'
 
 :coffeescript
   $ ->

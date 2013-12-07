@@ -130,12 +130,13 @@ class Page < ActiveRecord::Base
   end
 
   def destroy_by(user)
-    return false unless deletable?
+    return false unless deletable_by?(user)
     delete_page(user.name) # delete commit
     destroy
   end
 
-  def deletable?
+  def deletable_by?(user)
+    return false if user.guest?
     not undeletable_list.include?(self.url_name)
   end
 
