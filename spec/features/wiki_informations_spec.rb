@@ -5,7 +5,7 @@ feature 'wiki controler' do
   let!(:user) {create(:user, name: 'admin')}
   let!(:wiki) {create(:public_wiki)}
 
-  scenario 'render index page', js: true do
+  background do
     visit login_path
     click_link I18n.t('actions.switch_password_login')
     within("#original-login-area") do
@@ -13,30 +13,19 @@ feature 'wiki controler' do
       fill_in 'password', with: 'password'
     end
     click_button I18n.t('terms.login')
+  end
+
+  scenario 'render index page', js: true do
     expect(page).to have_content wiki.name
   end
 
   scenario 'detail wiki page', js: true do
-    visit login_path
-    click_link I18n.t('actions.switch_password_login')
-    within("#original-login-area") do
-      fill_in 'email_or_name', with: user.email
-      fill_in 'password', with: 'password'
-    end
-    click_button I18n.t('terms.login')
     visit root_path
     click_link wiki.name
     expect(page).to have_content wiki.name
   end
 
   scenario 'edit wiki page', js: true do
-    visit login_path
-    click_link I18n.t('actions.switch_password_login')
-    within("#original-login-area") do
-      fill_in 'email_or_name', with: user.email
-      fill_in 'password', with: 'password'
-    end
-    click_button I18n.t('terms.login')
     visit root_path
 
     expect(page).to have_content wiki.name
@@ -49,14 +38,6 @@ feature 'wiki controler' do
   end
 
   scenario 'update wiki info', js: true do
-    visit login_path
-    click_link I18n.t('actions.switch_password_login')
-    within("#original-login-area") do
-      fill_in 'email_or_name', with: user.email
-      fill_in 'password', with: 'password'
-    end
-    click_button I18n.t('terms.login')
-    visit root_path
 
     expect(page).to have_content wiki.name
 
@@ -74,15 +55,6 @@ feature 'wiki controler' do
   end
 
   scenario 'update private wiki info', js: true do
-    visit login_path
-    click_link I18n.t('actions.switch_password_login')
-    within("#original-login-area") do
-      fill_in 'email_or_name', with: user.email
-      fill_in 'password', with: 'password'
-    end
-    click_button I18n.t('terms.login')
-    visit root_path
-
     expect(page).to have_content wiki.name
 
     page.find_link(wiki.name).trigger(:mouseover)
@@ -98,20 +70,12 @@ feature 'wiki controler' do
   end
 
   scenario 'delete wiki', js: true do
-    visit login_path
-    click_link I18n.t('actions.switch_password_login')
-    within("#original-login-area") do
-      fill_in 'email_or_name', with: user.email
-      fill_in 'password', with: 'password'
-    end
-    click_button I18n.t('terms.login')
-    visit root_path
-
     expect(page).to have_content wiki.name
 
     page.find_link(wiki.name).trigger(:mouseover)
     my_link = find(:xpath, '/html/body/div/div/div/div/div[1]/table/tbody/tr/td/div[3]/h4/a[2]/i')
     my_link.click
+    page.driver.accept_js_confirms!
 
     expect(page).to_not have_content wiki.name
   end
