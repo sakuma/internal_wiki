@@ -61,9 +61,9 @@
           .col-md-2.col-md-offset-2.text-right= user.formatted_kind
           .col-md-5
             = "#{user.name} (#{user.email})"
-            = link_to unlock_admin_user_path(user), data: {method: :patch, confirm: t('actions.confirm_unlock')} do
+            = link_to unlock_admin_user_path(user), data: {method: :patch, confirm: t('actions.confirm_unlock')}, class: 'unlock-user-button' do
               = fa_icon('unlock')
-            = link_to admin_user_path(user), style: 'color: red;', data: {method: :delete, confirm: t('actions.confirm_delete')} do
+            = link_to admin_user_path(user), style: 'color: red;', data: {method: :delete, confirm: t('actions.confirm_delete')}, class: 'destroy-user-button' do
               = fa_icon('times-circle')
 
 .text-center= link_to t('actions.invite_user'), '#invite-user-form', class: 'btn btn-primary', data: {toggle: "modal"}

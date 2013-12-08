@@ -29,7 +29,7 @@ class Admin::UsersController < ApplicationController
 
   def update
     if @user.update_attributes(user_params)
-      redirect_to admin_user_path(@user)
+      redirect_to admin_user_path(@user), notice: t('terms.updated_user_info')
     else
       render :edit
     end
