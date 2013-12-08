@@ -79,9 +79,9 @@ class PagesController < ApplicationController
         body = params[:body]
         parsed_body = @page.formatted_preview(body)
         editor = User.find_by(id: params[:edited_user_id].to_i)
-        PrivatePub.publish_to "/pages/#{@page.id}", body: body, parsed_body: parsed_body,
-        edited_user_id: current_user.id.to_s,
-          editing_word: editor ? I18n.t('terms.editing_by', target: editor.name) : ''
+        PrivatePub.publish_to("/pages/#{@page.id}", body: body, parsed_body: parsed_body,
+          edited_user_id: current_user.id.to_s,
+          editing_word: editor ? I18n.t('terms.editing_by', target: editor.name) : '') rescue nil
       else
         data =  params[:sha].present? ? @page.raw_content(params[:sha]) : nil
         parsed_body = @page.formatted_preview(data)
