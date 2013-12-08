@@ -10,7 +10,6 @@ install:
 
 before_script:
   - psql -c 'create database myapp_test;' -U postgres
-  - bundle install --without development
   - "cp config/database.yml.postgresql config/database.yml"
   - "cp config/application.yml.sample config/application.yml"
   - RAILS_ENV=test bundle exec rake db:create db:migrate
