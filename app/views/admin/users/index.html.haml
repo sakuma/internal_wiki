@@ -6,22 +6,27 @@
 
 %table.table.table-hover
   - @active_users.each do |user|
-    %tr.users
+    %tr.users{class: "#{user == current_user ? 'active' : ''}"}
       %td{'ng-controller' => 'usersController', 'ng-mouseover' => "showActionBtn()", 'ng-mouseleave' => "hideActionBtn()" }
         .row
           .col-md-1.col-xs-offset-1
-            %h5= user.formatted_kind
+            %h5
+              = user.formatted_kind
           .col-md-1
             = image_tag avatar_url(user, size: 30)
           .col-md-6
             = link_to admin_user_path(user) do
               %h4
-                %strong= user.name
-                %small= " ( #{user.email} )"
-          .col-md-3.actions{'ng-show' => "isShow"}
-            .pull-right
-              = link_to fa_icon('edit 2x'), edit_admin_user_path(user)
-              = link_to fa_icon('lock 2x'), admin_user_path(user), data: {method: :delete, confirm: t('actions.confirm_lock')}
+                - if user == current_user
+                  myself
+                - else
+                  %strong= user.name
+                  %small= " ( #{user.email} )"
+          - unless current_user == user
+            .col-md-3.actions{'ng-show' => "isShow"}
+              .pull-right
+                = link_to fa_icon('edit 2x'), edit_admin_user_path(user), class: 'edit_user_button'
+                = link_to fa_icon('lock 2x'), admin_user_path(user), data: {method: :delete, confirm: t('actions.confirm_lock')}, class: 'lock_user_button'
 
 %hr
 - unless @invalidity_users.empty?

@@ -49,6 +49,31 @@ describe User do
     end
   end
 
+  describe '#lock_or_destroy_by' do
+    let!(:admin_user){create(:admin_user)}
+    let!(:user){create(:user)}
+    let!(:locked_user){create(:user).destroy}
+
+    context 'active user' do
+      subject{user.tap{|u| u.lock_or_destroy_by(admin_user)}}
+      its(:deleted) {should be_true}
+    end
+
+    context 'locked user' do
+      it 'deleted user' do
+        u = User.with_deleted.find_by(email: locked_user.email)
+        expect {
+          u.lock_or_destroy_by(admin_user)
+        }.to change(User.with_deleted, :count).by(-1)
+      end
+    end
+
+    context "doesn't work lock when operation myself" do
+      subject{admin_user.tap{|u| u.lock_or_destroy_by(admin_user)}}
+      its(:deleted){should be_false}
+    end
+  end
+
   context 'soft delete (never_wastes)' do
     describe '#destroy' do
       let!(:user) {create(:user)}

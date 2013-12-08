@@ -46,6 +46,18 @@ class User < ActiveRecord::Base
     self.save!
   end
 
+  def lock_or_destroy_by(operator)
+    return "failed" if self == operator
+    if pending? or deleted?
+      self.destroy!
+      message = I18n.t('terms.deleted_user_info')
+    else
+      self.destroy
+      message = I18n.t('terms.locked_user_info')
+    end
+    message
+  end
+
   def self.role_list
     [%w(管理者 admin), %w(メンバー member), %w(ゲスト guest)]
   end

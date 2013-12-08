@@ -36,14 +36,8 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
-    if @user.pending? or @user.deleted?
-      @user.destroy!
-      message = t('terms.deleted_user_info')
-    else
-      @user.destroy
-      message = t('terms.locked_user_info')
-    end
-    redirect_to admin_users_path, notice: message
+    result_message = @user.lock_or_destroy_by(current_user)
+    redirect_to admin_users_path, notice: result_message
   end
 
   def unlock
