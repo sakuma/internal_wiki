@@ -36,6 +36,7 @@ gem 'paperclip'
 gem 'angular-gem'
 gem 'never_wastes'
 gem 'gemoji'
+gem 'rake'
 
 group :production do
   gem 'aws-ses', require: 'aws/ses'

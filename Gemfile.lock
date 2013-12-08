@@ -449,6 +449,7 @@ DEPENDENCIES
   rails (= 4.0.2)
   rails-erd
   rails-footnotes
+  rake
   rspec-rails
   sass-rails
   settingslogic
