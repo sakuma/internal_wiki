@@ -5,14 +5,14 @@ rvm:
 services:
   - elasticsearch
 
-install:
+before_install:
   - "sudo apt-get install -y libicu-dev"
 
 before_script:
   - psql -c 'create database myapp_test;' -U postgres
   - "cp config/database.yml.postgresql config/database.yml"
   - "cp config/application.yml.sample config/application.yml"
+  - "RAILS_ENV=test ./bin/rake db:create db:migrate"
 
 script:
-  - "RAILS_ENV=test bundle exec rake db:create db:migrate"
-  - "bundle exec rake spec"
+  - "./bin/rake spec"
