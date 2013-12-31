@@ -101,8 +101,7 @@ class PagesController < ApplicationController
   end
 
   def attachment
-    file_path = Rails.root.join(@file.attachment.path).to_s
-    send_file(file_path, type: @file.attachment_content_type)
+    redirect_to @file.attachment.expiring_url(10)  # 10秒後にURLが失効する
   end
 
   def file_upload

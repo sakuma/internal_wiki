@@ -1,0 +1,18 @@
+development:
+  bucket: tmppppp
+  access_key_id: xxx
+  secret_access_key: xxx
+  s3_host_name: s3-ap-northeast-1.amazonaws.com
+
+test:
+  bucket: tmppppp
+  access_key_id: xxx
+  secret_access_key: xxx
+  s3_host_name: s3-ap-northeast-1.amazonaws.com
+
+production:
+  bucket: tmppppp
+  access_key_id: xxx
+  secret_access_key: xxx
+  s3_host_name: s3-ap-northeast-1.amazonaws.com
+

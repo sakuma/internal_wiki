@@ -45,7 +45,13 @@ $ cp config/database.yml{.sample,}
 ### application settings
 
 ```
-cp config/application.yml{.sample}
+cp config/application.yml{.sample,}
+```
+
+* S3 setting(page's attachement)
+
+```
+cp config/s3.yml{.sample,}
 ```
 
 #### [Option] Get Google OAuth key
