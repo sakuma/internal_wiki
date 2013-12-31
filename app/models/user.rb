@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
   def lock_or_destroy_by(operator)
     return "failed" if self == operator
     if pending? or deleted?
-      self.destroy!
+      self.demolish
       message = I18n.t('terms.deleted_user_info')
     else
       self.destroy
