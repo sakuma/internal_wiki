@@ -23,7 +23,3 @@ vendor/bundle
 internal_wiki_yml
 public/assets
 coverage
-
-# Ruby verson controler
-.rvmrc
-.ruby-version
