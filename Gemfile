@@ -47,12 +47,14 @@ group :development do
   # gem 'debugger'
   gem 'pry-rails'
   gem 'pry-doc'
+  gem 'pry-docmore'
   gem 'pry-byebug'
   # gem 'pry-nav' # pry-debugger があれば不要
   # gem 'pry-coolline' # 日本語入力語に文字化けしてしまうからコメントアウト
   gem 'pry-stack_explorer'
   gem 'pry-remote'
   gem 'pry-rescue'
+  gem 'pry-coolline'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'hirb'
