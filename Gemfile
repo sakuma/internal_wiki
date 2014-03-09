@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.1.0'
+ruby '2.1.1'
 
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 gem 'rails', '4.0.2'
@@ -47,15 +47,18 @@ group :development do
   # gem 'debugger'
   gem 'pry-rails'
   gem 'pry-doc'
-  gem 'pry-debugger'
+  gem 'pry-byebug'
   # gem 'pry-nav' # pry-debugger があれば不要
   # gem 'pry-coolline' # 日本語入力語に文字化けしてしまうからコメントアウト
   gem 'pry-stack_explorer'
   gem 'pry-remote'
+  gem 'pry-rescue'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'hirb'
   gem 'hirb-unicode'
+  gem 'coolline'
+  gem 'awesome_print'
   gem 'i18n_generators'
   gem 'rails-footnotes'
   gem 'bullet'

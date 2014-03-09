@@ -6,6 +6,7 @@
 
 # Ignore bundler config
 /.bundle
+vendor/bundle
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
@@ -19,7 +20,5 @@ config/s3.yml
 db/schema.rb
 data/*
 spec/data/*
-vendor/bundle
-internal_wiki_yml
 public/assets
 coverage
