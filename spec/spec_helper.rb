@@ -10,7 +10,6 @@ require 'capybara-webkit'
 require 'headless'
 # require 'rspec/autorun'
 require 'factory_girl'
-require 'database_cleaner'
 
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
   SimpleCov::Formatter::HTMLFormatter,
@@ -50,7 +49,7 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     Headless.new(:destroy_on_exit => false).start
-    DatabaseCleaner.strategy = :truncation
+    DatabaseRewinder.clean_all
   end
   config.before(:each) do
     # ユーザ作成時のactivationメールを止める
@@ -58,9 +57,8 @@ RSpec.configure do |config|
     UserMailer.stub_chain(:activation_success_email, :deliver).and_return(true)
     UserMailer.stub_chain(:reset_password_email, :deliver).and_return(true)
     Page.index.delete  # Reset ElasticSearch index
-    DatabaseCleaner.start
   end
   config.after(:each) do
-    DatabaseCleaner.clean
+    DatabaseRewinder.clean
   end
 end
