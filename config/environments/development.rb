@@ -1,4 +1,5 @@
-InternalWiki::Application.configure do
+Rails.application.configure do
+
   # Settings specified here will take precedence over those in config/application.rb
 
   # In the development environment your application's code is reloaded on
@@ -26,6 +27,6 @@ InternalWiki::Application.configure do
 
   # Debug mode disables concatenation and preprocessing of assets.
   config.assets.debug = true
-
+  config.assets.raise_runtime_errors = true
   config.assets.logger = Logger.new('/dev/null')
 end
