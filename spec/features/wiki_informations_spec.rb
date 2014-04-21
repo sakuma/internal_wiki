@@ -77,7 +77,6 @@ feature 'wiki controler' do
       page.find_link(wiki.name).trigger(:mouseover)
       my_link = find(:xpath, '/html/body/div/div/div/div/div[1]/table/tbody/tr/td/div[3]/h4/a[2]/i')
       my_link.click
-      page.driver.accept_js_confirms!
 
       expect(page).to_not have_content wiki.name
     end

@@ -67,7 +67,6 @@ feature 'pages controler' do
       visit page_path(wiki_name: wiki.name, page_name: wiki_page.url_name)
       expect(page).to have_content wiki_page.name
       find('#destory-page-icon').click
-      page.driver.accept_js_confirms!
       expect(page).to_not have_content wiki_page.name
     end
 
