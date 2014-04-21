@@ -131,10 +131,10 @@ feature 'pages controler' do
 
     scenario 'create page', js: true do
       visit new_page_path(wiki_name: wiki.name)
-      fill_in 'new-page-url-name', with: 'new-page-name'
-      fill_in 'new-page-name', with: 'new page name'
+      fill_in 'new-page-url-name', with: 'new-page-name1'
+      fill_in 'new-page-name', with: 'new page name1'
       click_button I18n.t('actions.regist')
-      expect(page).to have_content 'new page name'
+      expect(page).to have_content 'new page name1'
     end
 
     scenario 'delete wiki', js: true do
