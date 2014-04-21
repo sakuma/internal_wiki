@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   scope :not_admin, ->{ where(admin: false) }
   scope :active, ->{ where(activation_state: 'active') }
   scope :pending, ->{ where(activation_state: 'pending') }
-  scope :locked, ->{ where(deleted: true) }
+  scope :locked, ->{ unscoped.where(deleted: true) }
 
   validates_presence_of :name, on: :update
   validates :email, presence: true, uniqueness: true

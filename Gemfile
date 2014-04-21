@@ -73,8 +73,7 @@ end
 group :development, :test do
   gem 'rspec-rails'
   gem 'capybara'
-  gem 'capybara-webkit'
-  gem 'headless'
+  gem 'poltergeist'
   gem 'launchy'
   gem 'factory_girl_rails', require: false
   gem 'faker', require: false
